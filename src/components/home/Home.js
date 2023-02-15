@@ -1,8 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import "./Home.css"
 
 
 import Sidebar from '../sidebar/Sidebar';
+import Body from '../body/Body';
 
 
 class Home extends React.Component {
@@ -12,7 +14,7 @@ class Home extends React.Component {
             <Router>
                 <div className='home'> 
                     <Sidebar className='sidebar'/>
-                    <div className='body'> BODY </div>
+                    <Body className='body'/>
                 </div>
                 
  

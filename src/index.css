@@ -35,6 +35,8 @@
   --secondary: #0277BD;
   --accent: #0097A7;
   --error: #FF5252;
+
+  --table-min-width: 25vh; 
 }
 
 body {
