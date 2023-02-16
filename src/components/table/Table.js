@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Table.css";
 
 import TableHeader from "./TableHeader";
@@ -61,10 +61,6 @@ const Table = (props) => {
     },
   ];
 
-  // document.documentElement.style.setProperty(
-  //   "--table-min-width",
-  //   `${columns.length * 6}vh`
-  // );
   return (
     <div className="table-card">
       <TableHeader>{props.title}</TableHeader>
@@ -84,7 +80,6 @@ const Table = (props) => {
       return Object.values(obj)[0];
     });
     return values.map((column) => {
-      console.log(column);
       return (
         <th key={column} className={`column ${column}`}>
           {column}
@@ -94,7 +89,6 @@ const Table = (props) => {
   }
 
   function createRows(columns, data) {
-    console.log(data);
     return data.map((item, index) => {
       // Create an array of <td> elements for this row
       const cells = columns.map((column) => {

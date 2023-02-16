@@ -5,7 +5,6 @@ import SearchBar from '../searchBar/SearchBar'
 
 const TableHeader = ({children}) => {
 
-    console.log(children)
     const title = children
     const lowerCaseTitle = title.toLowerCase()
     const searchHint = `Buscar ${lowerCaseTitle}`

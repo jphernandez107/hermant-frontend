@@ -11,15 +11,10 @@ class Home extends React.Component {
 
     render() {
         return(
-            <Router>
-                <div className='home'> 
-                    <Sidebar className='sidebar'/>
-                    <Body className='body'/>
-                </div>
-                
- 
-            </Router>
- 
+            <div className='home'> 
+                <Sidebar className='sidebar'/>
+                <Body className='body'/>
+            </div>
         )
  
     }
