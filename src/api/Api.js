@@ -4,6 +4,10 @@ const getEquipmentList = async () => {
   return getGenericList('equipment/list')
 };
 
+const getEquipmentByCode = async (code) => {
+  return getDetailsByCode('equipment/details', code)
+}
+
 const getConstructionSiteList = async () => {
   return getGenericList('site/list')
 };
@@ -21,8 +25,18 @@ const getGenericList = async (url) => {
   }
 }
 
+const getDetailsByCode = async (url, code) => {
+  try {
+    const response = await fetch(baseURL + url + '?code=' + code);
+    return await response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+}
+
 module.exports = {
   getEquipmentList,
+  getEquipmentByCode,
   getConstructionSiteList,
   getSparePartList
 };

@@ -63,7 +63,7 @@ const Table = (props) => {
 
   return (
     <div className="table-card">
-      <TableHeader>{props.title}</TableHeader>
+      {getTableHeader(props.showSearchBar, props.title)}
       <div className="table-wrapper">
         <table className="table styled-table">
           <thead>
@@ -96,12 +96,31 @@ const Table = (props) => {
         const columnValue = column[columnKey];
         const cellValue = item[columnKey];
         const cell = cellValue !== undefined ? cellValue : "";
-        return <td key={columnValue}>{cell}</td>;
+        const cellStyles = column.style || [];
+
+        return (
+          <td
+            key={columnValue}
+            className={cellStyles.includes("center-text") ? "center-text" : ""}
+          >
+            {cell}
+          </td>
+        );
       });
 
       // Return a <tr> element with the cells for this row
       return <tr key={index}>{cells}</tr>;
     });
+  }
+
+  function getTableHeader(showSearchBar, title) {
+    return showSearchBar || title ? (
+      <TableHeader showSearchBar={props.showSearchBar}>
+        {props.title}
+      </TableHeader>
+    ) : (
+      <></>
+    );
   }
 };
 
