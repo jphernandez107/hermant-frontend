@@ -43,7 +43,7 @@ const Sidebar = () => {
 
                 <div className={isExpanded ? "nav-heading" : "nav-heading nav-heading-NX"}>
                     <a className="nav-brand" href='/'>
-                        <img src="/dist/img/hermant-logo.svg" alt="Hermant Logo" />
+                        <img src="/dist/img/hermant-logo.png" alt="Hermant Logo" />
                         {isExpanded && (
                             <h2>Hermant</h2>
                         )}
@@ -74,7 +74,7 @@ const Sidebar = () => {
                 <div className="nav-details">
                     <img
                         className="nav-footer-avatar"
-                        src="/dist/img/hermant-logo.svg"
+                        src="/dist/img/hermant-logo.png"
                         alt=""
                     />
                     {isExpanded && (

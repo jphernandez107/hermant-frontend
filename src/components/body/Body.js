@@ -3,6 +3,7 @@ import "./Body.css"
 
 import EquipmentList from '../equipment/EquipmentList';
 import ConstructionSiteList from '../site/ConstructionSiteList';
+import SparePartList from '../sparePart/SparePartList';
 import {  Route, Routes } from 'react-router-dom';
 
 const Body = () => {
@@ -17,6 +18,7 @@ const Body = () => {
                         <Route path='/' element={<EquipmentList/>}/>
                         <Route path='/equipment/list' element={<EquipmentList/>}/>
                         <Route path='/site/list' element={<ConstructionSiteList/>}/>
+                        <Route path='/part/list' element={<SparePartList/>}/>
                     </Routes>
                 </div>
                 <footer className="footer">

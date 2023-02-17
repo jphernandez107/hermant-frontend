@@ -14,7 +14,7 @@ const EquipmentList = () => {
   }, []);
 
   const columns = [
-    { code: "Código" },
+    { code: "Patente" },
     { designation: "Designación" },
     { brand: "Marca" },
     { model: "Modelo" },
@@ -24,7 +24,7 @@ const EquipmentList = () => {
   ];
 
   return (
-    <List table_columns={columns} table_data={equipments}>
+    <List table_columns={columns} table_data={equipments} title={'Equipos'}>
       <Button isLink={true} href={`new`}>
         <i className="fas fa-plus" aria-hidden="true" /> Nuevo Equipo
       </Button>

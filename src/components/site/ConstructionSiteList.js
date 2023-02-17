@@ -24,7 +24,7 @@ const ConstructionSiteList = () => {
   ];
 
   return (
-    <List table_columns={columns} table_data={sites}>
+    <List table_columns={columns} table_data={sites} title={'Obras'}>
       <Button isLink={true} href={`new`}>
         <i className="fas fa-plus" aria-hidden="true" /> Nueva Obra
       </Button>
