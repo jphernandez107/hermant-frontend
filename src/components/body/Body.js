@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import "./Body.css"
 
-import EquipmentList from '../equipment/EquipmentList';
-import ConstructionSiteList from '../site/ConstructionSiteList';
-import SparePartList from '../sparePart/SparePartList';
+import EquipmentList from '../equipment/list/EquipmentList';
+import ConstructionSiteList from '../site/list/ConstructionSiteList';
+import SparePartList from '../sparePart/list/SparePartList';
 import {  Route, Routes } from 'react-router-dom';
 import EquipmentDetails from '../equipment/details/EquipmentDetails';
 import ConstructionSiteDetails from '../site/details/ConstructionSiteDetails';

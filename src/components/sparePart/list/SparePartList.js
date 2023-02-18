@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./SparePartList.css";
 
-import Button from "../button/Button"
-import List from "../list/List"
+import Button from "../../button/Button"
+import List from "../../list/List"
 
-const api = require("../../api/Api");
+const api = require("../../../api/Api");
 
 const SparePartList = () => {
   const [parts, setParts] = useState([]);
