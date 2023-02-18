@@ -1,0 +1,118 @@
+.form-wrapper {
+    width: 88%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+    margin: 0px 10px;
+    border: 5px solid rgba(0, 0, 0, 0.2);
+    border-radius: 35px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    min-width: 60vw;
+}
+
+.form-header {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 15px 15px;
+    border-radius: 35px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.form-header>h2 {
+    margin: 0px;
+    color: var(--background);
+}
+
+.form-header>h4 {
+    margin: 0px;
+    color: var(--background);
+}
+
+.new-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 100%;
+    overflow-y: auto;
+    border-radius: 35px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 15px;
+    border-radius: 35px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.form-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 10px
+}
+
+.form-column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 10px;
+    border-radius: 20px;
+    border: 2px solid var(--outlines);
+}
+
+label {
+    font-size: larger;
+    font-weight: bold;
+    color: var(--background);
+    padding: 3px 4px;
+    height: 50%;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    padding: 6px 8px;
+}
+
+.input {
+    font-size: large;
+    margin: auto;
+    border: 0;
+    border-radius: 8px;
+}
+
+.input:focus {
+    outline: none;
+    border: 0;
+}
+
+.form-input:focus-within {
+    border: 2px solid var(--accent);
+}
+
+.submit-button-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+@media screen and (max-width: 1000px) {
+    .form-row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px
+    }
+}

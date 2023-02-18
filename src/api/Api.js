@@ -20,6 +20,21 @@ const getSparePartList = async () => {
   return getGenericList('part/list')
 };
 
+const postNew = async (url, body) => {
+  try {
+    const response = await fetch(baseURL + url, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body)
+    });
+    return await response.json();
+  } catch (err) {
+    return console.log(err)
+  }
+}
+
 const getGenericList = async (url) => {
   try {
     const response = await fetch(baseURL + url);
@@ -43,5 +58,6 @@ module.exports = {
   getEquipmentByCode,
   getConstructionSiteList,
   getConstructionSiteByCode,
-  getSparePartList
+  getSparePartList,
+  postNew
 };

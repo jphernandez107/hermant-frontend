@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import "./Body.css"
 
+import {  Route, Routes } from 'react-router-dom';
 import EquipmentList from '../equipment/list/EquipmentList';
 import ConstructionSiteList from '../site/list/ConstructionSiteList';
 import SparePartList from '../sparePart/list/SparePartList';
-import {  Route, Routes } from 'react-router-dom';
 import EquipmentDetails from '../equipment/details/EquipmentDetails';
 import ConstructionSiteDetails from '../site/details/ConstructionSiteDetails';
+import NewEquipment from '../equipment/new/NewEquipment';
 
 const Body = () => {
 
@@ -20,6 +21,7 @@ const Body = () => {
                         <Route path='/' element={<EquipmentList/>}/>
                         <Route path='/equipment/list' element={<EquipmentList/>}/>
                         <Route path='/equipment/details/:code' element={<EquipmentDetails/>}/>
+                        <Route path='/equipment/new' element={<NewEquipment/>}/>
                         <Route path='/site/list' element={<ConstructionSiteList/>}/>
                         <Route path='/site/details/:code' element={<ConstructionSiteDetails/>}/>
                         <Route path='/part/list' element={<SparePartList/>}/>
