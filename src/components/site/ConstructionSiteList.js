@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import "./ConstructionSiteList.css";
 
 import Button from "../button/Button"
@@ -12,6 +13,8 @@ const ConstructionSiteList = () => {
   useEffect(() => {
     fetchSites();
   }, []);
+  
+  const navigate = useNavigate()
 
   const columns = [
     { code: "Código" },
@@ -23,8 +26,12 @@ const ConstructionSiteList = () => {
     { observations: "Observaciones" },
   ];
 
+  function onRowClicked(code) {
+    navigate('/site/details/' + code)
+  }
+
   return (
-    <List table_columns={columns} table_data={sites} title={'Obras'}>
+    <List table_columns={columns} table_data={sites} title={'Obras'} onRowClicked={onRowClicked}>
       <Button isLink={true} href={`new`}>
         <i className="fas fa-plus" aria-hidden="true" /> Nueva Obra
       </Button>

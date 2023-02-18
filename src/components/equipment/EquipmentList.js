@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom'
 import "./EquipmentList.css";
 
 import Button from "../button/Button";
@@ -13,6 +14,8 @@ const EquipmentList = () => {
     fetchEquipments();
   }, []);
 
+  const navigate = useNavigate()
+
   const columns = [
     { code: "Patente" },
     { designation: "Designación" },
@@ -23,8 +26,12 @@ const EquipmentList = () => {
     { observations: "Observaciones" },
   ];
 
+  function onRowClicked(code) {
+    navigate('/equipment/details/' + code)
+  }
+
   return (
-    <List table_columns={columns} table_data={equipments} title={'Equipos'}>
+    <List table_columns={columns} table_data={equipments} title={'Equipos'} onRowClicked={onRowClicked}>
       <Button isLink={true} href={`new`}>
         <i className="fas fa-plus" aria-hidden="true" /> Nuevo Equipo
       </Button>

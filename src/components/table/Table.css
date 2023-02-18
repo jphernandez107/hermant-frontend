@@ -57,6 +57,11 @@ tr:last-of-type td:last-of-type {
     background-color: #f3f3f3ff;
 }
 
+.styled-table tbody tr:hover {
+    background-color: var(--background);
+    color: var(--text);
+}
+
 /* .styled-table tbody tr:last-of-type {
     border-bottom: 2px solid #009879;
 }

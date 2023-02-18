@@ -91,12 +91,16 @@ const Table = (props) => {
   function createRows(columns, data) {
     return data.map((item, index) => {
       // Create an array of <td> elements for this row
+      let rowCode = undefined;
       const cells = columns.map((column) => {
         const columnKey = Object.keys(column)[0];
         const columnValue = column[columnKey];
         const cellValue = item[columnKey];
-        const cell = cellValue !== undefined ? cellValue : "";
+        const cell =
+          cellValue !== undefined && cellValue !== null ? cellValue : "-";
         const cellStyles = column.style || [];
+
+        rowCode = columnKey === "code" ? cellValue : rowCode;
 
         return (
           <td
@@ -109,7 +113,18 @@ const Table = (props) => {
       });
 
       // Return a <tr> element with the cells for this row
-      return <tr key={index}>{cells}</tr>;
+      return (
+        <tr
+          key={index}
+          onClick={() =>
+            props.onRowClicked !== undefined
+              ? props.onRowClicked(rowCode)
+              : () => {}
+          }
+        >
+          {cells}
+        </tr>
+      );
     });
   }
 

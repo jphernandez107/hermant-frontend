@@ -12,6 +12,10 @@ const getConstructionSiteList = async () => {
   return getGenericList('site/list')
 };
 
+const getConstructionSiteByCode = async (code) => {
+  return getDetailsByCode('site/details', code)
+}
+
 const getSparePartList = async () => {
   return getGenericList('part/list')
 };
@@ -38,5 +42,6 @@ module.exports = {
   getEquipmentList,
   getEquipmentByCode,
   getConstructionSiteList,
+  getConstructionSiteByCode,
   getSparePartList
 };
