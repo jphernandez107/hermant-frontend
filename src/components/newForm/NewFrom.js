@@ -32,10 +32,11 @@ const NewForm = (props) => {
 
 		// Make the API call
 		api.postNew(action, formData);
+		// TODO: Show an alert telling the user if everything was okay
 		if (location.state && location.state.from) {
 			navigate(-1);
 		} else {
-			navigate("/");
+			navigate(-1);
 		}
 	};
 
