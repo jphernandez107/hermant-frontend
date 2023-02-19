@@ -15,7 +15,7 @@ const NewConstructionSite = () => {
 		header_subtitle: headerSubtitle,
 		action: "site/new",
 		method: "POST",
-		go_to_after_submit: "equipment/list",
+		go_to_after_submit: "/site/list",
 		rows: [
 			{
 				columns: [
@@ -139,7 +139,7 @@ const NewConstructionSite = () => {
 		const updatedFormData = { ...formData };
 		updatedFormData.action = "site/edit?code=" + site.code;
 		updatedFormData.method = "PUT";
-        updatedFormData.go_to_after_submit = "site/details?code=" + site.code;
+        updatedFormData.go_to_after_submit = "/site/details/" + site.code;
 		updatedFormData.rows.forEach((row) => {
 			row.columns.forEach((column) => {
 				const value = site[column.name];

@@ -13,7 +13,7 @@ const NewEquipment = () => {
 		header_subtitle: headerSubtitle,
 		action: "equipment/new",
         method: "POST",
-        go_to_after_submit: "equipment/list",
+        go_to_after_submit: "/equipment/list",
 		rows: [
 			{
 				columns: [
