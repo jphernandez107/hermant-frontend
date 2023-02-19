@@ -20,10 +20,10 @@ const getSparePartList = async () => {
   return getGenericList('part/list')
 };
 
-const postNew = async (url, body) => {
+const postNew = async (url, body, method) => {
   try {
     const response = await fetch(baseURL + url, {
-      method: 'POST',
+      method: method,
       headers: {
         "Content-Type": "application/json",
       },

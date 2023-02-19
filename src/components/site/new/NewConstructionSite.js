@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./NewConstructionSite.css";
 
 import NewForm from "../../newForm/NewFrom";
+const api = require("../../../api/Api");
 
 const NewConstructionSite = () => {
 	const { code } = useParams();
@@ -13,6 +14,8 @@ const NewConstructionSite = () => {
 		header_title: headerTitle,
 		header_subtitle: headerSubtitle,
 		action: "site/new",
+		method: "POST",
+		go_to_after_submit: "equipment/list",
 		rows: [
 			{
 				columns: [
@@ -53,18 +56,21 @@ const NewConstructionSite = () => {
 						name: "init_date",
 						type: "text",
 						placeholder: "Fecha de inicio",
+						value: "",
 					},
 					{
 						label: "Fin",
 						name: "finish_date",
 						type: "text",
 						placeholder: "Fecha de finalización",
+						value: "",
 					},
 					{
 						label: "Altura SNM [m]",
 						name: "altitude",
 						type: "number",
 						placeholder: "Altura en metros",
+						value: 0,
 					},
 				],
 			},
@@ -75,18 +81,20 @@ const NewConstructionSite = () => {
 						name: "max_temp",
 						type: "number",
 						placeholder: "Máxima promedio",
+						value: 0,
 					},
 					{
 						label: "Temperatura mínima [°C]",
 						name: "min_temp",
 						type: "number",
 						placeholder: "Mínima promedio",
+						value: 0,
 					},
 					{
 						label: "Distancia [Km]",
 						name: "distance",
 						type: "number",
-						value: "",
+						value: 0,
 					},
 				],
 			},
@@ -104,7 +112,42 @@ const NewConstructionSite = () => {
 		],
 	};
 
-	return <NewForm form_data={form}></NewForm>;
+	const [site, setSite] = useState(null)
+	const [formData, setFormData] = useState(form)
+
+	useEffect(() => {
+		fetchSite();
+	}, []);
+
+	useEffect(() => {
+		updateFormData(site);
+	}, [site]);
+
+	return <NewForm form_data={formData}></NewForm>;
+
+	async function fetchSite() {
+		try {
+			const response = await api.getConstructionSiteByCode(code);
+			setSite(response);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	function updateFormData(site) {
+		if (!site) return;
+		const updatedFormData = { ...formData };
+		updatedFormData.action = "site/edit?code=" + site.code;
+		updatedFormData.method = "PUT";
+        updatedFormData.go_to_after_submit = "site/details?code=" + site.code;
+		updatedFormData.rows.forEach((row) => {
+			row.columns.forEach((column) => {
+				const value = site[column.name];
+				column.value = value || column.value;
+			});
+		});
+		setFormData(updatedFormData);
+	}
 };
 
 export default NewConstructionSite;

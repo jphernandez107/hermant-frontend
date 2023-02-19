@@ -11,7 +11,7 @@ const api = require("../../../api/Api");
 const ConstructionSiteDetails = () => {
   const { code } = useParams();
 
-  const [constructionSites, setConstructionSites] = useState([]);
+  const [constructionSite, setConstructionSite] = useState(null);
   const [equipments, setEquipments] = useState([]);
 
   useEffect(() => {
@@ -46,32 +46,43 @@ const ConstructionSiteDetails = () => {
     { observations: "Observaciones", style: ["center-text"] },
   ];
 
-  return (
+  const editButton = () => {
+    if (!constructionSite) return
+		const href = "/site/edit/" + constructionSite?.code;
+		return (
+			<Button isLink={true} href={href}>
+				<i className="fas fa-pencil" aria-hidden="true" /> {" Editar"}
+			</Button>
+		);
+  };
+
+  return constructionSite ? (
     <div className="details-page">
       <div className="details-header">
         <TableHeader
           showSearchBar={false}
-        >{`${constructionSites[0]?.name} en ${constructionSites[0]?.province}`}</TableHeader>
+          button={editButton}
+        >{`${constructionSite?.name} en ${constructionSite?.province}`}</TableHeader>
       </div>
       <div className="details-wrapper">
         <div className="basic-details">
           <Table
             className={"details-table"}
             columns={columns_table_1}
-            data={constructionSites}
+            data={[constructionSite]}
             showSearchBar={false}
           />
           <Table
             className={"details-table"}
             columns={columns_table_2}
-            data={constructionSites}
+            data={[constructionSite]}
             showSearchBar={false}
           />
         </div>
         <div className="other-details">
           <Table
             columns={columns_table_3}
-            data={constructionSites}
+            data={[constructionSite]}
             showSearchBar={false}
           />
         </div>
@@ -84,13 +95,12 @@ const ConstructionSiteDetails = () => {
         </div>
       </div>
     </div>
-  );
+  ) : (<></>);
 
   async function fetchConstructionSite() {
     try {
       const response = await api.getConstructionSiteByCode(code);
-      console.log(response);
-      setConstructionSites([response]);
+      setConstructionSite(response);
       const equipments = response.equipments.map((equipment) => {
         equipment.code = (
           <Button

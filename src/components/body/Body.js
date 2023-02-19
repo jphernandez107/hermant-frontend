@@ -21,9 +21,11 @@ const Body = () => {
 					<Route path="/equipment/list" element={<EquipmentList />} />
 					<Route path="/equipment/details/:code" element={<EquipmentDetails />} />
 					<Route path="/equipment/new" element={<NewEquipment />} />
+                    <Route path="/equipment/edit/:code" element={<NewEquipment />} />
 					<Route path="/site/list" element={<ConstructionSiteList />}/>
 					<Route path="/site/details/:code" element={<ConstructionSiteDetails />}/>
 					<Route path="/site/new" element={<NewConstructionSite />} />
+                    <Route path="/site/edit/:code" element={<NewConstructionSite />} />
 					<Route path="/part/list" element={<SparePartList />} />
                     <Route path="/part/new" element={<NewSparePart />} />
 				</Routes>

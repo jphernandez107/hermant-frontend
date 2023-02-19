@@ -3,7 +3,7 @@ import "./TableHeader.css"
 
 import SearchBar from '../searchBar/SearchBar'
 
-const TableHeader = ({showSearchBar = true, children}) => {
+const TableHeader = ({showSearchBar = true, children, button}) => {
 
     const title = children ? children : ''
     const lowerCaseTitle = title.toLowerCase()
@@ -13,11 +13,16 @@ const TableHeader = ({showSearchBar = true, children}) => {
         <div className='table-header'>
             <h3>{title}</h3>
             {getSearchBar(showSearchBar)}
+            {getButton(button)}
         </div>
     )
 
     function getSearchBar(showSearchBar) {
         return showSearchBar ? <SearchBar>{searchHint}</SearchBar> : <></>
+    }
+
+    function getButton(button) {
+        return button ? React.createElement(button) : <></>
     }
 
 }

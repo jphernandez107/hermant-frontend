@@ -242,7 +242,7 @@ const EquipmentDetails = () => {
         },
       ],
     };
-  const [equipments, setEquipments] = useState([equip]);
+  const [equipment, setEquipment] = useState(equip);
   const [maintenances, setMaintenances] = useState([]);
   const [repairs, setRepairs] = useState([]);
 
@@ -283,30 +283,40 @@ const EquipmentDetails = () => {
     { observations: "Observaciones", style: ["center-text"] },
   ];
 
-  return (
+  const editButton = () => {
+    if (!equipment) return
+		const href = "/equipment/edit/" + equipment.code;
+		return (
+			<Button isLink={true} href={href} >
+				<i className="fas fa-pencil" aria-hidden="true" /> {" Editar"}
+			</Button>
+		);
+  };
+
+  return equipment ? (
     <div className="details-page">
       <div className="details-header">
-        <TableHeader showSearchBar={false}>{`${equipments[0].designation} ${equipments[0].brand} ${equipments[0].model} ${equipments[0].code} `}</TableHeader>
+        <TableHeader showSearchBar={false} button={editButton}>{`${equipment.designation} ${equipment.brand} ${equipment.model} ${equipment.code} `}</TableHeader>
       </div>
       <div className="details-wrapper">
         <div className="basic-details">
           <Table
             className={"details-table"}
             columns={columns_table_1}
-            data={equipments}
+            data={[equipment]}
             showSearchBar={false}
           />
           <Table
             className={"details-table"}
             columns={columns_table_2}
-            data={equipments}
+            data={[equipment]}
             showSearchBar={false}
           />
         </div>
         <div className="other-details">
           <Table
             columns={columns_table_3}
-            data={equipments}
+            data={[equipment]}
             showSearchBar={false}
           />
         </div>
@@ -326,7 +336,7 @@ const EquipmentDetails = () => {
         </div>
       </div>
     </div>
-  );
+  ) : (<></>);
 
   async function fetchEquipment() {
     try {
@@ -343,7 +353,7 @@ const EquipmentDetails = () => {
           </Button>
         );
       }
-      setEquipments([response]);
+      setEquipment(response);
       setMaintenances(response.maintenances)
       setRepairs(response.repairs)
     } catch (error) {

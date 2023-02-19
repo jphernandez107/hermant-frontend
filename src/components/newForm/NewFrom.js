@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import Button from "../button/Button";
 import "./NewForm.css";
@@ -8,7 +8,7 @@ const api = require("../../api/Api");
 const NewForm = (props) => {
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { header_title, header_subtitle, action, rows } = props.form_data;
+	const { header_title, header_subtitle, action, rows, method, go_to_after_submit } = props.form_data;
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -31,13 +31,12 @@ const NewForm = (props) => {
 		}
 
 		// Make the API call
-		api.postNew(action, formData);
 		// TODO: Show an alert telling the user if everything was okay
-		if (location.state && location.state.from) {
-			navigate(-1);
-		} else {
-			navigate(-1);
-		}
+		api.postNew(action, formData, method)
+			.then(() => {
+				navigate(go_to_after_submit);
+			})
+			.catch((error) => console.log(error));
 	};
 
 	return (
@@ -68,7 +67,8 @@ const NewForm = (props) => {
 };
 
 const FormRow = (props) => {
-	const columns = props.columns.map((column, index) => (
+	const columns = props.columns.map((column, index) => {
+		return (
 		<FormColumn
 			key={index}
 			label={column.label}
@@ -79,13 +79,13 @@ const FormRow = (props) => {
 			rows={column.rows}
 			options={column.options}
 		/>
-	));
+	)});
 
 	return <div className="form-row">{columns}</div>;
 };
 
 const FormColumn = (props) => {
-	const [value, setValue] = useState(props.value);
+	const [value, setValue] = useState(defaultValue(props.value, props.type));
 
 	const options = props.options || [];
 	const optionElements = options.map((option, index) => (
@@ -93,6 +93,10 @@ const FormColumn = (props) => {
 	));
 	const { label, name, placeholder, type, rows } = props;
 	const placeholderValue = placeholder || label;
+
+	useEffect(() => {
+		setValue(defaultValue(props.value, props.type));
+	}, [props.value]);
 
 	const handleInputChange = (e) => {
 		setValue(e.target.value);
@@ -133,5 +137,11 @@ const FormColumn = (props) => {
 		</div>
 	);
 };
+
+const defaultValue = (value, type) => {
+	if (value !== undefined || value !== null) return value
+	else if (type === "number") return 0 
+	else return ""
+}
 
 export default NewForm;

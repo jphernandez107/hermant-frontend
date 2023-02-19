@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./NewEquipment.css";
 
 import NewForm from "../../newForm/NewFrom";
+const api = require("../../../api/Api");
 
 const NewEquipment = () => {
-	const { code } = useParams();
 	const headerTitle = "Nuevo equipo";
 	const headerSubtitle = "Ingrese los datos del equipo que desea agregar";
-
-	const form = {
+    const form = {
 		header_title: headerTitle,
 		header_subtitle: headerSubtitle,
 		action: "equipment/new",
+        method: "POST",
+        go_to_after_submit: "equipment/list",
 		rows: [
 			{
 				columns: [
@@ -59,7 +60,8 @@ const NewEquipment = () => {
 					{
 						label: "Año de fabricación",
 						name: "manuf_date",
-						type: "number",
+						type: "text",
+                        value: "",
 						placeholder: "2019",
 					},
 				],
@@ -76,13 +78,13 @@ const NewEquipment = () => {
 						label: "Potencia [HP]",
 						name: "power",
 						type: "number",
-						value: "",
+						value: 0,
 					},
 					{
 						label: "Peso [Kg]",
 						name: "weight",
 						type: "number",
-						value: "",
+						value: 0,
 					},
 				],
 			},
@@ -92,19 +94,19 @@ const NewEquipment = () => {
 						label: "Horas/Km totales",
 						name: "total_hours",
 						type: "number",
-						value: "",
+						value: 0,
 					},
 					{
 						label: "Horas/Km parciales",
 						name: "partial_hours",
 						type: "number",
-						value: "",
+						value: 0,
 					},
 					{
 						label: "Precio",
 						name: "price",
 						type: "number",
-						value: "",
+						value: 0,
 					},
 				],
 			},
@@ -122,7 +124,43 @@ const NewEquipment = () => {
 		],
 	};
 
-	return <NewForm form_data={form}>Equipo</NewForm>;
+	const { code } = useParams();
+    const [equipment, setEquipment] = useState(null)
+    const [formData, setFormData] = useState(form)
+
+    useEffect(() => {
+		fetchEquipment();
+	}, []);
+
+    useEffect(() => {
+        updateFormData(equipment)
+    }, [equipment])
+
+	return <NewForm form_data={formData}></NewForm>;
+
+    async function fetchEquipment() {
+		try {
+			const response = await api.getEquipmentByCode(code);
+			setEquipment(response);
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+    function updateFormData(equipment) {
+        if (!equipment) return
+		const updatedFormData = { ...formData };
+        updatedFormData.action = "equipment/edit?code=" + equipment.code;
+        updatedFormData.method = "PUT"
+        updatedFormData.go_to_after_submit = "/equipment/details/" + equipment.code
+		updatedFormData.rows.forEach((row) => {
+			row.columns.forEach((column) => {
+				const value = equipment[column.name];
+				column.value = value || column.value;
+			});
+		});
+		setFormData(updatedFormData);
+	}
 };
 
 export default NewEquipment;
