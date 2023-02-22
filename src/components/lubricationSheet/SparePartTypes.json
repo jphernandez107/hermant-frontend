@@ -1,0 +1,34 @@
+[
+    {
+        "title": "Filtros",
+        "type": "filter",
+        "icon": "mdi mdi-air-filter",
+        "subtypes": [
+            { "subtype": "air", "title": "Aire" },
+            { "subtype": "fuel", "title": "Combustible" },
+            { "subtype": "oil", "title": "Aceite" },
+            { "subtype": "other", "title": "Otros filtros" }
+        ]
+    },
+    {
+        "title": "Aceites",
+        "type": "oil",
+        "icon": "mdi mdi-oil",
+        "subtypes": [
+            { "subtype": "motor", "title": "Motor" },
+            { "subtype": "hydraulic", "title": "Hidráulico" },
+            { "subtype": "tranmission", "title": "Transmisión" },
+            { "subtype": "other", "title": "Otros aceites" }
+        ]
+    },
+    {
+        "title": "Líquidos",
+        "type": "liquid",
+        "icon": "mdi mdi-oil-temperature",
+        "subtypes": [
+            { "subtype": "coolant", "title": "Refrigerante" },
+            { "subtype": "breaks", "title": "Frenos" },
+            { "subtype": "other", "title": "Otros liquidos" }
+        ]
+    }
+]

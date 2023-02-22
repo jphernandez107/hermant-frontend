@@ -20,6 +20,10 @@ const getSparePartList = async () => {
   return getGenericList('part/list')
 };
 
+const getLubricationSheetList = async () => {  
+  return getGenericList('lubricationsheet/list')
+}
+
 const postNew = async (url, body, method) => {
   try {
     const response = await fetch(baseURL + url, {
@@ -59,5 +63,6 @@ module.exports = {
   getConstructionSiteList,
   getConstructionSiteByCode,
   getSparePartList,
+  getLubricationSheetList,
   postNew
 };

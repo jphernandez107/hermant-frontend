@@ -1,0 +1,54 @@
+.maintenance-frequencies {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    padding: 10px 15px;
+}
+
+.maintenance-frequencies-header {
+    display: flex;
+    flex-direction: column;
+}
+
+.maintenance-frequencies-header>label {
+    font-size: medium;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--background);
+}
+
+.maintenance-frequencies-header-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+
+.maintenance-frequencies-title {
+    margin: 0;
+    color: var(--background);
+}
+
+.maintenance-frequencies-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.maintenance-frequency-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.maintenance-frequency-container label {
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+}

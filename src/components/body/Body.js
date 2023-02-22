@@ -10,6 +10,7 @@ import ConstructionSiteDetails from "../site/details/ConstructionSiteDetails";
 import NewEquipment from "../equipment/new/NewEquipment";
 import NewConstructionSite from "../site/new/NewConstructionSite";
 import NewSparePart from "../sparePart/new/NewSparePart";
+import NewLubricationSheet from "../lubricationSheet/NewLubricationSheet";
 
 const Body = () => {
 	return (
@@ -28,6 +29,7 @@ const Body = () => {
                     <Route path="/site/edit/:code" element={<NewConstructionSite />} />
 					<Route path="/part/list" element={<SparePartList />} />
                     <Route path="/part/new" element={<NewSparePart />} />
+					<Route path="/lubricationsheet/new/:code" element={<NewLubricationSheet />} />
 				</Routes>
 			</div>
 			<footer className="footer">
