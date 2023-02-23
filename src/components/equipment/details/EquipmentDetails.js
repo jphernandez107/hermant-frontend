@@ -122,7 +122,7 @@ const EquipmentDetails = () => {
             href={`/site/details/${response.construction_sites[0].code}`}
             styles={["small"]}
           >
-            <i className="mdi mdi-worker" aria-hidden="true" />{" "}
+            <i className="fa-solid fa-user-helmet-safety" aria-hidden="true" />{" "}
             {response.construction_sites[0].name}
           </Button>
         );
