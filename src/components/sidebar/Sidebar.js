@@ -3,13 +3,13 @@ import "./Sidebar.css"
 
 
 const Sidebar = () => {
-    const [isExpanded, setExpandState] = useState(false);
+    const [isExpanded, setExpandState] = useState(true);
     const currentPath = window.location.pathname
 
     const menuItems = [
         {
             text: "Inicio",
-            icon: "mdi mdi-calendar",
+            icon: "fa-solid fa-calendar-week fa-1x",
             url: "/"
         },
         {
@@ -19,17 +19,17 @@ const Sidebar = () => {
         },
         {
             text: "Obras",
-            icon: "mdi mdi-worker",
+            icon: "fa-solid fa-user-helmet-safety fa-1x",
             url: "/site/list"
         },
         {
             text: "Repuestos",
-            icon: "mdi mdi-wrench",
+            icon: "fa-solid fa-wrench fa-1x",
             url: "/part/list"
         },
         {
             text: "Usuarios",
-            icon: "mdi mdi-account-multiple",
+            icon: "fa-solid fa-users fa-1x",
             url: "/user/list"
         },
     ];

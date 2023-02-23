@@ -61,10 +61,12 @@
 	width: 6vh;
 }
 .nav-brand h2 {
-    /* margin: auto; */
-	margin-left: 3%;
+	max-width: 100%;
 	font-size: 200%;
 	font-weight: 700;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
 }
 
 /* Navigation Menu Items */
@@ -106,8 +108,15 @@
 }
 
 .menu-item-icon {
+	display: flex;
     font-size: 3.6vh;
     color: var(--text);
+	justify-content: center;
+	align-items: center;
+}
+
+.menu-item-icon.fa-1x {
+	font-size: 2.9vh;
 }
 
 .menu-item p {
@@ -125,7 +134,8 @@
 	background-color: var(--primary);
 }
 .menu-item i {
-	margin-left: 3%;
+	height: 100%;
+	width: 5vh;
 }
 
 .nav-middle {
@@ -136,7 +146,6 @@
 
 .nav-footer {
 	width: 90%;
-	height: 7vh;
 	display: flex;
 	flex-direction: row;
     align-items: center;
@@ -150,16 +159,17 @@
 	flex-direction: row;
     align-items: center;
 	justify-content: center;
-	padding-left: 5%;
-	padding-right: 5%;
 }
 
 .nav-details {
 	width: 100%;
 	display: flex;
 	align-items: center;
+	justify-content: center;
+	margin-bottom: 5px;
 }
 .nav-details img {
+	height: 100%;
 	width: 5vh;
 }
 
@@ -170,13 +180,23 @@
 	flex-grow: 1;
 }
 .nav-footer-user-name {
+	max-width: 100%;
 	font-size: 100%;
 	font-weight: 900;
-	margin-bottom: 0;
+	margin: 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	text-decoration: none;
 }
 .nav-footer-user-position {
+	max-width: 100%;
 	color: var(--primary);
-	margin-top: 0;
+	margin: 0;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	text-decoration: none;
 }
 
 

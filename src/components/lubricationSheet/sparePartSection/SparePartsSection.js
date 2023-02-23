@@ -9,7 +9,13 @@ const SparePartsSection = (props) => {
 	const { title, type, icon, subtypes } = props.section;
 	const parts = props.parts;
 	const frequencies = props.frequencies;
-	const { sparePartRows, setSparePartRows } = props
+	const { sparePartRows, setSparePartRows } = props;
+
+	const [showSection, setShowSection] = useState(true);
+
+	const toggleSection = () => {
+		setShowSection(!showSection);
+	}
 
 	const handleAddButton = (e, type, subtype) => {
 		e.preventDefault();
@@ -49,10 +55,15 @@ const SparePartsSection = (props) => {
 
 	return (
 		<div className="spare-part-section" key={type}>
-			<h4 className="spare-part-section-title">
-				<i className={icon} aria-hidden="true" /> {` ${title}`}
-			</h4>
-			{getSubsections(subtypes, type, title, parts)}
+			{/* <div className="spare-part-section-header"> */}
+				<h4 className="spare-part-section-title">
+					<i className={icon} aria-hidden="true" /> {` ${title} `}<i className={`fa-solid fa-2xs ${showSection ? "fa-chevron-down" : "fa-chevron-right"}`} onClick={toggleSection}/>
+				</h4>
+				
+			{/* </div> */}
+			<div className={`spare-part-section-subsections ${showSection ? "show" : "hide"}`}>
+				{showSection && getSubsections(subtypes, type, title, parts)}
+			</div>
 		</div>
 	);
 
@@ -65,14 +76,13 @@ const SparePartsSection = (props) => {
 						<div className="spare-part-subsection-buttons">
 							{removeRowButton(type, subtype.subtype)}
 							<Button
-								styles={["small"]}
+								styles={["small", "outline"]}
 								onClick={(e) => {
 									handleAddButton(e, type, subtype.subtype);
 								}}
-							>
+							> 
 								<i
-									className={"mdi mdi-plus"}
-									aria-hidden="true"
+									className={"fa fa-plus"}
 								/>
 							</Button>
 						</div>
@@ -112,10 +122,10 @@ const SparePartsSection = (props) => {
 		if (subtypeRows.length > 1)
 			return (
 				<Button
-					styles={["small"]}
+					styles={["small", "outline"]}
 					onClick={(e) => handleRemoveRowButton(e, type, subtype)}
 				>
-					<i className={"mdi mdi-minus"} aria-hidden="true" />
+					<i className={"fa fa-minus"} aria-hidden="true" />
 				</Button>
 			);
 	}

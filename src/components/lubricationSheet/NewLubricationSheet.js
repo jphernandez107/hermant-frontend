@@ -91,7 +91,7 @@ const NewLubricationSheet = () => {
 					/>
 				))}
                 <div className="submit-button">
-                    <Button onClick={(e) => onSubmitButtonClicked(e)}><i className={"mdi mdi-content-save"} aria-hidden="true" />{' Guardar'}</Button>
+                    <Button onClick={(e) => onSubmitButtonClicked(e)}><i className={"fa-solid fa-floppy-disk"} aria-hidden="true" />{' Guardar'}</Button>
                 </div>
 			</div>
 		</div>

@@ -13,7 +13,7 @@
     {
         "title": "Aceites",
         "type": "oil",
-        "icon": "mdi mdi-oil",
+        "icon": "fa-regular fa-oil-can-drip",
         "subtypes": [
             { "subtype": "motor", "title": "Motor" },
             { "subtype": "hydraulic", "title": "Hidráulico" },
@@ -24,7 +24,7 @@
     {
         "title": "Líquidos",
         "type": "liquid",
-        "icon": "mdi mdi-oil-temperature",
+        "icon": "fa-regular fa-oil-temperature",
         "subtypes": [
             { "subtype": "coolant", "title": "Refrigerante" },
             { "subtype": "breaks", "title": "Frenos" },

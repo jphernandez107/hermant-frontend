@@ -11,7 +11,7 @@ const MaintenanceFrequenciesSection = (props) => {
                 <div className="maintenance-frequencies-header">
                     <div className="maintenance-frequencies-header-title">
                         <h4 className="maintenance-frequencies-title">
-                            <i className="mdi mdi-wrench" aria-hidden="true" />{" "}
+                            <i className="fa-solid fa-wrench" aria-hidden="true" />{" "}
                             {" Mantenimientos"}
                         </h4>
                         {getAddRemoveFrequencyButtons(maintenanceFrequencies, setMaintenanceFrequencies)}
@@ -51,7 +51,7 @@ const MaintenanceFrequenciesSection = (props) => {
 					styles={["small", "outline"]}
 					onClick={(e) => handleRemoveFrequencyButton(e)}
 				>
-					<i className={"mdi mdi-minus"} aria-hidden="true" />
+					<i className={"fa fa-minus"} />
 				</Button>
 			);
 		}
@@ -60,7 +60,7 @@ const MaintenanceFrequenciesSection = (props) => {
 			styles={["small", "outline"]}
 			onClick={(e) => handleAddFrequencyButton(e)}
 		>
-			<i className={"mdi mdi-plus"} aria-hidden="true" />
+			<i className={"fa fa-plus"}/>
 		</Button>)
 		return <div>{buttons}</div>;
 	}
