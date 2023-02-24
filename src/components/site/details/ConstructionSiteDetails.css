@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     width: 99%;
-    height: 99%;
 }
 
 .details-header {
@@ -19,6 +18,11 @@
     max-height: 85vh;
     overflow-y: scroll;
     padding: 10px;
+}
+
+.site-details {
+    border-radius: 25px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .basic-details {

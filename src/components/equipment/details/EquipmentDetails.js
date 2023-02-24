@@ -57,7 +57,7 @@ const EquipmentDetails = () => {
     if (!equipment) return
 		const href = "/equipment/edit/" + equipment.code;
 		return (
-			<Button isLink={true} href={href} >
+			<Button isLink={true} href={href} styles={["outline"]}>
 				<i className="fas fa-pencil" aria-hidden="true" /> {" Editar"}
 			</Button>
 		);
@@ -77,26 +77,31 @@ const EquipmentDetails = () => {
             <i className="fa-light fa-file-spreadsheet" aria-hidden="true" /> {" Planilla de mantenimiento"}
           </Button>}
         </div>
-        <div className="basic-details">
-          <Table
-            className={"details-table"}
-            columns={columns_table_1}
-            data={[equipment]}
-            showSearchBar={false}
-          />
-          <Table
-            className={"details-table"}
-            columns={columns_table_2}
-            data={[equipment]}
-            showSearchBar={false}
-          />
-        </div>
-        <div className="other-details">
-          <Table
-            columns={columns_table_3}
-            data={[equipment]}
-            showSearchBar={false}
-          />
+        <div className="equipment-details">
+          <div className="basic-details">
+            <Table
+              className={"details-table"}
+              columns={columns_table_1}
+              data={[equipment]}
+              showSearchBar={false}
+              style={['single']}
+            />
+            <Table
+              className={"details-table"}
+              columns={columns_table_2}
+              data={[equipment]}
+              showSearchBar={false}
+              style={['single']}
+            />
+          </div>
+          <div className="other-details">
+            <Table
+              columns={columns_table_3}
+              data={[equipment]}
+              showSearchBar={false}
+              style={['single']}
+            />
+          </div>
         </div>
         <div className="maintenances-table">
           <Table
@@ -124,14 +129,13 @@ const EquipmentDetails = () => {
           <Button
             isLink={true}
             href={`/site/details/${response.construction_sites[0].code}`}
-            styles={["small"]}
+            styles={["small", "outline"]}
           >
             <i className="fa-solid fa-user-helmet-safety" aria-hidden="true" />{" "}
             {response.construction_sites[0].name}
           </Button>
         );
       }
-      console.log(response)
       setEquipment(response);
       setMaintenances(response.maintenances)
       setRepairs(response.repairs)

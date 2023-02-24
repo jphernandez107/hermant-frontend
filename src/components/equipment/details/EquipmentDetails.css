@@ -2,7 +2,6 @@
 	display: flex;
 	flex-direction: column;
 	width: 99%;
-	height: 99%;
 }
 
 .details-header {
@@ -28,6 +27,11 @@
 	display: flex;
 	flex-direction: row;
 	gap: 6px;
+}
+
+.equipment-details {
+	border-radius: 25px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
 }
 
 .basic-details {

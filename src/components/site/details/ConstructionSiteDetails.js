@@ -50,7 +50,7 @@ const ConstructionSiteDetails = () => {
     if (!constructionSite) return
 		const href = "/site/edit/" + constructionSite?.code;
 		return (
-			<Button isLink={true} href={href}>
+			<Button isLink={true} href={href} styles={['outline']}>
 				<i className="fas fa-pencil" aria-hidden="true" /> {" Editar"}
 			</Button>
 		);
@@ -65,26 +65,31 @@ const ConstructionSiteDetails = () => {
         >{`${constructionSite?.name} en ${constructionSite?.province}`}</TableHeader>
       </div>
       <div className="details-wrapper">
-        <div className="basic-details">
-          <Table
-            className={"details-table"}
-            columns={columns_table_1}
-            data={[constructionSite]}
-            showSearchBar={false}
-          />
-          <Table
-            className={"details-table"}
-            columns={columns_table_2}
-            data={[constructionSite]}
-            showSearchBar={false}
-          />
-        </div>
-        <div className="other-details">
-          <Table
-            columns={columns_table_3}
-            data={[constructionSite]}
-            showSearchBar={false}
-          />
+        <div className="site-details">
+          <div className="basic-details">
+            <Table
+              className={"details-table"}
+              columns={columns_table_1}
+              data={[constructionSite]}
+              showSearchBar={false}
+              style={['single']}
+            />
+            <Table
+              className={"details-table"}
+              columns={columns_table_2}
+              data={[constructionSite]}
+              showSearchBar={false}
+              style={['single']}
+            />
+          </div>
+          <div className="other-details">
+            <Table
+              columns={columns_table_3}
+              data={[constructionSite]}
+              showSearchBar={false}
+              style={['single']}
+            />
+          </div>
         </div>
         <div className="equipments-table">
           <Table
