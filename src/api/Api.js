@@ -57,6 +57,15 @@ const getDetailsByCode = async (url, code) => {
   }
 }
 
+const getLubricationSheetByEquipmentCode = async (code) => {
+  try {
+    const response = await fetch(baseURL + 'lubricationsheet/equipment?equipment_code=' + code);
+    return await response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+}
+
 module.exports = {
   getEquipmentList,
   getEquipmentByCode,
@@ -64,5 +73,6 @@ module.exports = {
   getConstructionSiteByCode,
   getSparePartList,
   getLubricationSheetList,
-  postNew
+  postNew,
+  getLubricationSheetByEquipmentCode
 };

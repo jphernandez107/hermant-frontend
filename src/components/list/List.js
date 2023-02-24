@@ -9,7 +9,7 @@ const List = (props) => {
             <div className='page-header'>
                 {props.children}
             </div>
-            <Table columns={props.table_columns} data={props.table_data} title={props.title} onRowClicked={props.onRowClicked}></Table>
+            <Table style={['first-column-bold']} columns={props.table_columns} data={props.table_data} title={props.title} onRowClicked={props.onRowClicked}></Table>
         </div>
     )
 }

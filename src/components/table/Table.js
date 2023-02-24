@@ -4,85 +4,36 @@ import "./Table.css";
 import TableHeader from "./TableHeader";
 
 const Table = (props) => {
-  const columns = [
-    { code: "CÓDIGO" },
-    { designation: "DESIGNACIÓN" },
-    { brand: "MARCA" },
-    { model: "MODELO" },
-    { total_hours: "HORÓMETRO" },
-    { next_maintenance: "PRÓXIMO MANTENIMIENTO" },
-    { observations: "DETALLES" },
-  ];
-  const data = [
-    {
-      CÓDIGO: "001",
-      DESIGNACIÓN: "Generador",
-      MARCA: "Honda",
-      MODELO: "EU7000iS",
-      HORÓMETRO: 150,
-      "PRÓXIMO MANTENIMIENTO": "2023-03-15",
-      DETALLES: "Incluye kit de ruedas y manija de transporte",
-    },
-    {
-      CÓDIGO: "002",
-      DESIGNACIÓN: "Compresor de aire",
-      MARCA: "DeWalt",
-      MODELO: "D55168",
-      HORÓMETRO: 220,
-      "PRÓXIMO MANTENIMIENTO": "2023-04-01",
-      DETALLES: "Presión máxima de 225 PSI",
-    },
-    {
-      CÓDIGO: "003",
-      DESIGNACIÓN: "Cortadora de césped",
-      MARCA: "Toro",
-      MODELO: "20339",
-      HORÓMETRO: 75,
-      "PRÓXIMO MANTENIMIENTO": "2023-05-01",
-      DETALLES: "Ancho de corte de 22 pulgadas",
-    },
-    {
-      CÓDIGO: "004",
-      DESIGNACIÓN: "Soldadora",
-      MARCA: "Lincoln Electric",
-      MODELO: "K2185-1",
-      HORÓMETRO: 50,
-      "PRÓXIMO MANTENIMIENTO": "2023-03-30",
-      DETALLES: "Capacidad de soldar acero, hierro y acero inoxidable",
-    },
-    {
-      CÓDIGO: "005",
-      DESIGNACIÓN: "Taladro inalámbrico",
-      MARCA: "Makita",
-      MODELO: "XFD131",
-      HORÓMETRO: 0,
-      "PRÓXIMO MANTENIMIENTO": "2023-08-01",
-      DETALLES: "Incluye batería de iones de litio de 18V",
-    },
-  ];
+  const { columns, data, title, showSearchBar } = props
+  const { style } = props || [];
+  const { onRowClicked } = props
 
   return (
-    <div className="table-card">
-      {getTableHeader(props.showSearchBar, props.title)}
-      <div className="table-wrapper">
-        <table className="table styled-table">
+    <div className={`table-card ${style}`}>
+      {getTableHeader(showSearchBar, title)}
+      <div className={`table-wrapper ${style}`}>
+        <table className={`table styled-table ${style}`}>
           <thead>
-            <tr>{createColumns(props.columns)}</tr>
+            <tr>{createColumns(columns)}</tr>
           </thead>
-          <tbody>{createRows(props.columns, props.data)}</tbody>
+          <tbody>{createRows(columns, data)}</tbody>
         </table>
       </div>
     </div>
   );
 
   function createColumns(columns) {
-    const values = columns.map((obj) => {
-      return Object.values(obj)[0];
+    const values = columns.map((column) => {
+      return {
+        value: Object.values(column)[0],
+        style: column.style || []
+      }
     });
     return values.map((column) => {
+      const cellStyles = column.style || [];
       return (
-        <th key={column} className={`column ${column}`}>
-          {column}
+        <th key={column.value} className={`column ${column.value} ${cellStyles.join(' ')}`}>
+          {column.value}
         </th>
       );
     });
@@ -105,7 +56,7 @@ const Table = (props) => {
         return (
           <td
             key={columnValue}
-            className={cellStyles.includes("center-text") ? "center-text" : ""}
+            className={cellStyles.join(' ')}
           >
             {cell}
           </td>
@@ -117,9 +68,7 @@ const Table = (props) => {
         <tr
           key={index}
           onClick={() =>
-            props.onRowClicked !== undefined
-              ? props.onRowClicked(rowCode)
-              : () => {}
+            onRowClicked ? onRowClicked(rowCode) : () => {}
           }
         >
           {cells}
@@ -130,8 +79,8 @@ const Table = (props) => {
 
   function getTableHeader(showSearchBar, title) {
     return showSearchBar || title ? (
-      <TableHeader showSearchBar={props.showSearchBar}>
-        {props.title}
+      <TableHeader showSearchBar={showSearchBar}>
+        {title}
       </TableHeader>
     ) : (
       <></>

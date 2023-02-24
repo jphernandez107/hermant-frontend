@@ -10,7 +10,8 @@ const api = require("../../../api/Api");
 
 const EquipmentDetails = () => {
   const { code } = useParams()
-  const lubricationSheetHref = "/lubricationsheet/new/" + code;
+  const newLubricationSheetHref = "/lubricationsheet/new/" + code;
+  const viewLubricationSheetHref = "lubricationsheet/" + code;
   const [equipment, setEquipment] = useState(null);
   const [maintenances, setMaintenances] = useState([]);
   const [repairs, setRepairs] = useState([]);
@@ -69,9 +70,12 @@ const EquipmentDetails = () => {
       </div>
       <div className="details-wrapper">
         <div className="lubrication-sheet">
-          <Button isLink={true} href={lubricationSheetHref}>
+          <Button isLink={true} href={newLubricationSheetHref}>
             <i className="fas fa-pencil" aria-hidden="true" /> {" Planilla de mantenimiento"}
           </Button>
+          {equipment.lubrication_sheet_id && <Button isLink={true} href={viewLubricationSheetHref}>
+            <i className="fa-light fa-file-spreadsheet" aria-hidden="true" /> {" Planilla de mantenimiento"}
+          </Button>}
         </div>
         <div className="basic-details">
           <Table
@@ -127,6 +131,7 @@ const EquipmentDetails = () => {
           </Button>
         );
       }
+      console.log(response)
       setEquipment(response);
       setMaintenances(response.maintenances)
       setRepairs(response.repairs)

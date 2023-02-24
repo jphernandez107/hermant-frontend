@@ -3,7 +3,7 @@ import "./Sidebar.css"
 
 
 const Sidebar = () => {
-    const [isExpanded, setExpandState] = useState(true);
+    const [isExpanded, setExpandState] = useState(false);
     const currentPath = window.location.pathname
 
     const menuItems = [
