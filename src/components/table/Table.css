@@ -74,6 +74,10 @@
     text-align: center;
 }
 
+td.padding-zero {
+    padding: 0; 
+}
+
 td.bold {
     font-weight: bold;
 }

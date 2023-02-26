@@ -1,4 +1,5 @@
-const baseURL = "http://localhost:5001/";
+// const baseURL = "http://localhost:5001/";
+const baseURL = "http://192.168.0.143:5001/";
 
 const getEquipmentList = async () => {
   return getGenericList('equipment/list')
@@ -66,6 +67,21 @@ const getLubricationSheetByEquipmentCode = async (code) => {
   }
 }
 
+const addEquipmentUseHours = async (body, code) => {
+  try {
+    const response = await fetch(baseURL + 'equipment/hours?code=' + code, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body)
+    });
+    return await response.json();
+  } catch (err) {
+    return console.log(err);
+  }
+}
+
 module.exports = {
   getEquipmentList,
   getEquipmentByCode,
@@ -74,5 +90,6 @@ module.exports = {
   getSparePartList,
   getLubricationSheetList,
   postNew,
-  getLubricationSheetByEquipmentCode
+  getLubricationSheetByEquipmentCode,
+  addEquipmentUseHours
 };

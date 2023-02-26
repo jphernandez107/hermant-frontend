@@ -1,0 +1,103 @@
+.use-hours-container {
+    display: flex;
+    margin: 0px 5px;
+    align-items: stretch;
+}
+
+
+
+.hours-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+}
+
+.date-input-container{
+    border: 2px solid var(--outlines);
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+
+.date-input-container > div,
+.date-input-container > div > div {
+    display: flex;
+    align-items: stretch;
+}
+
+
+.date-input,
+.hours-input {
+    border: 0;
+    border-radius: 0;
+    font-size: medium;
+    text-align: center;
+    width: 100%;
+}
+
+.date-icon i,
+.plus-icon i {
+    color: var(--background);
+}
+
+.date-icon,
+.plus-icon {
+    min-width: 6%;
+    max-width: 7%;
+    background-color: #f6fafe;
+    border: 2px solid var(--outlines);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+    aspect-ratio: 1;
+    border-left: 0px;
+    font-size: larger;
+}
+
+.date-icon {
+    border-right: 0px;
+}
+.plus-icon {
+    border-top-right-radius: 7px;
+    border-bottom-right-radius: 7px;
+}
+.date-input-container {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+.date-input {
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+}
+
+.hours-input-container {
+    max-width: 10%;
+    border: 2px solid var(--outlines);
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+}
+
+.date-input:focus,
+.hours-input:focus {
+    outline: none;
+    border: 0;
+}
+
+.date-input-container:focus-within,
+.hours-input-container:focus-within {
+    border: 2px solid var(--accent);
+}
+
+
+.plus-icon:hover {
+    cursor: pointer;
+    background-color: var(--background);
+}
+
+.plus-icon:hover i {
+    color: var(--text);
+}
