@@ -7,7 +7,8 @@ const Button = ({
     children,
     styles,
     onClick,
-    type
+    type,
+    disabled
 }) => {
 
   return (
@@ -23,13 +24,13 @@ const Button = ({
   function getLink() {
     let className = `button`
     if (styles) styles.forEach(style => className += ` ${style}`)
-    return <a className={className} href={href} type={type}>{children}</a>
+    return <a className={className} href={href} type={type} disabled={disabled}>{children}</a>
   }
 
   function getButton() {
     let className = `button`
     if (styles) styles.forEach(style => className += ` ${style}`)
-    return <button onClick={onClick} className={className} type={type}>{children}</button>
+    return <button onClick={onClick} className={className} type={type} disabled={disabled}>{children}</button>
   }
 
 };

@@ -54,6 +54,22 @@
 	width: 100%;
 }
 
+.maintenances-table-container {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	border-radius: 35px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+}
+
+.maintenances-table-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 0px 10px;
+	padding-bottom: 10px;
+}
+
 @media screen and (max-width: 1200px) {
 
 	.basic-details {

@@ -1,13 +1,17 @@
-import React from 'react';
-import "./Select.css"
+import React from "react";
+import "./Select.css";
 
-const Select = ({children, onChange}) => {
-
-    return (
-        <select className="select" onChange={onChange}>
-            {children}
-        </select>
-    );
-}
+const Select = ({ children, onChange, defaultValue, value }) => {
+	return (
+		<select
+			className="select"
+			onChange={onChange}
+			defaultValue={defaultValue}
+            value={value}
+		>
+			{children}
+		</select>
+	);
+};
 
 export default Select;

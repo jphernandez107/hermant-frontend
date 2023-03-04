@@ -15,6 +15,14 @@
     border: 2px solid var(--background);
     background-color: var(--text);
     color: var(--background);
+    cursor: pointer;
+}
+
+.button:disabled {
+    border: 2px solid var(--text);
+    background-color: var(--text);
+    color: #2C3E5077;
+    cursor: auto;
 }
 
 .button.small {

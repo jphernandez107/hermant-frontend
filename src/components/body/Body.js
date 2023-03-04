@@ -13,6 +13,7 @@ import NewSparePart from "../sparePart/new/NewSparePart";
 import NewLubricationSheet from "../lubricationSheet/NewLubricationSheet";
 import LubricationSheetDetails from "../lubricationSheet/details/LubricationSheetDetails";
 import EquipmentUseHour from "../equipment/useHour/EquipmentUseHour";
+import NewMaintenance from "../maintenance/NewMaintenance"
 
 const Body = () => {
 	return (
@@ -27,6 +28,7 @@ const Body = () => {
 					<Route path="/equipment/new" element={<NewEquipment />} />
                     <Route path="/equipment/edit/:code" element={<NewEquipment />} />
 					<Route path="/equipment/hours" element={<EquipmentUseHour />} />
+					<Route path="/equipment/details/maintenance/new/:code" element={<NewMaintenance />} />
 					<Route path="/site/list" element={<ConstructionSiteList />}/>
 					<Route path="/site/details/:code" element={<ConstructionSiteDetails />}/>
 					<Route path="/site/new" element={<NewConstructionSite />} />

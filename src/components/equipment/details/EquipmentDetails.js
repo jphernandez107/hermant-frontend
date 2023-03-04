@@ -46,10 +46,11 @@ const EquipmentDetails = () => {
   ];
 
   const maintenance_table_columns = [
-    { maintenance_frequency_id: "Frecuencia", style: ["center-text"] },
+    { maintenance_frequency_value: "Frecuencia", style: ["center-text"] },
     { created_at: "Fecha", style: ["center-text"] },
-    { equipment_total_hours: "Horas Totales", style: ["center-text"] },
-    { maintenance_cost: "Costo", style: ["center-text"] },
+    { equipment_total_hours: "Horas Totales", style: ["center-text"], value_modifiers: {suffix: "Hs"} },
+    { equipment_partial_hours: "Horas Parciales", style: ["center-text"], value_modifiers: {suffix: "Hs"} },
+    { maintenance_cost: "Costo", style: ["center-text"], value_modifiers: {preffix: "$"} },
     { observations: "Observaciones", style: ["center-text"] },
   ];
 
@@ -103,20 +104,29 @@ const EquipmentDetails = () => {
             />
           </div>
         </div>
-        <div className="maintenances-table">
+        <div className="maintenances-table-container">
+          <div className="maintenances-table-header">
+            <h4>
+              Mantenimientos
+            </h4>
+            <Button isLink={true} href={"/equipment/details/maintenance/new/" + code}>
+              <i className="fa-solid fa-plus" />{""}
+            </Button>
+          </div>
           <Table
             columns={maintenance_table_columns}
             data={maintenances}
-            title={"Mantenimientos"}
+            showSearchBar={false}
+            style={["no-card"]}
           />
         </div>
-        <div className="repairs-table">
+        {/* <div className="repairs-table">
           <Table
             columns={maintenance_table_columns}
             data={maintenances}
             title={"Reparaciones"}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   ) : (<></>);
@@ -136,6 +146,12 @@ const EquipmentDetails = () => {
           </Button>
         );
       }
+      response.maintenances = response.maintenances.map((maint) => {
+        return {
+          ...maint,
+          maintenance_frequency_value: maint.maintenance_frequency.frequency
+        }
+      })
       setEquipment(response);
       setMaintenances(response.maintenances)
       setRepairs(response.repairs)

@@ -1,0 +1,55 @@
+.maintenance-row {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    justify-content: space-between;
+}
+
+.maintenance-row-type Select,
+.maintenance-row-application Input,
+.maintenance-row-quantity Input {
+    font-size: 0.9em;
+    width: 100%;
+}
+
+.maintenance-row-quantity Input {
+    text-align: center;
+}
+
+
+.maintenance-row-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    gap: 6px;
+}
+
+.maintenance-row-column label {
+    justify-content: center;
+    text-align: center;
+}
+
+.maintenance-row-column>* {
+    width: 100%;
+}
+
+.maintenance-row-internal-code-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.maintenance-row-internal-code-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.maintenance-row-internal-code-column label {
+    font-weight: 500;
+    font-style: italic;
+}
