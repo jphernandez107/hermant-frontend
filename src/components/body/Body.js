@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Body.css";
+import "./Body.scss";
 
 import { Route, Routes } from "react-router-dom";
 import EquipmentList from "../equipment/list/EquipmentList";

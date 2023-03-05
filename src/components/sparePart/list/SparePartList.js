@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./SparePartList.css";
+import "./SparePartList.scss";
 
 import Button from "../../button/Button"
 import List from "../../list/List"

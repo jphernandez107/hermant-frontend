@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./TableHeader.css"
+import "./TableHeader.scss"
 
 import SearchBar from '../searchBar/SearchBar'
 

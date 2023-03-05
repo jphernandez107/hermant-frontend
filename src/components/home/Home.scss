@@ -1,0 +1,12 @@
+.home {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    
+    .sidebar {
+        height: 100%;
+        position: fixed;
+        background-color: #f2f2f2;
+    }
+}
+

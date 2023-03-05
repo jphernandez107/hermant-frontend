@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Input.css";
+import "./Input.scss";
 
 const Input = (props) => {
 	const { name, onBlur, onChange, type, value, min, max, placeholder } = props;

@@ -1,5 +1,5 @@
 import React from 'react';
-import "./List.css"
+import "./List.scss"
 
 import Table from '../table/Table'
 

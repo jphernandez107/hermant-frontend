@@ -1,0 +1,16 @@
+.page-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+    .body {
+        display: flex;
+        justify-content: center;
+    }
+    
+    .footer {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
