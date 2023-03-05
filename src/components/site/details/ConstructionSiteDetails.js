@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./ConstructionSiteDetails.css";
+import "./ConstructionSiteDetails.scss";
 
 import Button from "../../button/Button";
 import Table from "../../table/Table";

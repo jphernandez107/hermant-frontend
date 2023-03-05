@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
-import "./ConstructionSiteList.css";
+import "./ConstructionSiteList.scss";
 
 import Button from "../../button/Button"
 import List from "../../list/List"

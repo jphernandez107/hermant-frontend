@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./NewConstructionSite.css";
+import "./NewConstructionSite.scss";
 
 import NewForm from "../../newForm/NewFrom";
 const api = require("../../../api/Api");
