@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import "./LubricationSheetDetails.css";
+import "./LubricationSheetDetails.scss";
 import SparePartsSections from "../SparePartTypes.json";
 
 import TableHeader from "../../table/TableHeader";

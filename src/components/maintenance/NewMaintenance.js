@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./NewMaintenance.css";
+import "./NewMaintenance.scss";
 import SparePartsSections from "../lubricationSheet/SparePartTypes.json";
 import "react-datepicker/dist/react-datepicker.css";
 

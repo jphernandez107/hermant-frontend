@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "../../button/Button";
 import Select from "../../select/Select";
 import Checkbox from "../../checkbox/Checkbox";
-import "./SparePartsSection.css"
+import "./SparePartsSection.scss"
 import Input from "../../input/Input";
 
 const SparePartsSection = (props) => {

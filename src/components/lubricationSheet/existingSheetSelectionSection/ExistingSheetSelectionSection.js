@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "../../select/Select";
-import "./ExistingSheetSelectionSection.css"
+import "./ExistingSheetSelectionSection.scss"
 
 const ExistingSheetSelectionSection = (props) => {
     const {lubricationSheets} = props

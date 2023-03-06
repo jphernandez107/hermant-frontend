@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "../../button/Button";
 import Input from "../../input/Input"
-import "./MaintenanceFrequenciesSection.css"
+import "./MaintenanceFrequenciesSection.scss"
 
 const MaintenanceFrequenciesSection = (props) => {
 
