@@ -1,0 +1,60 @@
+@import '../MaintenanceVariables';
+
+.maintenance-row {
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+	justify-content: space-between;
+    align-items: center;
+
+	.maintenance-row-type,
+	.maintenance-row-application,
+	.maintenance-row-quantity,
+	.maintenance-row-internal-code {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		text-align: center;
+	}
+
+	.maintenance-row-type {
+		width: $maintenance-row-type-width;
+
+		Select {
+			font-size: 0.9em;
+			width: 100%;
+		}
+	}
+
+	.maintenance-row-application {
+		width: $maintenance-row-application-width;
+	}
+
+	.maintenance-row-quantity {
+		width: $maintenance-row-quantity-width;
+
+		Input {
+			font-size: 0.9em;
+			width: 100%;
+			text-align: center;
+		}
+	}
+
+	.maintenance-row-internal-code {
+		width: $maintenance-row-internal-code-width;
+
+		&.maintenance-row-internal-code-container {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			flex-wrap: wrap;
+			gap: 6px;
+
+			label {
+				font-weight: 500;
+				font-style: italic;
+			}
+		}
+	}
+}

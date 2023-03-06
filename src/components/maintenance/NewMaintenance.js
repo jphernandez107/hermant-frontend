@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import "./NewMaintenance.css";
-import SparePartsSections from "../lubricationSheet/SparePartTypes.json";
+import "./NewMaintenance.scss";
+import SparePartsSections from "components/lubricationSheet/SparePartTypes.json";
 import "react-datepicker/dist/react-datepicker.css";
 
-import TableHeader from "../table/TableHeader";
-import { getUniqueFrequenciesFromSheet } from "../../utils/utils";
+import TableHeader from "components/table/TableHeader";
+import { getUniqueFrequenciesFromSheet } from "utils/utils";
 
-import Button from "../button/Button";
+import Button from "components/button/Button";
 
 import MaintenanceConfiguration from "./maintenanceConfiguration/MaintenanceConfiguration";
 import MaintenanceSection from "./maintenanceSection/MaintenanceSection";
 
-const api = require("../../api/Api");
+const api = require("api/Api");
 
 const NewLubricationSheet = () => {
 	const { code } = useParams(); //Equipment code
@@ -36,31 +36,38 @@ const NewLubricationSheet = () => {
 	const [equipment, setEquipment] = useState(null);
 
 	const [maintenanceFrequencies, setMaintenanceFrequencies] = useState([]);
-    const [selectedFrequency, setSelectedFrequency] = useState();
-    const [maintenanceDuration, setMaintenanceDuration] = useState(0);
-    const [maintenanceDate, setMaintenanceDate] = useState(new Date());
+	const [selectedFrequency, setSelectedFrequency] = useState();
+	const [maintenanceDuration, setMaintenanceDuration] = useState(0);
+	const [maintenanceDate, setMaintenanceDate] = useState(new Date());
 
-    const [canSave, setCanSave] = useState(false);
+	const [canSave, setCanSave] = useState(false);
 
 	useEffect(() => {
 		fetchSpareParts();
 		fetchLubricationSheet();
 	}, []);
 
-    useEffect(() => {
-        setCanSave(selectedFrequency)
-    }, [selectedFrequency])
+	useEffect(() => {
+		setCanSave(selectedFrequency);
+	}, [selectedFrequency]);
 
 	const onSubmitButtonClicked = (e) => {
-        const atLeastOnePart = sparePartRows.filter((row) => row.replace).length > 0
-        if (!atLeastOnePart) 
-            return
-		const url = 'maintenance/new'
-		const method = 'POST'
-		const body = getMaintenanceSparePartFromRows(code, sparePartRows, lubricationSheet.id, selectedFrequency, maintenanceDuration, maintenanceDate)
+		const atLeastOnePart =
+			sparePartRows.filter((row) => row.replace).length > 0;
+		if (!atLeastOnePart) return;
+		const url = "maintenance/new";
+		const method = "POST";
+		const body = getMaintenanceSparePartFromRows(
+			code,
+			sparePartRows,
+			lubricationSheet.id,
+			selectedFrequency,
+			maintenanceDuration,
+			maintenanceDate
+		);
 		api.postNew(url, body, method)
 			.then(() => {
-				navigate('/equipment/details/' + code);
+				navigate("/equipment/details/" + code);
 			})
 			.catch((error) => console.log(error));
 	};
@@ -76,11 +83,11 @@ const NewLubricationSheet = () => {
 				{
 					<MaintenanceConfiguration
 						maintenanceFrequencies={maintenanceFrequencies}
-                        selectedFrequency={selectedFrequency}
-                        setSelectedFrequency={setSelectedFrequency}
-                        setMaintenanceDuration={setMaintenanceDuration}
-                        maintenanceDate={maintenanceDate}
-                        setMaintenanceDate={setMaintenanceDate}
+						selectedFrequency={selectedFrequency}
+						setSelectedFrequency={setSelectedFrequency}
+						setMaintenanceDuration={setMaintenanceDuration}
+						maintenanceDate={maintenanceDate}
+						setMaintenanceDate={setMaintenanceDate}
 					/>
 				}
 
@@ -88,20 +95,23 @@ const NewLubricationSheet = () => {
 					const filteredRows = sparePartRows.filter(
 						(row) => row.type === section.type
 					);
-                    if (filteredRows.length === 0) return;
+					if (filteredRows.length === 0) return;
 					return (
 						<MaintenanceSection
 							key={section.type}
 							sparePartRows={filteredRows}
 							section={section}
 							parts={spareParts}
-                            selectedFrequency={selectedFrequency}
+							selectedFrequency={selectedFrequency}
 						/>
 					);
 				})}
 				<div className="maintenance-submit-button">
-					<Button onClick={(e) => onSubmitButtonClicked(e)} disabled={!canSave}>
-						<i className={"fa-solid fa-floppy-disk"}/>
+					<Button
+						onClick={(e) => onSubmitButtonClicked(e)}
+						disabled={!canSave}
+					>
+						<i className={"fa-solid fa-floppy-disk"} />
 						{" Guardar"}
 					</Button>
 				</div>
@@ -118,8 +128,8 @@ const NewLubricationSheet = () => {
 	 * {
 	 *  equipment_code: 23,
 	 *  lubrication_sheet_id: 12,
-     *  maintenance_frequency: 400,
-     *  maintenance_duration: 15,
+	 *  maintenance_frequency: 400,
+	 *  maintenance_duration: 15,
 	 *  spare_parts: [
 	 *      { "spare_part_id": 50, "quantity": 3, "application": "Primary", "frequencies": [250, 500]},
 	 *      { "spare_part_id": 51, "quantity": 6, "application": "Secondary", "frequencies": [250]},
@@ -129,17 +139,17 @@ const NewLubricationSheet = () => {
 	function getMaintenanceSparePartFromRows(
 		equipment_code,
 		sparePartRows,
-        sheet_id,
-        frequency,
-        duration,
-        maintenanceDate
+		sheet_id,
+		frequency,
+		duration,
+		maintenanceDate
 	) {
 		const body = {
 			equipment_code: equipment_code,
-            lubrication_sheet_id: sheet_id,
-            maintenance_frequency: frequency,
-            maintenance_duration: duration,
-            maintenance_date: maintenanceDate
+			lubrication_sheet_id: sheet_id,
+			maintenance_frequency: frequency,
+			maintenance_duration: duration,
+			maintenance_date: maintenanceDate,
 		};
 		const spare_parts = [];
 		sparePartRows.forEach((row) => {
@@ -153,7 +163,7 @@ const NewLubricationSheet = () => {
 			}
 		});
 		body.spare_parts = spare_parts;
-        console.log(body)
+		console.log(body);
 		return body;
 	}
 	async function fetchSpareParts() {
@@ -172,7 +182,9 @@ const NewLubricationSheet = () => {
 			const equip = sheet.equipments.find((equip) => equip.code === code);
 			const rows = sheet.lubrication_sheet_spare_parts.map(
 				(row, index) => {
-                    row.spare_part.frequencies = row.frequencies.map((freq) => parseInt(freq.frequency))
+					row.spare_part.frequencies = row.frequencies.map((freq) =>
+						parseInt(freq.frequency)
+					);
 					return {
 						type: row.spare_part.type,
 						subtype: row.spare_part.application,
@@ -186,7 +198,7 @@ const NewLubricationSheet = () => {
 								frequency: freq.frequency,
 							};
 						}),
-                        replace: false
+						replace: false,
 					};
 				}
 			);
@@ -199,7 +211,5 @@ const NewLubricationSheet = () => {
 		}
 	}
 };
-
-
 
 export default NewLubricationSheet;

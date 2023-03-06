@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./MaintenanceSection.css";
+import "./MaintenanceSection.scss";
 import "react-datepicker/dist/react-datepicker.css";
 
 import MaintenanceRow from "../maintenanceRow/MaintenanceRow";

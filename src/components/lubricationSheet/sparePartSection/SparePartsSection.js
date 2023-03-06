@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Button from "../../button/Button";
-import Select from "../../select/Select";
-import Checkbox from "../../checkbox/Checkbox";
-import "./SparePartsSection.css"
-import Input from "../../input/Input";
+import Button from "components/button/Button";
+import Select from "components/select/Select";
+import Checkbox from "components/checkbox/Checkbox";
+import Input from "components/input/Input";
+import "./SparePartsSection.scss"
 
 const SparePartsSection = (props) => {
 	const { title, type, icon, subtypes } = props.section;

@@ -9,11 +9,11 @@
     border-radius: 35px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     min-width: 60vw;
-}
-
-.page-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 10px;
+    
+    .page-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 10px;
+    }
 }

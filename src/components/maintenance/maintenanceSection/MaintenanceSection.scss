@@ -1,0 +1,93 @@
+@import '../MaintenanceVariables';
+
+.maintenance-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    padding: 10px 15px;
+
+    .maintenance-section-subsections {
+        &.show {
+            transform: scaleY(1);
+            transform-origin: top;
+            opacity: 1;
+            max-height: 100%;
+            transition: transform 0.1s ease-in;
+        }
+        &.hide {
+            transform: scaleY(0);
+            opacity: 0;
+            max-height: 0;
+            transition: transform 0.1s ease-in;
+        }
+
+        .maintenance-subsection {
+            padding: 10px 0px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            label {
+                margin: 0;
+                padding: 0;
+                font-size: small;
+            }
+
+            .maintenance-subsection-header {
+                display: flex;
+                flex-direction: row;
+                gap: 6px;
+                padding-right: 10px;
+                justify-content: space-between;
+            }
+
+            .maintenance-container {
+                display: flex;
+                flex-direction: column;
+                padding: 5px 10px;
+                justify-content: space-between;
+                gap: 6px;
+                border: 2px solid rgba(0, 0, 0, 0.25);
+                border-radius: 15px;
+
+                .maintenance-title-container {
+                    display: flex;
+                    flex-direction: row;
+                    gap: 5px;
+                    justify-content: space-between;
+
+                    label {
+                        font-size: 1em;
+                    }
+
+                    .maintenance-type-title,
+                    .maintenance-application-title,
+                    .maintenance-quantity-title,
+                    .maintenance-internal-code-title {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        height: 100%;
+                        text-align: center;
+                    }
+
+                    .maintenance-type-title {
+                        width: $maintenance-row-type-width;
+                    }
+                    .maintenance-application-title {
+                        width: $maintenance-row-application-width;
+                    }
+                    .maintenance-quantity-title {
+                        width: $maintenance-row-quantity-width;
+                    }
+                    .maintenance-internal-code-title {
+                        width: $maintenance-row-internal-code-width;
+                    }
+                }
+            }
+        }
+    }
+}
+

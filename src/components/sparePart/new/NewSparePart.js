@@ -1,8 +1,8 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import "./NewSparePart.css";
+import "./NewSparePart.scss";
 
-import NewForm from "../../newForm/NewFrom";
+import NewForm from "components/newForm/NewFrom";
 
 const NewSparePart = () => {
 	const { code } = useParams();

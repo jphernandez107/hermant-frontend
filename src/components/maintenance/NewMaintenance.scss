@@ -1,0 +1,47 @@
+.card {
+    border-radius: 25px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    padding: 10px 15px;
+}
+
+.maintenance-details-page {
+	display: flex;
+	flex-direction: column;
+    width: 100%;
+
+    .maintenance-details-header {
+        margin: 10px;
+        padding-left: 10px;
+        border-radius: 25px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    }
+    
+    .maintenance-details-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding: 10px;
+    
+        .maintenance-submit-button {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+    }
+    
+    h4 { 
+        font-size: 1.4em;
+        margin: 0;
+        color: var(--background);
+    }
+    h5 { 
+        font-size: 1.2em;
+        font-style: italic;
+        margin: 0;
+        padding-left: 4px;
+        color: var(--background);
+    }
+}
+

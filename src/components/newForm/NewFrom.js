@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import Button from "../button/Button";
-import "./NewForm.css";
+import { useNavigate } from "react-router-dom";
+import Button from "components/button/Button";
+import "./NewForm.scss";
 
-const api = require("../../api/Api");
+const api = require("api/Api");
 
 const NewForm = (props) => {
 	const navigate = useNavigate();
-	const location = useLocation();
-	const { header_title, header_subtitle, action, rows, method, go_to_after_submit } = props.form_data;
+	const {
+		header_title,
+		header_subtitle,
+		action,
+		rows,
+		method,
+		go_to_after_submit,
+	} = props.form_data;
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -69,17 +75,18 @@ const NewForm = (props) => {
 const FormRow = (props) => {
 	const columns = props.columns.map((column, index) => {
 		return (
-		<FormColumn
-			key={index}
-			label={column.label}
-			name={column.name}
-			placeholder={column.placeholder}
-			type={column.type}
-			value={column.value}
-			rows={column.rows}
-			options={column.options}
-		/>
-	)});
+			<FormColumn
+				key={index}
+				label={column.label}
+				name={column.name}
+				placeholder={column.placeholder}
+				type={column.type}
+				value={column.value}
+				rows={column.rows}
+				options={column.options}
+			/>
+		);
+	});
 
 	return <div className="form-row">{columns}</div>;
 };
@@ -139,9 +146,9 @@ const FormColumn = (props) => {
 };
 
 const defaultValue = (value, type) => {
-	if (value !== undefined || value !== null) return value
-	else if (type === "number") return 0 
-	else return ""
-}
+	if (value !== undefined || value !== null) return value;
+	else if (type === "number") return 0;
+	else return "";
+};
 
 export default NewForm;

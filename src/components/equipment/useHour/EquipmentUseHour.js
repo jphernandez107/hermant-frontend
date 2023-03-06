@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "./EquipmentUseHour.css";
+import "./EquipmentUseHour.scss";
 
-import Table from "../../table/Table";
+import Table from "components/table/Table";
 
-const api = require("../../../api/Api");
+const api = require("api/Api");
 
 const EquipmentUseHour = () => {
 	const [equipments, setEquipments] = useState([]);
@@ -23,14 +23,14 @@ const EquipmentUseHour = () => {
 		{ add_hours: "Agregar horas", style: ["padding-zero"] },
 	];
 
-    const onAddButtonClick = (e, hoursValue, dateValue, code) => {
-        if (hoursValue <= 0) return
-        const body = {
-            hours_to_add: hoursValue,
-            date: dateValue
-        }
-        api.addEquipmentUseHours(body, code)
-    };
+	const onAddButtonClick = (e, hoursValue, dateValue, code) => {
+		if (hoursValue <= 0) return;
+		const body = {
+			hours_to_add: hoursValue,
+			date: dateValue,
+		};
+		api.addEquipmentUseHours(body, code);
+	};
 
 	return (
 		<Table
@@ -55,7 +55,7 @@ const EquipmentUseHour = () => {
 	}
 
 	function getUseHoursInput(code) {
-        return (
+		return (
 			<div className="use-hours-container">
 				<UseHourInput
 					equipment_code={code}
@@ -66,7 +66,6 @@ const EquipmentUseHour = () => {
 	}
 };
 
-
 /***** UseHourInput Component *****/
 
 const UseHourInput = (props) => {
@@ -74,15 +73,15 @@ const UseHourInput = (props) => {
 	const [hoursValue, setHoursValue] = useState(0);
 	const [dateValue, setDateValue] = useState(new Date());
 
-    const [localeData, setLocaleData] = useState()
+	const [localeData, setLocaleData] = useState();
 
 	const handleHoursChange = (e) => {
 		e.preventDefault();
-        const value = e.target.value
-        const hours = (value > 0 
-            || value === '.' 
-            || value === ',' 
-            || value === '') ? value : hoursValue
+		const value = e.target.value;
+		const hours =
+			value > 0 || value === "." || value === "," || value === ""
+				? value
+				: hoursValue;
 		setHoursValue(hours);
 	};
 
@@ -98,30 +97,29 @@ const UseHourInput = (props) => {
 		/>
 	);
 
-    const lang = navigator.language; 
-    useEffect(() => {
-        fetchLocale(lang);
-    })
+	const lang = navigator.language;
+	useEffect(() => {
+		fetchLocale(lang);
+	});
 
-    useEffect(() => {
-        if(!localeData) return
-        const dateFormat = localeData.default.code === "es" ? "dd-MM-yyyy" : "MM-dd-yyyy" 
-        setDatePicker(
-            <DatePicker
-                locale={localeData.default}
-                dateFormat={dateFormat}
-                className="date-input"
-                selected={dateValue}
-                onChange={(date) => handleDateChange(date)}
-            />
-        );
-    }, [localeData, dateValue])
+	useEffect(() => {
+		if (!localeData) return;
+		const dateFormat =
+			localeData.default.code === "es" ? "dd-MM-yyyy" : "MM-dd-yyyy";
+		setDatePicker(
+			<DatePicker
+				locale={localeData.default}
+				dateFormat={dateFormat}
+				className="date-input"
+				selected={dateValue}
+				onChange={(date) => handleDateChange(date)}
+			/>
+		);
+	}, [localeData, dateValue]);
 
 	return (
 		<div className="hours-wrapper">
-			<div className="date-input-container">
-				{datePicker}
-			</div>
+			<div className="date-input-container">{datePicker}</div>
 			<div className="date-icon">
 				<i className="fa-solid fa-calendar-week" aria-hidden="true"></i>
 			</div>
@@ -137,8 +135,8 @@ const UseHourInput = (props) => {
 			<div
 				className="plus-icon"
 				onClick={(e) => {
-                    setHoursValue(0)
-					onAddButtonClick(e, hoursValue, dateValue, equipment_code)
+					setHoursValue(0);
+					onAddButtonClick(e, hoursValue, dateValue, equipment_code);
 				}}
 			>
 				<i className="fa-solid fa-plus" aria-hidden="true"></i>
@@ -146,7 +144,7 @@ const UseHourInput = (props) => {
 		</div>
 	);
 
-    async function fetchLocale(lang) {
+	async function fetchLocale(lang) {
 		try {
 			const locale = await import(`date-fns/locale/${lang}`);
 			setLocaleData(locale);

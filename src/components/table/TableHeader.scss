@@ -1,0 +1,13 @@
+.table-header {
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    h3 {
+        font-weight: bolder;
+        color: var(--background);
+        font-size: xx-large;
+        margin: 0px;
+    }
+}

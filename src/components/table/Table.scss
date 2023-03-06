@@ -1,0 +1,176 @@
+.table-card {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 6px;
+	padding: 15px;
+	border-radius: 35px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+
+	&.no-card {
+		padding: 0;
+		border-radius: 1-px;
+		box-shadow: none;
+	}
+
+	.table-wrapper {
+		display: flex;
+		justify-content: center;
+
+		.styled-table {
+			border-collapse: separate;
+			font-size: 0.9em;
+			font-family: sans-serif;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+			border-radius: 10px;
+			width: 100%;
+
+			thead tr {
+				background-color: var(--background);
+				color: var(--text);
+				text-align: left;
+			}
+
+			th {
+				&:first-of-type {
+					border-top-left-radius: 10px;
+				}
+
+				&:last-of-type {
+					border-top-right-radius: 10px;
+				}
+			}
+
+			tr {
+				&:last-of-type td:first-of-type {
+					border-bottom-left-radius: 10px;
+				}
+
+				&:last-of-type td:last-of-type {
+					border-bottom-right-radius: 10px;
+				}
+			}
+
+			th,
+			td {
+				padding: 10px 15px;
+			}
+
+			tbody {
+				tr {
+					border-bottom: 1px solid #dddddd;
+				}
+
+				tr:nth-of-type(even) {
+					background-color: #f3f3f3ff;
+				}
+
+				tr:hover {
+					background-color: var(--background);
+					color: var(--text);
+				}
+			}
+
+			table {
+				th {
+					text-align: center;
+					text-transform: uppercase;
+				}
+			}
+
+			&.first-column-bold td:first-child {
+				font-weight: bolder;
+			}
+
+			td {
+				.padding-zero {
+					padding: 0;
+				}
+
+				.bold {
+					font-weight: bold;
+				}
+			}
+
+			th {
+				.fixed-width-10 {
+					width: 10%;
+				}
+				.fixed-width-20 {
+					width: 20%;
+				}
+				.fixed-width-30 {
+					width: 30%;
+				}
+			}
+
+			/*** single table ***/
+
+			&.single {
+				border-radius: 11px;
+				border: 1px solid rgba(0, 0, 0, 0.25);
+				border-spacing: 0;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+
+                thead {
+                    tr {
+                        background-color: transparent;
+                        color: var(--background);
+                    }
+
+                    tr th {
+                        font-size: 1.2em;
+                        font-weight: bolder;
+                    }
+                }
+    
+                th,
+                td {
+                    border: 1px solid rgba(0, 0, 0, 0.25);
+                }
+    
+                tbody {
+                    font-size: 1em;
+                    font-weight: 500;
+                }
+    
+                tbody {
+                    tr {
+                        &:hover {
+                            background-color: transparent;
+                            color: var(--background);
+                        }
+
+                        &:nth-of-type(even) {
+                            background-color: #ffffff;
+                        }
+                    }
+                }
+    
+			}
+
+            /*** style modifiers ***/
+            
+            .center-text {
+				text-align: center;
+			}
+
+		}
+
+        /*** single table ***/
+		&.single {
+			display: flex;
+			justify-content: center;
+		}
+	}
+
+    /*** single table ***/
+	&.single {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 6px;
+		border-radius: 35px;
+		box-shadow: none;
+	}
+}

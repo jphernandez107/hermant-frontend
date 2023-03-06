@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "./Sidebar.css"
+import "./Sidebar.scss"
 
 
 const Sidebar = () => {
@@ -34,6 +34,15 @@ const Sidebar = () => {
         },
     ];
 
+    const menuItemSelected = (url, currentPath) => {
+        const regex = /\/(\w+)/;
+        const urlRegex = url.match(regex);
+        const currentPathRegex = currentPath.match(regex);
+        const urlStart = urlRegex ? urlRegex[1] : '';
+        const currentPathStart = currentPathRegex ? currentPathRegex[1] : '';
+        return urlStart === currentPathStart ? 'menu-item-selected' : ''
+    }
+
     return (
         <div
             className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}
@@ -54,7 +63,7 @@ const Sidebar = () => {
                     {menuItems.map(({ text, icon, url }) => (
                         <a
                             className={
-                                `menu-item ${isExpanded ? "" : "menu-item-NX "} ${url === currentPath ? 'menu-item-selected' : ''}`
+                                `menu-item ${isExpanded ? "" : "menu-item-NX "} ${menuItemSelected(url, currentPath)}`
                             }
                             href={url}
                             key={text}
