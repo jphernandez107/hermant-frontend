@@ -1,7 +1,7 @@
 import React from 'react';
 import "./List.scss"
 
-import Table from '../table/Table'
+import Table from "components/table/Table"
 
 const List = (props) => {
     return (

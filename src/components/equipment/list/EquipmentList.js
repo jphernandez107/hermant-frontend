@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import "./EquipmentList.scss";
 
-import Button from "../../button/Button";
-import List from "../../list/List";
+import Button from "components/button/Button"
+import List from "components/list/List";
 
-const api = require("../../../api/Api");
+const api = require("api/Api");
 
 const EquipmentList = () => {
   const [equipments, setEquipments] = useState([]);

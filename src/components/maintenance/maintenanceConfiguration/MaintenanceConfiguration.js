@@ -4,8 +4,8 @@ import "./MaintenanceConfiguration.scss";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-import Select from "../../select/Select";
-import Input from "../../input/Input";
+import Select from "components/select/Select";
+import Input from "components/input/Input";
 
 const MaintenanceConfiguration = (props) => {
 	const { maintenanceFrequencies, selectedFrequency, setSelectedFrequency, setMaintenanceDuration } = props;

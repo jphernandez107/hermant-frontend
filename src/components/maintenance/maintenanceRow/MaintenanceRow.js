@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./MaintenanceRow.scss";
 import "react-datepicker/dist/react-datepicker.css";
 
-import Select from "../../select/Select";
-import Input from "../../input/Input";
+import Select from "components/select/Select";
+import Input from "components/input/Input";
 
 const MaintenanceRow = (props) => {
 	const { part, application, quantity, selectedFrequency } = props;

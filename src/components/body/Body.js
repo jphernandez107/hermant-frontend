@@ -2,18 +2,18 @@ import React, { useState } from "react";
 import "./Body.scss";
 
 import { Route, Routes } from "react-router-dom";
-import EquipmentList from "../equipment/list/EquipmentList";
-import ConstructionSiteList from "../site/list/ConstructionSiteList";
-import SparePartList from "../sparePart/list/SparePartList";
-import EquipmentDetails from "../equipment/details/EquipmentDetails";
-import ConstructionSiteDetails from "../site/details/ConstructionSiteDetails";
-import NewEquipment from "../equipment/new/NewEquipment";
-import NewConstructionSite from "../site/new/NewConstructionSite";
-import NewSparePart from "../sparePart/new/NewSparePart";
-import NewLubricationSheet from "../lubricationSheet/NewLubricationSheet";
-import LubricationSheetDetails from "../lubricationSheet/details/LubricationSheetDetails";
-import EquipmentUseHour from "../equipment/useHour/EquipmentUseHour";
-import NewMaintenance from "../maintenance/NewMaintenance"
+import EquipmentList from "components/equipment/list/EquipmentList";
+import ConstructionSiteList from "components/site/list/ConstructionSiteList";
+import SparePartList from "components/sparePart/list/SparePartList";
+import EquipmentDetails from "components/equipment/details/EquipmentDetails";
+import ConstructionSiteDetails from "components/site/details/ConstructionSiteDetails";
+import NewEquipment from "components/equipment/new/NewEquipment";
+import NewConstructionSite from "components/site/new/NewConstructionSite";
+import NewSparePart from "components/sparePart/new/NewSparePart";
+import NewLubricationSheet from "components/lubricationSheet/NewLubricationSheet";
+import LubricationSheetDetails from "components/lubricationSheet/details/LubricationSheetDetails";
+import EquipmentUseHour from "components/equipment/useHour/EquipmentUseHour";
+import NewMaintenance from "components/maintenance/NewMaintenance"
 
 const Body = () => {
 	return (

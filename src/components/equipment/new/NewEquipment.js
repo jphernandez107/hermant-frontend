@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./NewEquipment.scss";
 
-import NewForm from "../../newForm/NewFrom";
-const api = require("../../../api/Api");
+import NewForm from "components/newForm/NewFrom";
+const api = require("api/Api");
 
 const NewEquipment = () => {
 	const headerTitle = "Nuevo equipo";
 	const headerSubtitle = "Ingrese los datos del equipo que desea agregar";
-    const form = {
+	const form = {
 		header_title: headerTitle,
 		header_subtitle: headerSubtitle,
 		action: "equipment/new",
-        method: "POST",
-        go_to_after_submit: "/equipment/list",
+		method: "POST",
+		go_to_after_submit: "/equipment/list",
 		rows: [
 			{
 				columns: [
@@ -61,7 +61,7 @@ const NewEquipment = () => {
 						label: "Año de fabricación",
 						name: "manuf_date",
 						type: "text",
-                        value: "",
+						value: "",
 						placeholder: "2019",
 					},
 				],
@@ -125,20 +125,20 @@ const NewEquipment = () => {
 	};
 
 	const { code } = useParams();
-    const [equipment, setEquipment] = useState(null)
-    const [formData, setFormData] = useState(form)
+	const [equipment, setEquipment] = useState(null);
+	const [formData, setFormData] = useState(form);
 
-    useEffect(() => {
+	useEffect(() => {
 		fetchEquipment();
 	}, []);
 
-    useEffect(() => {
-        updateFormData(equipment)
-    }, [equipment])
+	useEffect(() => {
+		updateFormData(equipment);
+	}, [equipment]);
 
 	return <NewForm form_data={formData}></NewForm>;
 
-    async function fetchEquipment() {
+	async function fetchEquipment() {
 		try {
 			const response = await api.getEquipmentByCode(code);
 			setEquipment(response);
@@ -147,12 +147,13 @@ const NewEquipment = () => {
 		}
 	}
 
-    function updateFormData(equipment) {
-        if (!equipment) return
+	function updateFormData(equipment) {
+		if (!equipment) return;
 		const updatedFormData = { ...formData };
-        updatedFormData.action = "equipment/edit?code=" + equipment.code;
-        updatedFormData.method = "PUT"
-        updatedFormData.go_to_after_submit = "/equipment/details/" + equipment.code
+		updatedFormData.action = "equipment/edit?code=" + equipment.code;
+		updatedFormData.method = "PUT";
+		updatedFormData.go_to_after_submit =
+			"/equipment/details/" + equipment.code;
 		updatedFormData.rows.forEach((row) => {
 			row.columns.forEach((column) => {
 				const value = equipment[column.name];

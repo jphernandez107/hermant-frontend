@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./TableHeader.scss"
 
-import SearchBar from '../searchBar/SearchBar'
+import SearchBar from "components/searchBar/SearchBar"
 
 const TableHeader = ({showSearchBar = true, children, button}) => {
 

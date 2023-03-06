@@ -1,10 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./Home.scss"
 
 
-import Sidebar from '../sidebar/Sidebar';
-import Body from '../body/Body';
+import Sidebar from "components/sidebar/Sidebar";
+import Body from "components/body/Body";
 
 
 class Home extends React.Component {

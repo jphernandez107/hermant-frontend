@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./NewConstructionSite.scss";
 
-import NewForm from "../../newForm/NewFrom";
-const api = require("../../../api/Api");
+import NewForm from "components/newForm/NewFrom";
+const api = require("api/Api");
 
 const NewConstructionSite = () => {
 	const { code } = useParams();
@@ -112,8 +112,8 @@ const NewConstructionSite = () => {
 		],
 	};
 
-	const [site, setSite] = useState(null)
-	const [formData, setFormData] = useState(form)
+	const [site, setSite] = useState(null);
+	const [formData, setFormData] = useState(form);
 
 	useEffect(() => {
 		fetchSite();
@@ -139,7 +139,7 @@ const NewConstructionSite = () => {
 		const updatedFormData = { ...formData };
 		updatedFormData.action = "site/edit?code=" + site.code;
 		updatedFormData.method = "PUT";
-        updatedFormData.go_to_after_submit = "/site/details/" + site.code;
+		updatedFormData.go_to_after_submit = "/site/details/" + site.code;
 		updatedFormData.rows.forEach((row) => {
 			row.columns.forEach((column) => {
 				const value = site[column.name];

@@ -3,14 +3,18 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    max-height: 100vh;
     
     .body {
         display: flex;
         justify-content: center;
+        max-height: 95vh;
+        overflow-y: auto;
     }
     
     .footer {
         margin-left: auto;
         margin-right: auto;
+        max-height: 5vh;
     }
 }
