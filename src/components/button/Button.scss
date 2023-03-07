@@ -1,26 +1,48 @@
+@import 'styles/styles.scss';
+
+
+$border-width: $border-width;
+
+$button-color: $text;
+$button-background-color: $background;
+$button-border-color: $text;
+
+$button-disabled-background-color: lighten($color: $text, $amount: 10);
+$button-disabled-color: lighten($color: $background, $amount: 60);
+
+$button-hover-color: $button-background-color;
+$button-hover-background-color: $button-color;
+
+$button-outline-color: $button-color;
+$button-outline-background-color: lighten($color: $text, $amount: 100);
+$button-outline-border-color: $button-color;
+
+$button-outline-hover-color: $button-color;
+$button-outline-hover-background-color: $button-background-color;
+
 .button {
-    border: 2px solid var(--background);
+    border: $border-width solid $button-border-color;
     padding: 8px 16px;
     border-radius: 100px;
-    background-color: var(--background);
+    background-color: $button-background-color;
     text-decoration: none;
     font-size: 15px;
     font-weight: bolder;
-    color: var(--text);
+    color: $button-color;
     text-align: center;
     text-transform: uppercase;
 
     &:hover {
-        border: 2px solid var(--background);
-        background-color: var(--text);
-        color: var(--background);
+        border: $border-width solid $button-border-color;
+        background-color: $button-hover-background-color;
+        color: $button-hover-color;
         cursor: pointer;
     }
 
     &:disabled {
-        border: 2px solid var(--text);
-        background-color: var(--text);
-        color: #2C3E5077;
+        border: $border-width solid;
+        background-color: $button-disabled-background-color;
+        color: $button-disabled-color;
         cursor: auto;
     }
 
@@ -31,14 +53,13 @@
     }
 
     &.outline {
-        border: 2px solid var(--background);
-        background-color: var(--text);
-        color: var(--background);
+        border: $border-width solid $button-outline-border-color;
+        background-color: $button-outline-background-color;
+        color: $button-outline-color;
 
         &:hover {
-            border: 2px solid var(--background);
-            background-color: var(--background);
-            color: var(--text);
+            background-color: $button-outline-hover-background-color;
+            color: $button-outline-hover-color;
         }
     }
 

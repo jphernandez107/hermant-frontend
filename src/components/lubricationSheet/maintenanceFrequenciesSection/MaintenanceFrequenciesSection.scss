@@ -1,9 +1,14 @@
+@import 'styles/styles.scss';
+
+$title-color: $text;
+$label-color: lighten($text, 10%);
+
 .maintenance-frequencies {
 	display: flex;
 	flex-direction: column;
 	gap: 6px;
 	border-radius: 25px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+	box-shadow: $box-shadow-medium;
 	padding: 10px 15px;
 
 	.maintenance-frequencies-header {
@@ -14,7 +19,7 @@
 			font-size: medium;
 			font-weight: 400;
 			font-style: italic;
-			color: var(--background);
+			color: $label-color;
 		}
 
 		.maintenance-frequencies-header-title {
@@ -25,7 +30,7 @@
 
 			.maintenance-frequencies-title {
 				margin: 0;
-				color: var(--background);
+				color: $title-color;
 			}
 		}
 	}
@@ -48,6 +53,7 @@
 				margin: 0;
 				padding: 0;
 				font-size: 1em;
+				color: $title-color;
 			}
 		}
 	}

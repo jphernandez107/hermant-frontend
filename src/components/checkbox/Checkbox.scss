@@ -1,5 +1,7 @@
+@import 'styles/styles.scss';
+
 .checkbox { 
     border-radius: 8px;
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    color: var(--background);
+    border: $border-width solid rgba(0, 0, 0, 0.1);
+    color: $background;
 }

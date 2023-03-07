@@ -1,12 +1,21 @@
-/* NX = not expanded */
+@import 'styles/styles.scss';
+
+$side-bar-background-color: darken($background, 15%);
+$side-bar-color: $primary;
+$nav-brand-color: $primary;
+$nav-menu-item-color: $primary;
+$nav-menu-item-icon-color: $text;
+$nav-menu-item-text-color: $text;
+$nav-menu-item-selected-color: $primary;
+$nav-footer-text-color: $primary;
 
 .side-nav-container {
-	background-color: var(--background);
+	background-color: $side-bar-background-color;
 	width: 30vw;
 	max-width: 280px;
 	height: 100vh;
 	position: relative;
-	color: var(--primary);
+	color: $side-bar-color;
 
 	transition: 0.4s;
 	display: flex;
@@ -51,7 +60,7 @@
 
 			.nav-brand {
 				display: flex;
-				color: var(--primary);
+				color: $nav-brand-color;
 				align-items: center;
 				text-decoration: none;
 
@@ -85,7 +94,7 @@
 				flex-direction: row;
 				justify-content: flex-start;
 				align-items: center;
-				color: var(--primary);
+				color: $nav-menu-item-color;
 				text-decoration: none;
 				margin-left: 3%;
 				border-radius: 20px;
@@ -99,7 +108,7 @@
 					flex-direction: row;
 					justify-content: center;
 					align-items: center;
-					color: var(--primary);
+					color: $nav-menu-item-color;
 					text-decoration: none;
 					border-radius: 20px;
 					margin-left: 5%;
@@ -109,7 +118,7 @@
 				.menu-item-icon {
 					display: flex;
 					font-size: 3.6vh;
-					color: var(--text);
+					color: $nav-menu-item-icon-color;
 					justify-content: center;
 					align-items: center;
 
@@ -119,7 +128,7 @@
 				}
 
 				p {
-					color: var(--text);
+					color: $nav-menu-item-text-color;
 					font-size: 1.7vh;
 					text-overflow: ellipsis;
 					max-width: 80%;
@@ -130,7 +139,7 @@
 
 				&:hover,
 				&.menu-item-selected {
-					background-color: var(--primary);
+					background-color: $nav-menu-item-selected-color;
 				}
 
 				i {
@@ -183,6 +192,7 @@
 
 				.nav-footer-user-name {
 					max-width: 100%;
+					color: $nav-footer-text-color;
 					font-size: 100%;
 					font-weight: 900;
 					margin: 0;
@@ -194,7 +204,7 @@
 
 				.nav-footer-user-position {
 					max-width: 100%;
-					color: var(--primary);
+					color: $nav-footer-text-color;
 					margin: 0;
 					text-overflow: ellipsis;
 					overflow: hidden;

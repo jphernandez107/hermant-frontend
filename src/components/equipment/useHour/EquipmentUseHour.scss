@@ -1,4 +1,14 @@
-$table-bg-color: #f5f5f5;
+@import 'styles/styles.scss';
+
+$border-radius: 7px;
+
+$border-color: $outlines;
+$border-focus-color: $accent;
+
+$icon-color: $text;
+$icon-background-color: $background;
+$icon-hover-background-color: $text;
+$icon-hover-color: $background;
 
 .use-hours-container {
 	display: flex;
@@ -11,32 +21,28 @@ $table-bg-color: #f5f5f5;
 		flex-direction: row;
 		justify-content: center;
 		align-items: stretch;
-
-		
 	}
 }
 
 .date-input-container {
-	border: 2px solid var(--outlines);
+	border: $border-width solid $border-color;
 	flex: 1;
 	display: flex;
 	align-items: stretch;
-	border-top-left-radius: 7px;
-	border-bottom-left-radius: 7px;
+	border-top-left-radius: $border-radius;
+	border-bottom-left-radius: $border-radius;
 
 	.date-input {
 		border: none;
-		// background-color: $table-bg-color;
 		font-size: medium;
 		text-align: center;
 		width: 100%;
-		// padding: 6px 10px;
 		border-radius: 0;
 		cursor: pointer;
 		transition: all 0.3s;
 
-		border-top-left-radius: 7px;
-		border-bottom-left-radius: 7px;
+		border-top-left-radius: $border-radius;
+		border-bottom-left-radius: $border-radius;
 
 		&:focus {
 			outline: none;
@@ -51,7 +57,7 @@ $table-bg-color: #f5f5f5;
 	}
 
 	&:focus-within {
-		border: 2px solid var(--accent);
+		border: $border-width solid $border-focus-color;
 	}
 }
 
@@ -59,8 +65,8 @@ $table-bg-color: #f5f5f5;
 .plus-icon {
 	min-width: 6%;
 	max-width: 7%;
-	background-color: #f6fafe;
-	border: 2px solid var(--outlines);
+	background-color: $icon-background-color;
+	border: $border-width solid $border-color;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -70,35 +76,35 @@ $table-bg-color: #f5f5f5;
 	font-size: larger;
 
 	i {
-		color: var(--background);
+		color: $icon-color;
 	}
 }
 .date-icon {
 	border-right: 0px;
 }
 .plus-icon {
-	border-top-right-radius: 7px;
-	border-bottom-right-radius: 7px;
+	border-top-right-radius: $border-radius;
+	border-bottom-right-radius: $border-radius;
 
 	&:hover {
 		cursor: pointer;
-		background-color: var(--background);
-	}
-
-	&:hover i {
-		color: var(--text);
+		background-color: $icon-hover-background-color;
+		
+		i {
+			color: $icon-hover-color;
+		}
 	}
 }
 
 .hours-input-container {
 	max-width: 10%;
-	border: 2px solid var(--outlines);
+	border: $border-width solid $border-color;
 	flex: 1;
 	display: flex;
 	align-items: stretch;
 
 	&:focus-within {
-		border: 2px solid var(--accent);
+		border: $border-width solid $border-focus-color;
 	}
 
 	.hours-input {

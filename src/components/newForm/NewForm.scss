@@ -1,14 +1,20 @@
+@import 'styles/styles.scss';
+
+$label-color: $text;
+$title-color: $text;
+
+$form-column-border-color: $outlines;
+
 .form-wrapper {
     width: 88%;
-    height: 90vh;
+    max-height: 90vh;
     display: flex;
     flex-direction: column;
     gap: 6px;
+    margin: 10px;
     padding: 10px;
-    margin: 0px 10px;
-    border: 5px solid rgba(0, 0, 0, 0.2);
     border-radius: 35px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    box-shadow: $box-shadow-medium;
     min-width: 60vw;
 
     .form-header {
@@ -17,16 +23,16 @@
         gap: 6px;
         padding: 15px 15px;
         border-radius: 35px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+        box-shadow: $box-shadow-medium;
 
+        h4,
         h2 {
             margin: 0px;
-            color: var(--background);
+            color: $title-color;
         }
 
         h4 {
-            margin: 0px;
-            color: var(--background);
+            font-style: italic;
         }
 
     }
@@ -38,7 +44,7 @@
         max-height: 100%;
         overflow-y: auto;
         border-radius: 35px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+        box-shadow: $box-shadow-light;
         
         .form {
             display: flex;
@@ -46,7 +52,6 @@
             gap: 6px;
             padding: 15px;
             border-radius: 35px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
             
             .form-row {
                 display: flex;
@@ -61,12 +66,12 @@
                     gap: 3px;
                     padding: 10px;
                     border-radius: 20px;
-                    border: 2px solid var(--outlines);
+                    border: $border-width solid $form-column-border-color;
 
                     label {
-                        font-size: larger;
-                        font-weight: bold;
-                        color: var(--background);
+                        font-size: 1.15em;
+                        font-weight: 700;
+                        color: $title-color;
                         padding: 3px 4px;
                         height: 50%;
                     }
@@ -76,24 +81,9 @@
                         flex-direction: row;
                         justify-content: center;
                         align-items: center;
-                        border-radius: 12px;
-                        border: 2px solid rgba(0, 0, 0, 0.1);
-                        padding: 6px 8px;
 
                         .input {
-                            width: 100%;
                             font-size: large;
-                            border: 0;
-                            border-radius: 8px;
-
-                            &:focus {
-                                outline: none;
-                                border: 0;
-                            }
-                        }
-
-                        &:focus-within {
-                            border: 2px solid var(--accent);
                         }
                     }
                     

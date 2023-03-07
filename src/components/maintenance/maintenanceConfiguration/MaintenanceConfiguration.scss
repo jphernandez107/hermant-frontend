@@ -1,3 +1,11 @@
+@import 'styles/styles.scss';
+
+$label-color: $text;
+$title-color: $text;
+
+$date-icon-border-color: $text;
+$date-border-radius: 7px;
+
 .maintenance-configuration-container {
     display: flex;
     flex-direction: column;
@@ -17,7 +25,7 @@
             font-size: medium;
             font-weight: 400;
             font-style: italic;
-            color: var(--background);
+            color: $label-color;
         }
 
         .maintenance-configuration-header-title {
@@ -25,10 +33,11 @@
             flex-direction: row;
             justify-content: space-between;
             margin-right: 10px;
-            
-            .maintenance-configuration-title {
+
+            h4 { 
+                font-size: 1.4em;
                 margin: 0;
-                color: var(--background);
+                color: $title-color;
             }
         }
     }
@@ -68,7 +77,9 @@
         }
         
         .date-icon {
-            border-right: 2px solid var(--background);
+            border-right: $border-width solid $date-icon-border-color;
+            border-top-right-radius: $date-border-radius;
+            border-bottom-right-radius: $date-border-radius;
         }
     }
     

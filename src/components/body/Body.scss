@@ -1,9 +1,12 @@
+@import 'styles/styles.scss';
+
 .page-wrapper {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     max-height: 100vh;
+    background-color: $background;
     
     .body {
         display: flex;

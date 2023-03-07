@@ -1,4 +1,7 @@
 @import '../MaintenanceVariables';
+@import 'styles/styles.scss';
+
+$label-color: $text;
 
 .maintenance-row {
 	display: flex;
@@ -6,6 +9,11 @@
 	gap: 5px;
 	justify-content: space-between;
     align-items: center;
+
+	label {
+		color: $label-color;
+		font-weight: 500;
+	}
 
 	.maintenance-row-type,
 	.maintenance-row-application,
@@ -52,7 +60,6 @@
 			gap: 6px;
 
 			label {
-				font-weight: 500;
 				font-style: italic;
 			}
 		}

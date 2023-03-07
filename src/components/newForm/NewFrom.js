@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "components/button/Button";
 import "./NewForm.scss";
+import Input from "components/input/Input";
 
 const api = require("api/Api");
 
@@ -63,7 +64,8 @@ const NewForm = (props) => {
 					))}
 					<div className="submit-button-container">
 						<Button className="submit-button" type={"submit"}>
-							Guardar
+							<i className={"fa-solid fa-floppy-disk"} />
+							{" Guardar"}
 						</Button>
 					</div>
 				</form>
@@ -113,32 +115,19 @@ const FormColumn = (props) => {
 		<div className="form-column">
 			<label>{label}</label>
 			<div className="form-input">
-				{rows && rows > 1 ? (
-					<textarea
-						className="input"
-						name={name}
-						placeholder={placeholderValue}
-						rows={rows}
-						value={value}
-						onChange={handleInputChange}
-					/>
-				) : (
-					<>
-						<input
-							className="input"
-							name={name}
-							placeholder={placeholderValue}
-							type={type}
-							value={value}
-							onChange={handleInputChange}
-							list={name + "-options"}
-						/>
-						{options.length > 0 && (
-							<datalist id={name + "-options"}>
-								{optionElements}
-							</datalist>
-						)}
-					</>
+				<Input
+					className="input"
+					name={name}
+					placeholder={placeholderValue}
+					type={type}
+					value={value}
+					onBlur={handleInputChange}
+					list={name + "-options"}
+					isTextArea={rows && rows > 0}
+					rows={rows}
+				/>
+				{options.length > 0 && (
+					<datalist id={name + "-options"}>{optionElements}</datalist>
 				)}
 			</div>
 		</div>

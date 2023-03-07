@@ -1,3 +1,15 @@
+@import 'styles/styles.scss';
+
+$label-color: $text;
+$title-color: $text;
+
+$icon-border-color: $outlines;
+$icon-color: $text;
+$icon-background-color: lighten($background, 10%);
+
+$input-border-color: $icon-border-color;
+$input-border-focus-color: $accent;
+
 .search-wrapper {
     height: 30px;
     display: flex;
@@ -8,41 +20,36 @@
     .icon-span {
         height: 100%;
         width: 30px;
-        background-color: #f6fafe;
+        background-color: $icon-background-color;
         border-top-left-radius: 8px;
         border-bottom-left-radius: 8px;
-        border: 2px solid var(--outlines);
+        border: $border-width solid $icon-border-color;
         border-right: 0px;
         display: flex;
+        justify-content: center;
+        align-items: center;
 
         i {
-            color: var(--outlines);
-            margin: auto;
+            color: $icon-color;
         }
     }
     
-    .search-input {
-        height: 100%;
+    .input-container {
+        height: 30px;
         width: 20vw;
-        border-top-right-radius: 8px;
-        border-bottom-right-radius: 8px;
-        border: 2px solid var(--outlines);
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-color: $input-border-color;
         flex: 1;
         
         .input {
-            height: 100%;
-            width: 100%;
             border: 0;
-            border-radius: 8px;
-
-            &:focus {
-                outline: none;
-                border: 0;
-            }
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
         }
         
         &:focus-within {
-            border: 2px solid var(--accent);
+            border-color: $input-border-focus-color;
         }
     }
     

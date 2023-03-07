@@ -1,6 +1,11 @@
+@import 'styles/styles.scss';
+
+$label-color: $text;
+$title-color: $text;
+
 .card {
     border-radius: 25px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    box-shadow: $box-shadow-medium;
     padding: 10px 15px;
 }
 
@@ -13,7 +18,7 @@
         margin: 10px;
         padding-left: 10px;
         border-radius: 25px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+        box-shadow: $box-shadow-medium;
     }
     
     .maintenance-details-wrapper {
@@ -31,17 +36,7 @@
         }
     }
     
-    h4 { 
-        font-size: 1.4em;
-        margin: 0;
-        color: var(--background);
-    }
-    h5 { 
-        font-size: 1.2em;
-        font-style: italic;
-        margin: 0;
-        padding-left: 4px;
-        color: var(--background);
-    }
+    
+    
 }
 

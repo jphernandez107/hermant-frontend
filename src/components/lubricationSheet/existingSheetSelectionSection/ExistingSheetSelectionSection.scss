@@ -1,14 +1,18 @@
+@import 'styles/styles.scss';
+
+$title-color: $text;
+
 .existing-sheet-selection {
     display: flex;
     flex-direction: column;
     gap: 6px;
     padding: 10px 15px;
     border-radius: 25px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+    box-shadow: $box-shadow-medium;
 
     .existing-sheet-selection-title {
         margin: 0;
-        color: var(--background);
+        color: $title-color;
     }
     
     Select {

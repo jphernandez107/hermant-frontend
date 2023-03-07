@@ -5,14 +5,18 @@ import TableHeader from "./TableHeader";
 
 const Table = (props) => {
   const { columns, data, title, showSearchBar } = props
-  const { style } = props || [];
+  const styles = props.style || [];
   const { onRowClicked } = props
 
+  const style = () => {
+    return styles.join(' ');
+  }
+
   return (
-    <div className={`table-card ${style}`}>
+    <div className={`table-card ${style()}`}>
       {getTableHeader(showSearchBar, title)}
-      <div className={`table-wrapper ${style}`}>
-        <table className={`table styled-table ${style}`}>
+      <div className={`table-wrapper ${style()}`}>
+        <table className={`table styled-table ${style()}`}>
           <thead>
             <tr>{createColumns(columns)}</tr>
           </thead>

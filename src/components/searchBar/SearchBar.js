@@ -1,3 +1,4 @@
+import Input from "components/input/Input";
 import React, { useState } from "react";
 import "./SearchBar.scss";
 
@@ -47,14 +48,12 @@ const SearchBar = ({children}) => {
       <div className="icon-span">
         <i className="fas fa-search" aria-hidden="true"></i>
       </div>
-      <div className="search-input">
-        <input className="input"
-            type="search"
-            placeholder={children}
-            onChange={handleChange}
-            value={searchInput}
-        />
-      </div>
+      <Input 
+          type="search"
+          placeholder={children}
+          onBlur={handleChange}
+          value={searchInput}
+      />
     </div>
   );
 };

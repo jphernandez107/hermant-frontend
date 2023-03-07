@@ -1,3 +1,19 @@
+@import 'styles/styles.scss';
+
+$table-header-background-color: lighten($text, 3%);
+$table-header-color: $background;
+
+$table-even-row-background-color: darken($background, 3%);
+$table-odd-row-background-color: lighten($background, 2%);
+
+$table-row-hover-background-color: lighten($text, 5%);
+$table-row-hover-color: $background;
+
+$single-table-header-color: $text;
+$single-row-hover-color: $text;
+
+$table-border-radius: 10px;
+
 .table-card {
 	display: flex;
 	flex-direction: column;
@@ -5,11 +21,10 @@
 	gap: 6px;
 	padding: 15px;
 	border-radius: 35px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+	box-shadow: $box-shadow-medium;
 
 	&.no-card {
 		padding: 0;
-		border-radius: 1-px;
 		box-shadow: none;
 	}
 
@@ -21,33 +36,33 @@
 			border-collapse: separate;
 			font-size: 0.9em;
 			font-family: sans-serif;
-			box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-			border-radius: 10px;
+			box-shadow: $box-shadow-light;
+			border-radius: $table-border-radius;
 			width: 100%;
 
 			thead tr {
-				background-color: var(--background);
-				color: var(--text);
+				background-color: $table-header-background-color;
+				color: $table-header-color;
 				text-align: left;
 			}
 
 			th {
 				&:first-of-type {
-					border-top-left-radius: 10px;
+					border-top-left-radius: $table-border-radius;
 				}
 
 				&:last-of-type {
-					border-top-right-radius: 10px;
+					border-top-right-radius: $table-border-radius;
 				}
 			}
 
 			tr {
 				&:last-of-type td:first-of-type {
-					border-bottom-left-radius: 10px;
+					border-bottom-left-radius: $table-border-radius;
 				}
 
 				&:last-of-type td:last-of-type {
-					border-bottom-right-radius: 10px;
+					border-bottom-right-radius: $table-border-radius;
 				}
 			}
 
@@ -57,17 +72,19 @@
 			}
 
 			tbody {
-				tr {
-					border-bottom: 1px solid #dddddd;
-				}
 
-				tr:nth-of-type(even) {
-					background-color: #f3f3f3ff;
+				tr {
+					&:nth-of-type(even) {
+						background-color: $table-even-row-background-color;
+					}
+					&:nth-of-type(odd) {
+						background-color: $table-odd-row-background-color;
+					}
 				}
 
 				tr:hover {
-					background-color: var(--background);
-					color: var(--text);
+					background-color: $table-row-hover-background-color;
+					color: $table-row-hover-color;
 				}
 			}
 
@@ -108,14 +125,14 @@
 
 			&.single {
 				border-radius: 11px;
-				border: 1px solid rgba(0, 0, 0, 0.25);
+				border: 1px solid $medium-gray;
 				border-spacing: 0;
-				box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+				box-shadow: $box-shadow-medium;
 
                 thead {
                     tr {
                         background-color: transparent;
-                        color: var(--background);
+                        color: $single-table-header-color;
                     }
 
                     tr th {
@@ -126,7 +143,7 @@
     
                 th,
                 td {
-                    border: 1px solid rgba(0, 0, 0, 0.25);
+                    border: 1px solid $medium-gray;
                 }
     
                 tbody {
@@ -138,11 +155,11 @@
                     tr {
                         &:hover {
                             background-color: transparent;
-                            color: var(--background);
+                            color: $single-row-hover-color;
                         }
 
                         &:nth-of-type(even) {
-                            background-color: #ffffff;
+                            background-color: $table-even-row-background-color;
                         }
                     }
                 }

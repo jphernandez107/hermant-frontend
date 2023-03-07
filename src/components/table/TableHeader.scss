@@ -1,3 +1,7 @@
+@import 'styles/styles.scss';
+
+$title-color: $text;
+
 .table-header {
     padding: 6px;
     display: flex;
@@ -6,7 +10,7 @@
     
     h3 {
         font-weight: bolder;
-        color: var(--background);
+        color: $title-color;
         font-size: xx-large;
         margin: 0px;
     }
