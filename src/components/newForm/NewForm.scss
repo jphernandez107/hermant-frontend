@@ -3,10 +3,10 @@
 $label-color: $text;
 $title-color: $text;
 
-$form-column-border-color: $outlines;
+$form-column-border-color: $medium-gray;
 
 .form-wrapper {
-    width: 88%;
+    width: 100%;
     max-height: 90vh;
     display: flex;
     flex-direction: column;
@@ -21,36 +21,31 @@ $form-column-border-color: $outlines;
         display: flex;
         flex-direction: column;
         gap: 6px;
-        padding: 15px 15px;
+        padding: 5px 20px;
         border-radius: 35px;
-        box-shadow: $box-shadow-medium;
 
         h4,
         h2 {
             margin: 0px;
             color: $title-color;
         }
-
         h4 {
             font-style: italic;
         }
-
     }
     
     .new-form {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
         max-height: 100%;
         overflow-y: auto;
-        border-radius: 35px;
-        box-shadow: $box-shadow-light;
         
         .form {
             display: flex;
             flex-direction: column;
             gap: 6px;
-            padding: 15px;
+            padding: 0px 15px;
             border-radius: 35px;
             
             .form-row {
@@ -83,10 +78,19 @@ $form-column-border-color: $outlines;
                         align-items: center;
 
                         .input {
-                            font-size: large;
+                            font-size: medium;
                         }
                     }
                     
+                }
+            }
+
+            @media screen and (max-width: 850px) {
+                .form-row {
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    gap: 10px
                 }
             }
             
@@ -97,15 +101,5 @@ $form-column-border-color: $outlines;
                 justify-content: end;
             }
         } 
-    }
-}
-
-
-@media screen and (max-width: 1000px) {
-    .form-row {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 10px
     }
 }

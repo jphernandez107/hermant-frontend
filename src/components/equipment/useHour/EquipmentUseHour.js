@@ -3,7 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./EquipmentUseHour.scss";
 
-import Table from "components/table/Table";
+import List from "components/list/List";
 
 const api = require("api/Api");
 
@@ -33,10 +33,11 @@ const EquipmentUseHour = () => {
 	};
 
 	return (
-		<Table
+		<List
+			className={"equipment-use-hours-table"}
 			style={["first-column-bold"]}
-			columns={columns}
-			data={equipments}
+			table_columns={columns}
+			table_data={equipments}
 			title={"Administrar horas de uso"}
 			showSearchBar={false}
 		/>

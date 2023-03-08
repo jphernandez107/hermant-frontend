@@ -5,6 +5,7 @@ $box-border-width: 5px;
 
 .list-wrapper {
     width: 100%;
+    background-color: $background;
     display: flex;
     flex-direction: column;
     gap: 6px;

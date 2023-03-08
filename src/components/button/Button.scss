@@ -7,15 +7,20 @@ $button-color: $text;
 $button-background-color: $background;
 $button-border-color: $text;
 
-$button-disabled-background-color: lighten($color: $text, $amount: 10);
-$button-disabled-color: lighten($color: $background, $amount: 60);
+$button-color: $background;
+$button-background-color: $primary;
+$button-border-color: $primary;
+
+$button-disabled-background-color: lighten($button-background-color, 35%);
+$button-disabled-color: $button-color;
+$button-disabled-border-color: lighten($button-background-color, 35%);
 
 $button-hover-color: $button-background-color;
 $button-hover-background-color: $button-color;
 
-$button-outline-color: $button-color;
-$button-outline-background-color: lighten($color: $text, $amount: 100);
-$button-outline-border-color: $button-color;
+$button-outline-color: $button-background-color;
+$button-outline-background-color: $button-color;
+$button-outline-border-color: $button-background-color;
 
 $button-outline-hover-color: $button-color;
 $button-outline-hover-background-color: $button-background-color;
@@ -40,7 +45,7 @@ $button-outline-hover-background-color: $button-background-color;
     }
 
     &:disabled {
-        border: $border-width solid;
+        border: $border-width solid $button-disabled-border-color;
         background-color: $button-disabled-background-color;
         color: $button-disabled-color;
         cursor: auto;

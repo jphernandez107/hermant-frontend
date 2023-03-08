@@ -139,6 +139,7 @@ const NewEquipment = () => {
 	return <NewForm form_data={formData}></NewForm>;
 
 	async function fetchEquipment() {
+		if (code === undefined || code === null) return;
 		try {
 			const response = await api.getEquipmentByCode(code);
 			setEquipment(response);

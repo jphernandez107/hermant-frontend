@@ -1,6 +1,7 @@
 @import 'styles/styles.scss';
 
 $title-color: $text;
+$sheet-spare-part-section-background-color: $background;
 
 
 .sheet-details-page {
@@ -29,6 +30,7 @@ $title-color: $text;
             gap: 6px;
             border-radius: 25px;
             box-shadow: $box-shadow-medium;
+            background-color: $sheet-spare-part-section-background-color;
             padding: 10px 15px;
 
             h4 { 

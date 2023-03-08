@@ -1,16 +1,22 @@
 @import 'styles/styles.scss';
 
-$table-header-background-color: lighten($text, 3%);
+$table-background-color: $background;
+$table-header-background-color: $primary;
 $table-header-color: $background;
+$cell-text-color: $text;
 
 $table-even-row-background-color: darken($background, 3%);
 $table-odd-row-background-color: lighten($background, 2%);
 
-$table-row-hover-background-color: lighten($text, 5%);
-$table-row-hover-color: $background;
+$table-row-hover-background-color: $secondary;
+$table-row-hover-color: $text;
 
-$single-table-header-color: $text;
-$single-row-hover-color: $text;
+$single-table-header-color: $table-header-color;
+$single-table-header-background-color: $table-header-background-color;//darken($background, 5%);
+$single-row-hover-color: $secondary;
+$single-row-hover-background-color: $secondary;
+$single-table-even-row-background-color: $background;
+$single-table-odd-row-background-color: $background;
 
 $table-border-radius: 10px;
 
@@ -22,6 +28,7 @@ $table-border-radius: 10px;
 	padding: 15px;
 	border-radius: 35px;
 	box-shadow: $box-shadow-medium;
+	background-color: $table-background-color;
 
 	&.no-card {
 		padding: 0;
@@ -100,6 +107,7 @@ $table-border-radius: 10px;
 			}
 
 			td {
+				color: $cell-text-color;
 				.padding-zero {
 					padding: 0;
 				}
@@ -127,11 +135,10 @@ $table-border-radius: 10px;
 				border-radius: 11px;
 				border: 1px solid $medium-gray;
 				border-spacing: 0;
-				box-shadow: $box-shadow-medium;
 
                 thead {
                     tr {
-                        background-color: transparent;
+                        background-color: $single-table-header-background-color;
                         color: $single-table-header-color;
                     }
 
@@ -153,14 +160,16 @@ $table-border-radius: 10px;
     
                 tbody {
                     tr {
-                        &:hover {
-                            background-color: transparent;
-                            color: $single-row-hover-color;
+						&:nth-of-type(even) {
+							background-color: $single-table-even-row-background-color;
                         }
-
-                        &:nth-of-type(even) {
-                            background-color: $table-even-row-background-color;
+						&:nth-of-type(odd) {
+							background-color: $single-table-even-row-background-color;
                         }
+						&:hover {
+							background-color: $single-row-hover-background-color;
+							color: $single-row-hover-color;
+						}
                     }
                 }
     
@@ -170,6 +179,16 @@ $table-border-radius: 10px;
             
             .center-text {
 				text-align: center;
+			}
+
+			&.no-hover {
+				tbody {
+					tr {
+						&:hover {
+							background-color: $table-background-color;
+						}
+					}
+				}
 			}
 
 		}

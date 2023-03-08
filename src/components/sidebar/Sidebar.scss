@@ -1,13 +1,13 @@
 @import 'styles/styles.scss';
 
-$side-bar-background-color: darken($background, 15%);
+$side-bar-background-color: darken($background, 0%);
 $side-bar-color: $primary;
-$nav-brand-color: $primary;
+$nav-brand-color: $text;
 $nav-menu-item-color: $primary;
 $nav-menu-item-icon-color: $text;
 $nav-menu-item-text-color: $text;
-$nav-menu-item-selected-color: $primary;
-$nav-footer-text-color: $primary;
+$nav-menu-item-selected-color: $secondary;
+$nav-footer-text-color: $text;
 
 .side-nav-container {
 	background-color: $side-bar-background-color;

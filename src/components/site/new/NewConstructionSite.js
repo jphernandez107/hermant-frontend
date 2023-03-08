@@ -7,7 +7,7 @@ const api = require("api/Api");
 
 const NewConstructionSite = () => {
 	const { code } = useParams();
-	const headerTitle = "Nueva Obra";
+	const headerTitle = "Nueva obra";
 	const headerSubtitle = "Ingrese los datos de la obra que desea agregar";
 
 	const form = {
@@ -126,6 +126,7 @@ const NewConstructionSite = () => {
 	return <NewForm form_data={formData}></NewForm>;
 
 	async function fetchSite() {
+		if (code === undefined || code === null) return;
 		try {
 			const response = await api.getConstructionSiteByCode(code);
 			setSite(response);

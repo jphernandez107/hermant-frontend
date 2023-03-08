@@ -16,6 +16,8 @@ const EquipmentDetails = () => {
   const [maintenances, setMaintenances] = useState([]);
   const [repairs, setRepairs] = useState([]);
 
+  let hasLubricationSheet = false;
+
   useEffect(() => {
     fetchEquipment();
   }, []);
@@ -85,14 +87,14 @@ const EquipmentDetails = () => {
               columns={columns_table_1}
               data={[equipment]}
               showSearchBar={false}
-              style={['single']}
+              style={['single', 'no-hover']}
             />
             <Table
               className={"details-table"}
               columns={columns_table_2}
               data={[equipment]}
               showSearchBar={false}
-              style={['single']}
+              style={['single', 'no-hover']}
             />
           </div>
           <div className="other-details">
@@ -100,7 +102,7 @@ const EquipmentDetails = () => {
               columns={columns_table_3}
               data={[equipment]}
               showSearchBar={false}
-              style={['single']}
+              style={['single', 'no-hover']}
             />
           </div>
         </div>
@@ -109,9 +111,9 @@ const EquipmentDetails = () => {
             <h4>
               Mantenimientos
             </h4>
-            <Button isLink={true} href={"/equipment/details/maintenance/new/" + code}>
+            {equipment.lubrication_sheet_id && <Button isLink={true} href={"/equipment/details/maintenance/new/" + code}>
               <i className="fa-solid fa-plus" />{""}
-            </Button>
+            </Button>}
           </div>
           <Table
             columns={maintenance_table_columns}
