@@ -43,7 +43,7 @@ const EquipmentDetails = () => {
   const columns_table_3 = [
     { total_hours: "Horómetro", style: ["center-text"] },
     { construction_site: "Obra", style: ["center-text"] },
-    { partial_hours: "Mantenimiento", style: ["center-text"] },
+    { next_maintenance: "Mantenimiento", style: ["center-text"] },
     { observations: "Observaciones", style: ["center-text"] },
   ];
 

@@ -12,7 +12,7 @@ const EquipmentUseHour = () => {
 
 	useEffect(() => {
 		fetchEquipments();
-	});
+	}, []);
 
 	const columns = [
 		{ code: "Patente" },

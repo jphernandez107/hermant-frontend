@@ -108,23 +108,23 @@ $table-border-radius: 10px;
 
 			td {
 				color: $cell-text-color;
-				.padding-zero {
+				&.padding-zero {
 					padding: 0;
 				}
 
-				.bold {
+				&.bold {
 					font-weight: bold;
 				}
 			}
 
 			th {
-				.fixed-width-10 {
+				&.fixed-width-10 {
 					width: 10%;
 				}
-				.fixed-width-20 {
+				&.fixed-width-20 {
 					width: 20%;
 				}
-				.fixed-width-30 {
+				&.fixed-width-30 {
 					width: 30%;
 				}
 			}
