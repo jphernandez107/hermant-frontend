@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Body.scss";
 
 import { Route, Routes } from "react-router-dom";
@@ -13,7 +13,8 @@ import NewSparePart from "components/sparePart/new/NewSparePart";
 import NewLubricationSheet from "components/lubricationSheet/NewLubricationSheet";
 import LubricationSheetDetails from "components/lubricationSheet/details/LubricationSheetDetails";
 import EquipmentUseHour from "components/equipment/useHour/EquipmentUseHour";
-import NewMaintenance from "components/maintenance/NewMaintenance"
+import NewMaintenance from "components/maintenance/NewMaintenance";
+import MaintenancesCalendar from "components/calendar/MaintenancesCalendar";
 
 const Body = () => {
 	return (
@@ -21,7 +22,7 @@ const Body = () => {
 			<header></header>
 			<div className="body">
 				<Routes>
-					<Route path="/" element={<EquipmentList />} />
+					<Route path="/" element={<MaintenancesCalendar />} />
 					<Route path="/equipment/list" element={<EquipmentList />} />
 					<Route path="/equipment/details/:code" element={<EquipmentDetails />} />
 					<Route path="/equipment/details/lubricationsheet/:code" element={<LubricationSheetDetails />} />
