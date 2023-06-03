@@ -19,7 +19,7 @@ const Sidebar = () => {
         },
         {
             text: "Obras",
-            icon: "fa-solid fa-user-helmet-safety fa-1x",
+            icon: "fa-solid fa-helmet-safety fa-1x",
             url: "/site/list"
         },
         {

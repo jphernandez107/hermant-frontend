@@ -143,7 +143,7 @@ const EquipmentDetails = () => {
             href={`/site/details/${response.construction_sites[0].code}`}
             styles={["small", "outline"]}
           >
-            <i className="fa-solid fa-user-helmet-safety" aria-hidden="true" />{" "}
+            <i className="fa-solid fa-helmet-safety" aria-hidden="true" />{" "}
             {response.construction_sites[0].name}
           </Button>
         );

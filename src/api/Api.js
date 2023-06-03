@@ -1,5 +1,5 @@
 // const baseURL = "http://localhost:5001/";
-const baseURL = "http://192.168.0.143:5001/";
+const baseURL = "http://hermant-back.us-east-2.elasticbeanstalk.com/";
 
 const getEquipmentList = async () => {
   return getGenericList('equipment/list')

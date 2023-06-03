@@ -13,6 +13,7 @@ const Input = (props) => {
 		placeholder,
 		isTextArea,
 		rows,
+		onPaste,
 	} = props;
 
 	const [val, setValue] = useState(value || "");
@@ -43,6 +44,7 @@ const Input = (props) => {
 					value={val}
 					onBlur={onLocalBlur}
 					onChange={onChange ? onChange : onLocalChange}
+					onPaste={onPaste}
 				/>
 			) : (
 				<input
@@ -53,6 +55,7 @@ const Input = (props) => {
 					onChange={onChange ? onChange : onLocalChange}
 					value={val}
 					placeholder={placeholder}
+					onPaste={onPaste}
 				/>
 			)}
 		</div>
