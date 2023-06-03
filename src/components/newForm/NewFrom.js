@@ -4,7 +4,7 @@ import Button from "components/button/Button";
 import "./NewForm.scss";
 import Input from "components/input/Input";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const NewForm = (props) => {
 	const navigate = useNavigate();

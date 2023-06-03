@@ -12,7 +12,7 @@ import Button from "components/button/Button";
 import MaintenanceConfiguration from "./maintenanceConfiguration/MaintenanceConfiguration";
 import MaintenanceSection from "./maintenanceSection/MaintenanceSection";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const NewLubricationSheet = () => {
 	const { code } = useParams(); //Equipment code

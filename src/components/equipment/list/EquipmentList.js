@@ -5,7 +5,7 @@ import "./EquipmentList.scss";
 import Button from "components/button/Button"
 import List from "components/list/List";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const EquipmentList = () => {
   const [equipments, setEquipments] = useState([]);

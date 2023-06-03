@@ -82,7 +82,7 @@ const addEquipmentUseHours = async (body, code) => {
   }
 }
 
-module.exports = {
+export default {
   getEquipmentList,
   getEquipmentByCode,
   getConstructionSiteList,

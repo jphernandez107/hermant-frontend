@@ -4,7 +4,7 @@ import "./SparePartList.scss";
 import Button from "components/button/Button";
 import List from "components/list/List";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const SparePartList = () => {
 	const [parts, setParts] = useState([]);

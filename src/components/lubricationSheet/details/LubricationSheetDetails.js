@@ -6,7 +6,7 @@ import SparePartsSections from "../SparePartTypes.json";
 import TableHeader from "components/table/TableHeader";
 import Table from "components/table/Table";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const NewLubricationSheet = () => {
 	const { code } = useParams(); // Equipment code

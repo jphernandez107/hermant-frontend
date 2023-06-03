@@ -6,7 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./MaintenancesCalendar.scss";
 import { useNavigate } from "react-router-dom";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 const localizer = momentLocalizer(moment);
 
 const MaintenancesCalendar = () => {

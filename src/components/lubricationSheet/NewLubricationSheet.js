@@ -10,7 +10,7 @@ import ExistingSheetSelectionSection from "./existingSheetSelectionSection/Exist
 import SparePartsSection from "./sparePartSection/SparePartsSection";
 import Button from "components/button/Button";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const NewLubricationSheet = () => {
 	const { code } = useParams();

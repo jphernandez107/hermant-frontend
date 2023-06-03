@@ -7,7 +7,7 @@ import Table from "components/table/Table";
 import Input from "components/input/Input";
 import Button from "components/button/Button";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const EquipmentUseHour = () => {
 	const [equipments, setEquipments] = useState([]);

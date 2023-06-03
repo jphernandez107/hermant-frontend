@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import "./NewEquipment.scss";
 
 import NewForm from "components/newForm/NewFrom";
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const NewEquipment = () => {
 	const headerTitle = "Nuevo equipo";

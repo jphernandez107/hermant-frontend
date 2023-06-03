@@ -6,7 +6,7 @@ import Button from "components/button/Button";
 import Table from "components/table/Table";
 import TableHeader from "components/table/TableHeader";
 
-const api = require("api/Api");
+const api = require("api/Api").default;
 
 const ConstructionSiteDetails = () => {
 	const { code } = useParams();
