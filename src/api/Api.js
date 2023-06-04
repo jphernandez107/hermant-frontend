@@ -1,5 +1,5 @@
 // const baseURL = "http://localhost:5001/";
-const baseURL = "http://hermant-back.us-east-2.elasticbeanstalk.com/";
+const baseURL = "https://hermant-backend.vercel.app/";
 
 const getEquipmentList = async () => {
   return getGenericList('equipment/list')
