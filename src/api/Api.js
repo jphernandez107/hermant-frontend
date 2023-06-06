@@ -1,7 +1,8 @@
 import axios from 'axios';
 // const baseURL = "http://localhost:8080/";
 // const baseURL = "https://hermant-backend.vercel.app/";
-const baseURL = "https://hermant-backend-git-feature-users-jphernandez107.vercel.app";
+// const baseURL = "https://hermant-backend-git-feature-users-jphernandez107.vercel.app";
+const baseURL = process.env.REACT_APP_API_URL
 
 const api = axios.create({
   baseURL: baseURL,
