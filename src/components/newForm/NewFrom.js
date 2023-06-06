@@ -39,7 +39,7 @@ const NewForm = (props) => {
 
 		// Make the API call
 		// TODO: Show an alert telling the user if everything was okay
-		api.postNew(action, formData, method)
+		api.postNew(action, formData)
 			.then(() => {
 				navigate(go_to_after_submit);
 			})

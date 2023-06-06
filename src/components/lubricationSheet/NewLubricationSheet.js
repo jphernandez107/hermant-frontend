@@ -61,7 +61,7 @@ const NewLubricationSheet = () => {
 		const url = "lubricationsheet/sparepart/add";
 		const method = "POST";
 		const body = getLubricationSheetSparePartFromRows(code, sparePartRows);
-		api.postNew(url, body, method)
+		api.postNew(url, body)
 			.then(() => {
 				navigate("/equipment/details/" + code);
 			})

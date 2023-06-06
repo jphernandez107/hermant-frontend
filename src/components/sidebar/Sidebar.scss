@@ -179,9 +179,8 @@ $nav-footer-text-color: $text;
 			justify-content: center;
 			margin-bottom: 5px;
 
-			img {
-				height: 100%;
-				width: 5vh;
+			.nav-footer-logout:hover {
+				cursor: pointer;
 			}
 
 			.nav-footer-info {
@@ -212,6 +211,12 @@ $nav-footer-text-color: $text;
 					text-decoration: none;
 				}
 			}
+		}
+	}
+
+	.nav-footer-NX {
+		.nav-footer-logout {
+			margin-bottom: 10px;
 		}
 	}
 }

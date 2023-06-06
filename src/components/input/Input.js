@@ -28,6 +28,8 @@ const Input = (props) => {
 	};
 
 	const onLocalBlur = (e) => {
+		onLocalChange(e)
+		if (!onBlur) return
 		onBlur(e);
 		const value = getValue(e.target.value, type, min, max);
 		setValue(value);

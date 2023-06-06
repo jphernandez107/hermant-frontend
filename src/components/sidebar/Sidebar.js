@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Sidebar.scss"
 
 
 const Sidebar = () => {
     const [isExpanded, setExpandState] = useState(false);
+    const [user, setUser] = useState();
     const currentPath = window.location.pathname
+
+    useEffect(() => {
+        const u = localStorage.getItem('user');
+        if (!u) return
+        setUser(JSON.parse(u));
+    }, []);
 
     const menuItems = [
         {
@@ -41,6 +48,12 @@ const Sidebar = () => {
         const urlStart = urlRegex ? urlRegex[1] : '';
         const currentPathStart = currentPathRegex ? currentPathRegex[1] : '';
         return urlStart === currentPathStart ? 'menu-item-selected' : ''
+    }
+
+    const handleLogout = (e) => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        window.location = '/signin';
     }
 
     return (
@@ -81,15 +94,11 @@ const Sidebar = () => {
 
             <div className={isExpanded ? "nav-footer" : "nav-footer-NX"}>
                 <div className="nav-details">
-                    <img
-                        className="nav-footer-avatar"
-                        src="/dist/img/hermant-logo.png"
-                        alt=""
-                    />
-                    {isExpanded && (
+                    <i className="fa-solid fa-right-from-bracket nav-footer-logout" onClick={handleLogout}/>
+                    {isExpanded && user && (
                         <div className="nav-footer-info">
-                            <p className="nav-footer-user-name">Juan Hernandez</p>
-                            <p className="nav-footer-user-position">Ingeniero</p>
+                            <p className="nav-footer-user-name">{user.first_name}</p>
+                            <p className="nav-footer-user-position">{user.role}</p>
                         </div>
                     )}
                 </div>

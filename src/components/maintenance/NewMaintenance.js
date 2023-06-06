@@ -65,7 +65,7 @@ const NewLubricationSheet = () => {
 			maintenanceDuration,
 			maintenanceDate
 		);
-		api.postNew(url, body, method)
+		api.postNew(url, body)
 			.then(() => {
 				navigate("/equipment/details/" + code);
 			})

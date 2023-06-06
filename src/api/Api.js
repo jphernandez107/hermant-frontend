@@ -1,95 +1,94 @@
-// const baseURL = "http://localhost:5001/";
-const baseURL = "https://hermant-backend.vercel.app/";
+import axios from 'axios';
+// const baseURL = "http://localhost:8080/";
+// const baseURL = "https://hermant-backend.vercel.app/";
+const baseURL = "https://hermant-backend-git-feature-users-jphernandez107.vercel.app";
 
-const getEquipmentList = async () => {
-  return getGenericList('equipment/list')
+const api = axios.create({
+  baseURL: baseURL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Set auth token on headers if present in local storage
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers['Authorization'] = 'Bearer ' + token;
+    config.headers['user-id'] = localStorage.getItem('user').id;
+  }
+  config.withCredentials = true
+  return config;
+});
+
+// Handle 401 unauthorized errors globally
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      window.location = '/signin';
+    }
+    return Promise.reject(error);
+  }
+);
+
+const endpoints = {
+  getEquipmentList: '/equipment/list',
+  getEquipmentByCode: '/equipment/details',
+  getConstructionSiteList: '/site/list',
+  getConstructionSiteByCode: '/site/details',
+  getSparePartList: '/part/list',
+  getLubricationSheetList: '/lubricationsheet/list',
+  getLubricationSheetByEquipmentCode: '/lubricationsheet/equipment',
+  addEquipmentUseHours: '/equipment/hours',
+  postSignIn: '/user/signin',
 };
 
-const getEquipmentByCode = async (code) => {
-  return getDetailsByCode('equipment/details', code)
+async function fetchGet(endpoint, params = {}) {
+  const response = await api.get(endpoint, { params });
+  return response.data;
 }
 
-const getConstructionSiteList = async () => {
-  return getGenericList('site/list')
-};
-
-const getConstructionSiteByCode = async (code) => {
-  return getDetailsByCode('site/details', code)
+async function fetchPost(endpoint, body, code) {
+  const response = await api.post(`${endpoint}?code=${code}`, body);
+  return response.data;
 }
 
-const getSparePartList = async () => {
-  return getGenericList('part/list')
-};
-
-const getLubricationSheetList = async () => {  
-  return getGenericList('lubricationsheet/list')
-}
-
-const postNew = async (url, body, method) => {
-  try {
-    const response = await fetch(baseURL + url, {
-      method: method,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body)
+const Api = {
+  async getEquipmentList() {
+    return fetchGet(endpoints.getEquipmentList);
+  },
+  async getEquipmentByCode(code) {
+    return fetchGet(endpoints.getEquipmentByCode, { code });
+  },
+  async getConstructionSiteList() {
+    return fetchGet(endpoints.getConstructionSiteList);
+  },
+  async getConstructionSiteByCode(code) {
+    return fetchGet(endpoints.getConstructionSiteByCode, { code });
+  },
+  async getSparePartList() {
+    return fetchGet(endpoints.getSparePartList);
+  },
+  async getLubricationSheetList() {
+    return fetchGet(endpoints.getLubricationSheetList);
+  },
+  async postNew(url, body) {
+    return fetchPost(url, body);
+  },
+  async getLubricationSheetByEquipmentCode(code) {
+    return fetchGet(endpoints.getLubricationSheetByEquipmentCode, {
+      equipment_code: code,
     });
-    return await response.json();
-  } catch (err) {
-    return console.log(err)
-  }
-}
-
-const getGenericList = async (url) => {
-  try {
-    const response = await fetch(baseURL + url);
-    return await response.json();
-  } catch (err) {
-    return console.log(err);
-  }
-}
-
-const getDetailsByCode = async (url, code) => {
-  try {
-    const response = await fetch(baseURL + url + '?code=' + code);
-    return await response.json();
-  } catch (err) {
-    return console.log(err);
-  }
-}
-
-const getLubricationSheetByEquipmentCode = async (code) => {
-  try {
-    const response = await fetch(baseURL + 'lubricationsheet/equipment?equipment_code=' + code);
-    return await response.json();
-  } catch (err) {
-    return console.log(err);
-  }
-}
-
-const addEquipmentUseHours = async (body, code) => {
-  try {
-    const response = await fetch(baseURL + 'equipment/hours?code=' + code, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body)
-    });
-    return await response.json();
-  } catch (err) {
-    return console.log(err);
-  }
-}
-
-export default {
-  getEquipmentList,
-  getEquipmentByCode,
-  getConstructionSiteList,
-  getConstructionSiteByCode,
-  getSparePartList,
-  getLubricationSheetList,
-  postNew,
-  getLubricationSheetByEquipmentCode,
-  addEquipmentUseHours
+  },
+  async addEquipmentUseHours(body, code) {
+    return fetchPost(endpoints.addEquipmentUseHours, body, code);
+  },
+  async postSignIn(body) {
+    return fetchPost(endpoints.postSignIn, body);
+  },
 };
+
+export default Api;
