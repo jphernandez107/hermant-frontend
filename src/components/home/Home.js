@@ -4,7 +4,7 @@ import "./Home.scss"
 
 
 import Sidebar from "components/sidebar/Sidebar";
-import Login from "components/user/Login";
+import Login from "components/user/login/Login";
 import EquipmentList from "components/equipment/list/EquipmentList";
 import ConstructionSiteList from "components/site/list/ConstructionSiteList";
 import SparePartList from "components/sparePart/list/SparePartList";
@@ -19,6 +19,7 @@ import EquipmentUseHour from "components/equipment/useHour/EquipmentUseHour";
 import NewMaintenance from "components/maintenance/NewMaintenance";
 import MaintenancesCalendar from "components/calendar/MaintenancesCalendar";
 import Error from 'components/error/Error';
+import UserList from 'components/user/list/UserList';
 
 const routes = [
     { path: "*", element: <Error /> },
@@ -38,6 +39,7 @@ const routes = [
     { path: "/part/list", element: <SparePartList /> },
     { path: "/part/new", element: <NewSparePart /> },
     { path: "/lubricationsheet/new/:code", element: <NewLubricationSheet /> },
+    { path: "/user/list", element: <UserList /> },
 ]; 
 
 const Home = () => {

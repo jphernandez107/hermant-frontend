@@ -46,7 +46,7 @@ const Table = (props) => {
   function createRows(columns, data) {
     return data.map((item, index) => {
       // Create an array of <td> elements for this row
-      let rowCode = undefined;
+      let rowCode = item.id;
       const cells = columns.map((column) => {
         const columnKey = Object.keys(column)[0];
         const columnValue = column[columnKey];
