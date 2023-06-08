@@ -26,10 +26,13 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
+    const response = error.response
+    if (response && response.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location = '/signin';
+    } else if (response && response.status === 403) {
+      window.location = '/forbidden'
     }
     return Promise.reject(error);
   }

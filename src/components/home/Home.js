@@ -1,4 +1,5 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, matchPath } from 'react-router-dom';
+// import { matchPath } from 'react-router'
 import "./Home.scss"
 
 
@@ -17,33 +18,46 @@ import LubricationSheetDetails from "components/lubricationSheet/details/Lubrica
 import EquipmentUseHour from "components/equipment/useHour/EquipmentUseHour";
 import NewMaintenance from "components/maintenance/NewMaintenance";
 import MaintenancesCalendar from "components/calendar/MaintenancesCalendar";
+import Error from 'components/error/Error';
 
+const routes = [
+    { path: "*", element: <Error /> },
+    { path: "/", element: <MaintenancesCalendar /> },
+    { path: "/signin", element: <Login /> },
+    { path: "/equipment/list", element: <EquipmentList /> },
+    { path: "/equipment/details/:code", element: <EquipmentDetails /> },
+    { path: "/equipment/details/lubricationsheet/:code", element: <LubricationSheetDetails /> },
+    { path: "/equipment/new", element: <NewEquipment /> },
+    { path: "/equipment/edit/:code", element: <NewEquipment /> },
+    { path: "/equipment/hours", element: <EquipmentUseHour /> },
+    { path: "/equipment/details/maintenance/new/:code", element: <NewMaintenance /> },
+    { path: "/site/list", element: <ConstructionSiteList /> },
+    { path: "/site/details/:code", element: <ConstructionSiteDetails /> },
+    { path: "/site/new", element: <NewConstructionSite /> },
+    { path: "/site/edit/:code", element: <NewConstructionSite /> },
+    { path: "/part/list", element: <SparePartList /> },
+    { path: "/part/new", element: <NewSparePart /> },
+    { path: "/lubricationsheet/new/:code", element: <NewLubricationSheet /> },
+]; 
 
 const Home = () => {
     const location = useLocation();
-    const isLoginRoute = location.pathname === '/signin';
+    const pathname = location.pathname; 
+    const showSideBar = routes.some(route => {
+        if (route.path === "*" || route.path === "/signin") return false
+        const match = matchPath({ path: route.path, end: true }, pathname);
+        return match !== null;
+    });
+
 
     return(
         <div className='home'>
-            {!isLoginRoute && <Sidebar className='sidebar'/>}
+            {showSideBar && <Sidebar className='sidebar'/>}
             <Routes> 
-                <Route path="/signin" element={<Login />} />
-                <Route path="/" element={<MaintenancesCalendar />} />
-                <Route path="/equipment/list" element={<EquipmentList />} />
-                <Route path="/equipment/details/:code" element={<EquipmentDetails />} />
-                <Route path="/equipment/details/lubricationsheet/:code" element={<LubricationSheetDetails />} />
-                <Route path="/equipment/new" element={<NewEquipment />} />
-                <Route path="/equipment/edit/:code" element={<NewEquipment />} />
-                <Route path="/equipment/hours" element={<EquipmentUseHour />} />
-                <Route path="/equipment/details/maintenance/new/:code" element={<NewMaintenance />} />
-                <Route path="/site/list" element={<ConstructionSiteList />}/>
-                <Route path="/site/details/:code" element={<ConstructionSiteDetails />}/>
-                <Route path="/site/new" element={<NewConstructionSite />} />
-                <Route path="/site/edit/:code" element={<NewConstructionSite />} />
-                <Route path="/part/list" element={<SparePartList />} />
-                <Route path="/part/new" element={<NewSparePart />} />
-                <Route path="/lubricationsheet/new/:code" element={<NewLubricationSheet />} />
-            </Routes>    
+                {routes.map((route, index) => (
+                    <Route key={index} path={route.path} element={route.element} />
+                ))}
+            </Routes>   
         </div>
     )
  
