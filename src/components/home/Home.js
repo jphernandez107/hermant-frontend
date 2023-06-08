@@ -20,6 +20,7 @@ import NewMaintenance from "components/maintenance/NewMaintenance";
 import MaintenancesCalendar from "components/calendar/MaintenancesCalendar";
 import Error from 'components/error/Error';
 import UserList from 'components/user/list/UserList';
+import NewUser from 'components/user/new/NewUser';
 
 const routes = [
     { path: "*", element: <Error /> },
@@ -40,6 +41,7 @@ const routes = [
     { path: "/part/new", element: <NewSparePart /> },
     { path: "/lubricationsheet/new/:code", element: <NewLubricationSheet /> },
     { path: "/user/list", element: <UserList /> },
+    { path: "/user/new", element: <NewUser /> },
 ]; 
 
 const Home = () => {

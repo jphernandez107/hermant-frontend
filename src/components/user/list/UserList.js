@@ -26,7 +26,7 @@ const UserList = () => {
   ];
 
   function onRowClicked(id) {
-    navigate('/user/details/' + id)
+    // Nothing to do here
   }
 
   return (
@@ -44,6 +44,7 @@ const UserList = () => {
       response.forEach(user => {
         user.active = user.active ? "Si" : "No";
         user.code = user.id
+        if (user.last_login) user.last_login = new Date(user.last_login).toLocaleString()
         return user;
       })
       setUsers(response);
