@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "components/button/Button";
 import "./NewForm.scss";
 import Input from "components/input/Input";
+import Select from "components/select/Select";
 
 const api = require("api/Api").default;
 
@@ -114,24 +115,52 @@ const FormColumn = (props) => {
 	return (
 		<div className="form-column">
 			<label>{label}</label>
-			<div className="form-input">
-				<Input
-					className="input"
-					name={name}
-					placeholder={placeholderValue}
-					type={type}
-					value={value}
-					onBlur={handleInputChange}
-					list={name + "-options"}
-					isTextArea={rows && rows > 0}
-					rows={rows}
-				/>
-				{options.length > 0 && (
-					<datalist id={name + "-options"}>{optionElements}</datalist>
-				)}
-			</div>
+			{getFieldByType(type)}
 		</div>
 	);
+
+	function getFieldByType(type) {
+		switch (type) {
+			case "select":
+				return (
+					<div className="form-input">
+						<Select
+							className="type-select"
+							onChange={(e) => setValue(e.target.value)}
+						>
+							{options.map(option => {
+								const lowerCaseOption = option.toLowerCase();
+								const formattedOption = lowerCaseOption.charAt(0).toUpperCase() + lowerCaseOption.slice(1);
+								return (
+									<option value={formattedOption} key={formattedOption}>
+										{formattedOption}
+									</option>
+								)
+							})}
+						</Select>
+					</div>
+				)
+			default:
+				return (
+					<div className="form-input">
+						<Input
+							className="input"
+							name={name}
+							placeholder={placeholderValue}
+							type={type}
+							value={value}
+							onBlur={handleInputChange}
+							list={name + "-options"}
+							isTextArea={rows && rows > 0}
+							rows={rows}
+						/>
+						{options.length > 0 && (
+							<datalist id={name + "-options"}>{optionElements}</datalist>
+						)}
+					</div>
+				)
+		}
+	}
 };
 
 const defaultValue = (value, type) => {

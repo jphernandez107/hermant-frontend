@@ -48,6 +48,7 @@ const endpoints = {
   getLubricationSheetByEquipmentCode: '/lubricationsheet/equipment',
   addEquipmentUseHours: '/equipment/hours',
   postSignIn: '/user/signin',
+  getUserList: '/user/list',
 };
 
 async function fetchGet(endpoint, params = {}) {
@@ -92,6 +93,9 @@ const Api = {
   },
   async postSignIn(body) {
     return fetchPost(endpoints.postSignIn, body);
+  },
+  async getUserList() {
+    return fetchGet(endpoints.getUserList);
   },
 };
 
