@@ -6,10 +6,25 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import Select from "components/select/Select";
 import Input from "components/input/Input";
+import Checkbox from "components/checkbox/Checkbox";
 
 const MaintenanceConfiguration = (props) => {
-	const { maintenanceFrequencies, selectedFrequency, setSelectedFrequency, setMaintenanceDuration } = props;
-    const { maintenanceDate, setMaintenanceDate } = props;
+	const { 
+		maintenanceFrequencies, 
+		selectedFrequency, 
+		setSelectedFrequency, 
+		setMaintenanceDuration,
+		maintenanceDate,
+		setMaintenanceDate,
+		resetPartialHours,
+		setResetPartialHours
+	 } = props;
+
+	 useEffect(() => {
+		if (!maintenanceFrequencies || maintenanceFrequencies.length < 1) return;
+		const maxFrequency = maintenanceFrequencies.max();
+		setResetPartialHours(parseInt(selectedFrequency) === parseInt(maxFrequency));
+	 }, [selectedFrequency]);
 
 	return (
 		<div className="maintenance-configuration-container card">
@@ -50,7 +65,18 @@ const MaintenanceConfiguration = (props) => {
 						min={1}
 						placeholder={"Tiempo empleado"}
                         onBlur={handleMaintenanceDurationInput}
+						value={""}
 					></Input>
+				</div>
+				<div className="maintenance-configuration-reset-partial-hours column-maint">
+					<label>{`Restablecer horas parciales`}</label>
+					<Checkbox 
+						name={'reset-partial-hours'}
+						handleCheckboxSelected={(name, isChecked) => {
+							setResetPartialHours(isChecked);
+						}}
+						isChecked={resetPartialHours}
+					/>
 				</div>
 			</div>
 		</div>

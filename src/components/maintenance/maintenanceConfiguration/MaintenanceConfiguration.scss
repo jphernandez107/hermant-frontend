@@ -48,6 +48,8 @@ $date-border-radius: 7px;
         justify-content: center;
         align-items: center;
         gap: 6px;
+        flex-wrap: wrap;
+        text-align: center;
 
         .column-maint {
             display: flex;

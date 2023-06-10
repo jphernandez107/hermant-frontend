@@ -39,6 +39,7 @@ const NewLubricationSheet = () => {
 	const [selectedFrequency, setSelectedFrequency] = useState();
 	const [maintenanceDuration, setMaintenanceDuration] = useState(0);
 	const [maintenanceDate, setMaintenanceDate] = useState(new Date());
+	const [resetPartialHours, setResetPartialHours] = useState(false);
 
 	const [canSave, setCanSave] = useState(false);
 
@@ -63,7 +64,8 @@ const NewLubricationSheet = () => {
 			lubricationSheet.id,
 			selectedFrequency,
 			maintenanceDuration,
-			maintenanceDate
+			maintenanceDate,
+			resetPartialHours
 		);
 		api.postNew(url, body)
 			.then(() => {
@@ -88,6 +90,8 @@ const NewLubricationSheet = () => {
 						setMaintenanceDuration={setMaintenanceDuration}
 						maintenanceDate={maintenanceDate}
 						setMaintenanceDate={setMaintenanceDate}
+						resetPartialHours={resetPartialHours}
+						setResetPartialHours={setResetPartialHours}
 					/>
 				}
 
@@ -142,7 +146,8 @@ const NewLubricationSheet = () => {
 		sheet_id,
 		frequency,
 		duration,
-		maintenanceDate
+		maintenanceDate,
+		resetPartialHours
 	) {
 		const body = {
 			equipment_code: equipment_code,
@@ -150,6 +155,7 @@ const NewLubricationSheet = () => {
 			maintenance_frequency: frequency,
 			maintenance_duration: duration,
 			maintenance_date: maintenanceDate,
+			reset_equipment_partial_hours: resetPartialHours
 		};
 		const spare_parts = [];
 		sparePartRows.forEach((row) => {
