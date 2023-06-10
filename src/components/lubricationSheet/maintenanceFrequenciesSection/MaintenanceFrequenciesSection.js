@@ -17,7 +17,7 @@ const MaintenanceFrequenciesSection = (props) => {
                         {getAddRemoveFrequencyButtons(maintenanceFrequencies, setMaintenanceFrequencies)}
                     </div>
                     <label>
-                        {`Configure las distintas frecuencias de mantenimiento de mayor a menor [Hs/Km]`}
+                        {`Configure las distintas frecuencias de mantenimiento [Hs/Km]`}
                     </label>
                 </div>
                 <div className="maintenance-frequencies-body">
@@ -67,12 +67,12 @@ const MaintenanceFrequenciesSection = (props) => {
 
 	function getMaintenanceFrequencies(maintenanceFrequencies, setMaintenanceFrequencies) {
 		let freqs = maintenanceFrequencies.map((freq) => {
-			return createMaintenanceFrequencyInput(freq.id, setMaintenanceFrequencies);
+			return createMaintenanceFrequencyInput(freq.id, freq.frequency, setMaintenanceFrequencies);
 		});
 		return freqs;
 	}
 
-	function createMaintenanceFrequencyInput(name, setMaintenanceFrequencies) {
+	function createMaintenanceFrequencyInput(name, frequency, setMaintenanceFrequencies) {
 		function handleInputChange(e) {
 			const name = parseInt(e.target.name);
 			const value = e.target.value;
@@ -91,6 +91,7 @@ const MaintenanceFrequenciesSection = (props) => {
 					key={`freq-input-${name}`}
                     type={"number"}
 					name={name}
+					value={frequency || ""}
 					onBlur={handleInputChange}
                 />
 			</div>

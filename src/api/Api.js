@@ -1,5 +1,6 @@
 import axios from 'axios';
 // const baseURL = "http://localhost:8080/";
+import { func } from 'prop-types';
 // const baseURL = "https://hermant-backend.vercel.app/";
 // const baseURL = "https://hermant-backend-git-feature-users-jphernandez107.vercel.app";
 const baseURL = process.env.REACT_APP_API_URL
@@ -41,12 +42,13 @@ api.interceptors.response.use(
 const endpoints = {
   getEquipmentList: '/equipment/list',
   getEquipmentByCode: '/equipment/details',
+  addEquipmentUseHours: '/equipment/hours',
+  addLubricationSheetToEquipment: '/equipment/lubricationsheet/add',
   getConstructionSiteList: '/site/list',
   getConstructionSiteByCode: '/site/details',
   getSparePartList: '/part/list',
   getLubricationSheetList: '/lubricationsheet/list',
   getLubricationSheetByEquipmentCode: '/lubricationsheet/equipment',
-  addEquipmentUseHours: '/equipment/hours',
   postSignIn: '/user/signin',
   getUserList: '/user/list',
 };
@@ -56,8 +58,13 @@ async function fetchGet(endpoint, params = {}) {
   return response.data;
 }
 
-async function fetchPost(endpoint, body, code) {
-  const response = await api.post(`${endpoint}?code=${code}`, body);
+async function fetchPost(endpoint, body) {
+  const response = await api.post(endpoint, body);
+  return response.data;
+}
+
+async function fetchPut(endpoint, body) {
+  const response = await api.put(endpoint, body);
   return response.data;
 }
 
@@ -89,7 +96,10 @@ const Api = {
     });
   },
   async addEquipmentUseHours(body, code) {
-    return fetchPost(endpoints.addEquipmentUseHours, body, code);
+    return fetchPost(`${endpoints.addEquipmentUseHours}?code=${code}`, body);
+  },
+  async addLubricationSheetToEquipment(body) {
+    return fetchPut(endpoints.addLubricationSheetToEquipment, body);
   },
   async postSignIn(body) {
     return fetchPost(endpoints.postSignIn, body);

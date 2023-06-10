@@ -1,34 +1,34 @@
 [
     {
         "title": "Filtros",
-        "type": "filter",
+        "type": "Filtro",
         "icon": "mdi mdi-air-filter",
         "subtypes": [
-            { "subtype": "air", "title": "Aire" },
-            { "subtype": "fuel", "title": "Combustible" },
-            { "subtype": "oil", "title": "Aceite" },
-            { "subtype": "other", "title": "Otros filtros" }
+            { "subtype": "Aire", "title": "Aire" },
+            { "subtype": "Combustible", "title": "Combustible" },
+            { "subtype": "Aceite", "title": "Aceite" },
+            { "subtype": "Otro", "title": "Otros filtros" }
         ]
     },
     {
         "title": "Aceites",
-        "type": "oil",
+        "type": "Aceite",
         "icon": "fa-regular fa-oil-can-drip",
         "subtypes": [
-            { "subtype": "motor", "title": "Motor" },
-            { "subtype": "hydraulic", "title": "Hidráulico" },
-            { "subtype": "tranmission", "title": "Transmisión" },
-            { "subtype": "other", "title": "Otros aceites" }
+            { "subtype": "Motor", "title": "Motor" },
+            { "subtype": "Hidraulico", "title": "Hidráulico" },
+            { "subtype": "Transmision", "title": "Transmisión" },
+            { "subtype": "Otro", "title": "Otros aceites" }
         ]
     },
     {
         "title": "Líquidos",
-        "type": "liquid",
+        "type": "Liquido",
         "icon": "fa-regular fa-oil-temperature",
         "subtypes": [
-            { "subtype": "coolant", "title": "Refrigerante" },
-            { "subtype": "breaks", "title": "Frenos" },
-            { "subtype": "other", "title": "Otros liquidos" }
+            { "subtype": "Refrigerante", "title": "Refrigerante" },
+            { "subtype": "Frenos", "title": "Frenos" },
+            { "subtype": "Otro", "title": "Otros liquidos" }
         ]
     }
 ]

@@ -23,9 +23,9 @@ const SparePartsSection = (props) => {
 		const subtypeRows = rows.filter(
 			(row) => row.subtype === subtype && row.type === type
 		);
-		const lastRowId = subtypeRows.reduce((prev, current) =>
+		const lastRowId = subtypeRows.length ? subtypeRows.reduce((prev, current) =>
 			prev.rowId > current.rowId ? prev : current
-		);
+		) : 1;
 		const nextRowId = lastRowId.rowId ? lastRowId.rowId + 1 : 1;
 		rows.push({
 			type: type,
@@ -195,16 +195,33 @@ const SparePartRow = (props) => {
 	return (
 		<div className="spare-part" key={`${type}-${subtype}`}>
 			<div className="spare-part-type">
-				<Select className="type-select" onChange={(e) => handleSparePartSelected(e.target.value, type, subtype, rowId, application, quantity, parts, sparePartRows)}>{getSparePartOptions(parts, type, subtype)}</Select>
+				<Select 
+					className="type-select" 
+					onChange={(e) => handleSparePartSelected(e.target.value, type, subtype, rowId, application, quantity, parts, sparePartRows)}
+					value={
+						part ? part.internal_code : "none"
+					}
+				>
+					{getSparePartOptions(parts, type, subtype)}
+				</Select>
 			</div>
 			<div className="spare-part-application">
-				<Input className="application-input" onBlur={(e) => handleApplicationChanged(e.target.value, quantity, type, subtype, rowId, part, sparePartRows)}/>
+				<Input 
+					className="application-input" 
+					onBlur={(e) => handleApplicationChanged(e.target.value, quantity, type, subtype, rowId, part, sparePartRows)}
+					value={application || ""}
+				/>
 			</div>
 			<div className="spare-part-quantity">
-				<Input className="quantity-input" type={'number'} value={1} onBlur={(e) => handleQuantityChanged(application, e.target.value, type, subtype, rowId, part, sparePartRows)}/>
+				<Input 
+					className="quantity-input" 
+					type={'number'} 
+					value={quantity || 1} 
+					onBlur={(e) => handleQuantityChanged(application, e.target.value, type, subtype, rowId, part, sparePartRows)}
+				/>
 			</div>
 			<div className="spare-part-maintenance-frequency spare-part-maintenance-frequency-frequencies-container">
-				{getFrequenciesCheckboxes(frequencies, type, subtype, rowId)}
+				{getFrequenciesCheckboxes(frequencies, type, subtype, rowId, selected_frequencies)}
 			</div>
 		</div>
 	);
@@ -241,9 +258,10 @@ const SparePartRow = (props) => {
 		return options;
 	}
 
-	function getFrequenciesCheckboxes(frequencies, type, subtype, rowId) {
+	function getFrequenciesCheckboxes(frequencies, type, subtype, rowId, selected_frequencies) {
 		return frequencies.map((freq) => {
 			const key = `check-${type}-${subtype}-${rowId}-${freq.id}`;
+			const checked = selected_frequencies.find(selFreq => selFreq.frequency === freq.frequency) || false;
 			return (
 				<div className="spare-part-maintenance-column" key={freq.id}>
 					<label>{freq.id}</label>
@@ -260,6 +278,7 @@ const SparePartRow = (props) => {
 								isChecked
 							);
 						}}
+						isChecked={checked}
 					></Checkbox>
 				</div>
 			);

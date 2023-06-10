@@ -159,6 +159,7 @@ const SheetSparePartsSection = (props) => {
 			if (rowsForSubtype && rowsForSubtype.length > 0) {
 				return (
 					<Table
+						key={`table-${subtype.subtype}`}
 						className={"details-table"}
 						columns={getTableColumns(title, totalFrequencies)}
 						data={getTableData(rowsForSubtype, totalFrequencies)}

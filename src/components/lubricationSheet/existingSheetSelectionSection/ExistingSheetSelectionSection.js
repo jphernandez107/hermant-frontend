@@ -1,21 +1,41 @@
 import React from "react";
 import Select from "../../select/Select";
 import "./ExistingSheetSelectionSection.scss"
+import Button from "components/button/Button";
 
 const ExistingSheetSelectionSection = (props) => {
-    const {lubricationSheets} = props
+    const {
+		lubricationSheets, 
+		selectedLubricationSheet,
+		setSelectedLubricationSheet, 
+		onSharedSheetButtonPressed
+	} = props
+
+	const handleSelectChange = (e) => {
+		const id = parseInt(e.target.value)
+		setSelectedLubricationSheet(lubricationSheets.find(lub => parseInt(lub.id) === id))
+	}
 
     return (
         <div className="existing-sheet-selection">
             <h4 className="existing-sheet-selection-title">
                 {`Seleccionar planilla de otro equipo`}
             </h4>
-            {getExistingSheetSelect()}
+			<div className="existing-sheet-selection-buttons">
+            	{getExistingSheetSelect()}
+				<Button 
+					styles={['small']} 
+					onClick={onSharedSheetButtonPressed}
+					disabled={!selectedLubricationSheet}
+				>
+					Usar planilla compartida
+				</Button>
+			</div>
         </div>
     )
 
     function getExistingSheetSelect() {
-		return <Select>{getOptionsForSelect()}</Select>;
+		return <Select onChange={handleSelectChange}>{getOptionsForSelect()}</Select>;
 	}
 
 	function getOptionsForSelect() {

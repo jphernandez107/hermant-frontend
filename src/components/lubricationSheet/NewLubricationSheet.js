@@ -30,6 +30,10 @@ const NewLubricationSheet = () => {
 		});
 	});
 
+	const initialMaintenance = [
+		{ id: 1, frequency: 0 }, //{id:1, freq:250}
+	]
+
 	/**
 	 * [{
 	 *  type: section.type,
@@ -47,9 +51,9 @@ const NewLubricationSheet = () => {
 	const [lubricationSheets, setLubricationSheets] = useState([]);
 	const [equipment, setEquipment] = useState(null);
 
-	const [maintenanceFrequencies, setMaintenanceFrequencies] = useState([
-		{ id: 1, frequency: null },
-	]); //{id:1, freq:250}
+	const [maintenanceFrequencies, setMaintenanceFrequencies] = useState(initialMaintenance);
+
+	const [selectedLubricationSheet, setSelectedLubricationSheet] = useState();
 
 	useEffect(() => {
 		fetchSpareParts();
@@ -57,9 +61,12 @@ const NewLubricationSheet = () => {
 		fetchLubricationSheets();
 	}, []);
 
+	useEffect(() => {
+		setSparePartRowsFromExistingLubricationSheet(selectedLubricationSheet);
+	}, [selectedLubricationSheet])
+
 	const onSubmitButtonClicked = (e) => {
 		const url = "lubricationsheet/sparepart/add";
-		const method = "POST";
 		const body = getLubricationSheetSparePartFromRows(code, sparePartRows);
 		api.postNew(url, body)
 			.then(() => {
@@ -67,6 +74,18 @@ const NewLubricationSheet = () => {
 			})
 			.catch((error) => console.log(error));
 	};
+
+	const onSharedSheetButtonPressed = (e) => {
+		const body = {
+			equipment_code: code,
+			lubrication_sheet_id: selectedLubricationSheet.id
+		}
+		api.addLubricationSheetToEquipment(body)
+			.then(() => {
+				navigate("/equipment/details/" + code);
+			})
+			.catch((error) => console.log(error));
+	}
 
 	return spareParts.length > 0 ? (
 		<div className="details-page">
@@ -79,6 +98,9 @@ const NewLubricationSheet = () => {
 				{
 					<ExistingSheetSelectionSection
 						lubricationSheets={lubricationSheets}
+						selectedLubricationSheet={selectedLubricationSheet}
+						setSelectedLubricationSheet={setSelectedLubricationSheet}
+						onSharedSheetButtonPressed={onSharedSheetButtonPressed}
 					/>
 				}
 
@@ -154,6 +176,46 @@ const NewLubricationSheet = () => {
 		});
 		body.spare_parts = spare_parts;
 		return body;
+	}
+
+	function setSparePartRowsFromExistingLubricationSheet(lubricationSheet) {
+		let uniqueFrequencies = [];
+		let rows = initialSparePartRows;
+		if (lubricationSheet) {
+			rows = lubricationSheet.lubrication_sheet_spare_parts.map((part, index) => {
+				part.frequencies.forEach(freq => {
+					if (!uniqueFrequencies.find(uFreq => uFreq.frequency === freq.frequency)) {
+						uniqueFrequencies.push(freq);
+					}
+				});
+				return {
+					type: part.spare_part.type,
+					subtype: part.spare_part.application,
+					rowId: index + 1,
+					spare_part_id: part.spare_part_id,
+					part: part.spare_part,
+					application: part.application,
+					quantity: part.quantity,
+					frequencies: part.frequencies,
+				}
+			});
+		}
+		setFrequenciesFromExistingLubricationSheet(uniqueFrequencies)
+		setSparePartRows(rows)
+	}
+
+	function setFrequenciesFromExistingLubricationSheet(uniqueFrequencies) {
+		uniqueFrequencies.sort((a, b) => a.frequency - b.frequency);
+		uniqueFrequencies = uniqueFrequencies.map((freq, index) => {
+			return {
+				id: index + 1,
+				frequency: freq.frequency
+			}
+		})
+		if (uniqueFrequencies.length > 0)
+			setMaintenanceFrequencies(uniqueFrequencies)
+		else 
+			setMaintenanceFrequencies(initialMaintenance)
 	}
 
 	async function fetchEquipment() {
