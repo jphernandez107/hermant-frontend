@@ -1,6 +1,7 @@
 import axios from 'axios';
 // const baseURL = "http://localhost:8080/";
 import { func } from 'prop-types';
+import { toast } from 'sonner';
 // const baseURL = "https://hermant-backend.vercel.app/";
 // const baseURL = "https://hermant-backend-git-feature-users-jphernandez107.vercel.app";
 const baseURL = process.env.REACT_APP_API_URL
@@ -25,15 +26,22 @@ api.interceptors.request.use((config) => {
 
 // Handle 401 unauthorized errors globally
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    const message = response.data.message;
+    if (message)
+      toast.success(message)
+    return response;
+  },
   (error) => {
-    const response = error.response
+    const response = error.response;
+    const message = response.message;
+    if (message) toast.error(message);
     if (response && response.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
       window.location = '/signin';
     } else if (response && response.status === 403) {
-      window.location = '/forbidden'
+      window.location = '/forbidden';
     }
     return Promise.reject(error);
   }

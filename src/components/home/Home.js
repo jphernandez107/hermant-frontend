@@ -21,6 +21,7 @@ import MaintenancesCalendar from "components/calendar/MaintenancesCalendar";
 import Error from 'components/error/Error';
 import UserList from 'components/user/list/UserList';
 import NewUser from 'components/user/new/NewUser';
+import { Toaster } from 'sonner';
 
 const routes = [
     { path: "*", element: <Error /> },
@@ -56,6 +57,7 @@ const Home = () => {
 
     return(
         <div className='home'>
+            <Toaster position="top-center" richColors />
             {showSideBar && <Sidebar className='sidebar'/>}
             <Routes> 
                 {routes.map((route, index) => (
