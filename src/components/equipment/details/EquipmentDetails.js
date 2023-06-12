@@ -136,15 +136,15 @@ const EquipmentDetails = () => {
   async function fetchEquipment() {
     try {
       const response = await api.getEquipmentByCode(code);
-      if (response.construction_sites.length > 0) {
+      if (response.construction_site) {
         response.construction_site = (
           <Button
             isLink={true}
-            href={`/site/details/${response.construction_sites[0].code}`}
+            href={`/site/details/${response.construction_site.code}`}
             styles={["small", "outline"]}
           >
             <i className="fa-solid fa-helmet-safety" aria-hidden="true" />{" "}
-            {response.construction_sites[0].name}
+            {response.construction_site.name}
           </Button>
         );
       }

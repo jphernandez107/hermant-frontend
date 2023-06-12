@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./ConstructionSiteDetails.scss";
+import Modal from 'react-modal';
 
 import Button from "components/button/Button";
 import Table from "components/table/Table";
@@ -12,7 +13,13 @@ const ConstructionSiteDetails = () => {
 	const { code } = useParams();
 
 	const [constructionSite, setConstructionSite] = useState(null);
-	const [equipments, setEquipments] = useState([]);
+	const [equipmentsOnSite, setEquipmentsOnSite] = useState([]);
+	const [allEquipments, setAllEquipments] = useState([]);
+	const [handleEquipmentsModalIsOpen, setHandleEquipmentsModalIsOpen] = useState(false);
+
+	const [buttonStates, setButtonStates] = useState({});
+	const buttonStatesRef = useRef();
+	buttonStatesRef.current = buttonStates;
 
 	useEffect(() => {
 		fetchConstructionSite();
@@ -38,12 +45,20 @@ const ConstructionSiteDetails = () => {
 		{ observations: "Observaciones", style: ["center-text"] },
 	];
 
-	const maintenance_table_columns = [
-		{ code: "Coódigo", style: ["center-text"] },
+	const equipments_on_site_table_columns = [
+		{ code_button: "Código", style: ["center-text", "fixed-width-20"] },
 		{ designation: "Designación", style: ["center-text"] },
-		{ brand: "Marca", style: ["center-text"] },
-		{ model: "Modelo", style: ["center-text"] },
-		{ observations: "Observaciones", style: ["center-text"] },
+		{ brand_model: "Marca y Modelo", style: ["center-text"] },
+		{ next_maintenance: "Mantenimiento", style: ["center-text"] },
+		{ remove_from_site_button: "Quitar", style: ["center-text", "fixed-width-10"] },
+	];
+
+	const all_equipments_table_columns = [
+		{ code: "Código", style: ["center-text"] },
+		{ designation: "Designación", style: ["center-text"] },
+		{ brand_model: "Marca y Modelo", style: ["center-text"] },
+		{ construction_site: "Obra", style: ["center-text"] },
+		{ add_to_site_button: "Agregar", style: ["center-text", "fixed-width-10"]}
 	];
 
 	const editButton = () => {
@@ -55,6 +70,56 @@ const ConstructionSiteDetails = () => {
 			</Button>
 		);
 	};
+
+	const handleEquipmentsOnSite = (e) => {
+		fetchAllEquipments();
+		openModal();
+	}
+
+	const openModal = () => {
+		setHandleEquipmentsModalIsOpen(true);
+	}
+
+	const closeModal = () => {
+		setHandleEquipmentsModalIsOpen(false);
+	}
+
+	const onEquipmentAdded = (equip, allEquipments) => {
+		if (buttonStatesRef.current[equip.id]) return;
+		setButtonStates(prevState => ({...prevState, [equip.id]: true}));
+		api.putAddEquipmentToSite(equip.code, constructionSite.code)
+			.then((response) => {
+				if (response && response.site) {
+					const equipments = setEquipmentsData(response.site);
+					setEquipmentsOnSite(equipments);
+					if (response.site.all_equipments) allEquipments = response.site.all_equipments;
+					const updatedEquipments = allEquipments.filter((equipment) => !equipments.find(e => parseInt(e.id) === parseInt(equipment.id)));
+    				setAllEquipments(updatedEquipments);
+					setButtonStates(prevState => ({...prevState, [equip.id]: false}));
+				}
+			})
+			.catch((error) => {
+				setButtonStates(prevState => ({...prevState, [equip.id]: false}));
+				console.log(error)
+			});
+	}
+
+	const onEquipmentRemoved = (equip, site) => {
+		if (buttonStatesRef.current[equip.id]) return;
+		setButtonStates(prevState => ({...prevState, [equip.id]: true}));
+		api.putRemoveEquipmentFromSite(equip.code, site.code)
+			.then((response) => {
+				if (response && response.site) {
+					const equipments = setEquipmentsData(response.site);
+					setEquipmentsOnSite(equipments);
+					setButtonStates(prevState => ({...prevState, [equip.id]: false}));
+				}
+			})
+			.catch((error) => {
+				setButtonStates(prevState => ({...prevState, [equip.id]: false}));
+				console.log(error);
+			});
+	}
 
 	return constructionSite ? (
 		<div className="details-page">
@@ -91,14 +156,42 @@ const ConstructionSiteDetails = () => {
 						/>
 					</div>
 				</div>
-				<div className="equipments-table">
+				<div className="equipments-table-container">
+					<div className="equipments-table-header">
+						<h4> Equipos en esta obra </h4>
+						<Button onClick={handleEquipmentsOnSite}>
+							<i className="fa-solid fa-plus" />{""}
+						</Button>
+					</div>
 					<Table
-						columns={maintenance_table_columns}
-						data={equipments}
-						title={"Equipos en esta obra"}
+						columns={equipments_on_site_table_columns}
+						data={equipmentsOnSite}
+						showSearchBar={false}
+						style={["no-card"]}
 					/>
 				</div>
 			</div>
+			<Modal
+				isOpen={handleEquipmentsModalIsOpen}
+				onRequestClose={closeModal}
+				contentLabel="My Dialog"
+				className="site-modal"
+				overlayClassName="site-modal-overlay"
+			>
+				<div className="handle-equipments-modal-container">
+					<div className="equipments-off-site-container">
+						<div className="equipments-table-header">
+							<h4> Equipos para agregar </h4>
+						</div>
+						<Table
+							columns={all_equipments_table_columns}
+							data={allEquipments}
+							showSearchBar={false}
+							style={["no-card"]}
+						/>
+					</div>
+				</div>
+			</Modal>
 		</div>
 	) : (
 		<></>
@@ -108,22 +201,88 @@ const ConstructionSiteDetails = () => {
 		try {
 			const response = await api.getConstructionSiteByCode(code);
 			setConstructionSite(response);
-			const equipments = response.equipments.map((equipment) => {
-				equipment.code = (
-					<Button
-						isLink={true}
-						href={`/equipment/details/${equipment.code}`}
-						styles={["small"]}
-					>
-						<i className="mdi mdi-bulldozer" aria-hidden="true" />{" "}
-						{equipment.code}
-					</Button>
-				);
-				return equipment;
-			});
-			setEquipments(response.equipments);
+			const equipments = setEquipmentsData(response);
+			setEquipmentsOnSite(equipments);
 		} catch (error) {
 			console.log(error);
+		}
+	}
+
+	function setEquipmentsData(site) {
+		const equipments = site.equipments.map((equipment) => {
+			equipment.code_button = equipmentCodeButton(equipment.code);
+			equipment.remove_from_site_button = removeEquipmentFromSiteButton(equipment, site)();
+			equipment.brand_model = `${equipment.brand} ${equipment.model}`;
+			if (equipment.next_maintenances && equipment.next_maintenances.length > 0) {
+				const maintDate = equipment.next_maintenances[0].maintenance_date
+				equipment.next_maintenance = new Date(maintDate).toLocaleDateString();
+			} 
+			return equipment;
+		});
+		return equipments;
+	}
+
+	async function fetchAllEquipments() {
+		try {
+			let response = await api.getEquipmentList();
+			response = response.filter((equipment) => !equipmentsOnSite.find(e => parseInt(e.id) === parseInt(equipment.id)))
+			response = setEquipmentsSiteName(response);
+			setAllEquipments(response);
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	function setEquipmentsSiteName(equipments) {
+		const equip = equipments.map((equipment) => {
+			equipment.add_to_site_button = addEquipmentToSiteButton(equipment, equipments)();
+			equipment.brand_model = `${equipment.brand} ${equipment.model}`;
+			if (equipment.construction_site)
+				equipment.construction_site = equipment.construction_site.name || "";
+			return equipment;
+		});
+		return equip
+	}
+
+	function equipmentCodeButton(code) {
+		return (
+			<Button
+				isLink={true}
+				href={`/equipment/details/${code}`}
+				styles={["small"]}
+			>
+				<i className="mdi mdi-bulldozer" aria-hidden="true" />{" "}
+				{code}
+			</Button>
+		);
+	}
+
+	function addEquipmentToSiteButton(equipment, allEquipments) {
+		return () => {
+			return (
+				<Button
+					isLink={false}
+					onClick={(e) => onEquipmentAdded(equipment, allEquipments)}
+					styles={["small"]}
+				>
+					<i className="fa-solid fa-plus" aria-hidden="true" />{""}
+				</Button>
+			);
+		}
+	}
+
+	function removeEquipmentFromSiteButton(equipment, site) {
+		return () => {
+			return (
+				<Button
+					isLink={false}
+					onClick={(e) => onEquipmentRemoved(equipment, site)}
+					styles={["small"]}
+				>
+					<i className="fa-solid fa-minus" aria-hidden="true" />{""}
+				</Button>
+			);
+
 		}
 	}
 };

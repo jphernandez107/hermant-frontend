@@ -48,8 +48,49 @@
                 width: 100%;
             }
         }
+
+        .equipments-table-container {
+			display: flex;
+			flex-direction: column;
+			padding: 15px;
+			border-radius: 35px;
+			box-shadow: $box-shadow-medium;
+
+			.equipments-table-header {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0px 10px;
+				padding-bottom: 10px;
+
+				h4 {
+					font-weight: bolder;
+					color: $text;
+					font-size: 1.5em;
+					margin: 0px;
+				}
+			}
+		}
         
     }
+
+}
+
+.handle-equipments-modal-container {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    gap: 6px;
+
+    h4 {
+        font-weight: bolder;
+        color: $text;
+        font-size: 1.5em;
+        margin: 0px;
+        margin: 5px;
+    }
+
 }
 
 @media screen and (max-width: 1200px) {

@@ -1,6 +1,5 @@
 import axios from 'axios';
 // const baseURL = "http://localhost:8080/";
-import { func } from 'prop-types';
 import { toast } from 'sonner';
 // const baseURL = "https://hermant-backend.vercel.app/";
 // const baseURL = "https://hermant-backend-git-feature-users-jphernandez107.vercel.app";
@@ -34,7 +33,7 @@ api.interceptors.response.use(
   },
   (error) => {
     const response = error.response;
-    const message = response.message;
+    const message = response.data.message;
     if (message) toast.error(message);
     if (response && response.status === 401) {
       localStorage.removeItem('token');
@@ -52,6 +51,8 @@ const endpoints = {
   getEquipmentByCode: '/equipment/details',
   addEquipmentUseHours: '/equipment/hours',
   addLubricationSheetToEquipment: '/equipment/lubricationsheet/add',
+  addEquipmentToSite: '/equipment/site/add',
+  removeEquipmentFromSite: '/equipment/site/remove',
   getConstructionSiteList: '/site/list',
   getConstructionSiteByCode: '/site/details',
   getSparePartList: '/part/list',
@@ -82,6 +83,18 @@ const Api = {
   },
   async getEquipmentByCode(code) {
     return fetchGet(endpoints.getEquipmentByCode, { code });
+  },
+  async putAddEquipmentToSite(equipment_code, site_code) {
+    return fetchPut(endpoints.addEquipmentToSite, {
+      equipment_code,
+      site_code
+    });
+  },
+  async putRemoveEquipmentFromSite(equipment_code, site_code) {
+    return fetchPut(endpoints.removeEquipmentFromSite, {
+      equipment_code,
+      site_code
+    });
   },
   async getConstructionSiteList() {
     return fetchGet(endpoints.getConstructionSiteList);
