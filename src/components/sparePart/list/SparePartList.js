@@ -36,13 +36,23 @@ const SparePartList = () => {
 	async function fetchParts() {
 		try {
 			const response = await api.getSparePartList();
+			console.log("🚀 ~ file: SparePartList.js:39 ~ fetchParts ~ response:", response)
 			response.map((part) => {
-				part.total_equipments = 0;
+				part.total_equipments = getEquipmentCountFromLubricationSheets(part.lubrication_sheet_spare_parts);
 			});
 			setParts(response);
 		} catch (error) {
 			console.log(error);
 		}
+	}
+
+	function getEquipmentCountFromLubricationSheets(lubrication_sheet_spare_parts) {
+		if (!lubrication_sheet_spare_parts) return 0;
+		let count = 0;
+		lubrication_sheet_spare_parts.forEach(lubricationSheetSparePart => {
+			count += lubricationSheetSparePart.lubrication_sheet.equipments.length;
+		});
+		return count;
 	}
 };
 

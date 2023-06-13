@@ -40,7 +40,6 @@ const UserList = () => {
   async function fetchUsers() {
     try {
       const response = await api.getUserList();
-      console.log(response)
       response.forEach(user => {
         user.active = user.active ? "Si" : "No";
         user.code = user.id
