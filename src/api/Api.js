@@ -111,6 +111,9 @@ const Api = {
   async postNew(url, body) {
     return fetchPost(url, body);
   },
+  async putEdit(url, body) {
+    return fetchPut(url, body);
+  },
   async getLubricationSheetByEquipmentCode(code) {
     return fetchGet(endpoints.getLubricationSheetByEquipmentCode, {
       equipment_code: code,
