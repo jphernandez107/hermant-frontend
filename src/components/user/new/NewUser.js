@@ -65,7 +65,7 @@ const NewUser = () => {
 		if (!user) return;
 		const updatedFormData = { ...formData };
 		updatedFormData.action = "user/edit?id=" + user.id;
-		updatedFormData.method = "PUT";
+		updatedFormData.is_editing = true;
 		updatedFormData.go_to_after_submit =
 			"/user/details/" + user.id;
 		updatedFormData.rows.forEach((row) => {

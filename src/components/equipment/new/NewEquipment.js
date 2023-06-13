@@ -152,7 +152,7 @@ const NewEquipment = () => {
 		if (!equipment) return;
 		const updatedFormData = { ...formData };
 		updatedFormData.action = "equipment/edit?code=" + equipment.code;
-		updatedFormData.method = "PUT";
+		updatedFormData.is_editing = true;
 		updatedFormData.go_to_after_submit =
 			"/equipment/details/" + equipment.code;
 		updatedFormData.rows.forEach((row) => {

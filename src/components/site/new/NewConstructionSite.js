@@ -139,7 +139,7 @@ const NewConstructionSite = () => {
 		if (!site) return;
 		const updatedFormData = { ...formData };
 		updatedFormData.action = "site/edit?code=" + site.code;
-		updatedFormData.method = "PUT";
+		updatedFormData.is_editing = true;
 		updatedFormData.go_to_after_submit = "/site/details/" + site.code;
 		updatedFormData.rows.forEach((row) => {
 			row.columns.forEach((column) => {

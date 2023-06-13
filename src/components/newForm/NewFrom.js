@@ -14,7 +14,7 @@ const NewForm = (props) => {
 		header_subtitle,
 		action,
 		rows,
-		method,
+		is_editing,
 		go_to_after_submit,
 	} = props.form_data;
 
@@ -40,11 +40,15 @@ const NewForm = (props) => {
 
 		// Make the API call
 		// TODO: Show an alert telling the user if everything was okay
-		api.postNew(action, formData)
-			.then(() => {
-				navigate(go_to_after_submit);
-			})
-			.catch((error) => console.log(error));
+		if (is_editing) {
+			api.putEdit(action, formData)
+				.then(() => navigate(go_to_after_submit))
+				.catch((error) => console.error(error));
+		} else {
+			api.postNew(action, formData)
+				.then(() => navigate(go_to_after_submit))
+				.catch((error) => console.error(error));
+		}
 	};
 
 	return (
