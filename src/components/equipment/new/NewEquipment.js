@@ -22,6 +22,7 @@ const NewEquipment = () => {
 						name: "designation",
 						type: "text",
 						value: "",
+						required: true,
 					},
 				],
 			},
@@ -32,6 +33,7 @@ const NewEquipment = () => {
 						name: "brand",
 						type: "text",
 						value: "",
+						required: true,
 						options: [
 							"Komatsu",
 							"Caterpillar",
@@ -39,7 +41,7 @@ const NewEquipment = () => {
 							"Iveco",
 						],
 					},
-					{ label: "Modelo", name: "model", type: "text", value: "" },
+					{ label: "Modelo", name: "model", type: "text", value: "", required: true,},
 					{
 						label: "Origen",
 						name: "origin",
@@ -50,7 +52,7 @@ const NewEquipment = () => {
 			},
 			{
 				columns: [
-					{ label: "Patente", name: "code", type: "text", value: "" },
+					{ label: "Código", name: "code", type: "text", value: "", required: true, },
 					{
 						label: "Número de serie",
 						name: "serial_number",

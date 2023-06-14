@@ -4,6 +4,7 @@ import Button from "components/button/Button";
 import "./NewForm.scss";
 import Input from "components/input/Input";
 import Select from "components/select/Select";
+import { toast } from "sonner";
 
 const api = require("api/Api").default;
 
@@ -26,16 +27,20 @@ const NewForm = (props) => {
 		const formInputs = event.target.getElementsByTagName("input");
 		const formTextAreas = event.target.getElementsByTagName("textarea");
 
+		const allColumns = rows.flatMap(row => row.columns);
+
 		// Collect the form data from input fields
 		for (let i = 0; i < formInputs.length; i++) {
 			const input = formInputs[i];
 			formData[input.name] = input.value;
+			if (!checkEmptyRequiredFieldByName(allColumns, input.name, input.value)) return;
 		}
 
 		// Collect the form data from input fields
 		for (let i = 0; i < formTextAreas.length; i++) {
 			const textArea = formTextAreas[i];
 			formData[textArea.name] = textArea.value;
+			if (!checkEmptyRequiredFieldByName(allColumns, textArea.name, textArea.value)) return;
 		}
 
 		// Make the API call
@@ -172,5 +177,14 @@ const defaultValue = (value, type) => {
 	else if (type === "number") return 0;
 	else return "";
 };
+
+function checkEmptyRequiredFieldByName(columns, name, value) {
+	const col = columns.find(col => col.name === name);
+	if (col && col.required === true && value === "") {
+		toast.error(`El campo ${col.label} no debe estar vacio.`);
+		return false;
+	}
+	return true;
+}
 
 export default NewForm;

@@ -23,15 +23,15 @@ const NewUser = () => {
 		rows: [
 			{
 				columns: [
-					{ label: "DNI", name: "dni", type: "text", value: "" },
-					{ label: "Nombre", name: "first_name", type: "text", value: "" },
-					{ label: "Apellido", name: "last_name", type: "text", value: "" },
+					{ label: "DNI", name: "dni", type: "text", value: "", required: true, },
+					{ label: "Nombre", name: "first_name", type: "text", value: "", required: true, },
+					{ label: "Apellido", name: "last_name", type: "text", value: "", required: true, },
 				],
 			},
 			{
 				columns: [
-					{ label: "Contraseña", name: "password", type: "password", value: "" },
-					{ label: "Permisos", name: "role", type: "select", value: "", options: Object.keys(UserRole), },
+					{ label: "Contraseña", name: "password", type: "password", value: "", required: true, },
+					{ label: "Permisos", name: "role", type: "select", value: "", options: Object.keys(UserRole), required: true, },
 				],
 			},
 		],
