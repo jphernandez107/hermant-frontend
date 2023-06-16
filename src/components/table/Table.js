@@ -4,7 +4,7 @@ import "./Table.scss";
 import TableHeader from "./TableHeader";
 
 const Table = (props) => {
-  const { columns, data, title, showSearchBar } = props
+  const { columns, data, title, showSearchBar, emptyTableTitle } = props
   const styles = props.style || [];
   const { onRowClicked } = props
 
@@ -44,6 +44,14 @@ const Table = (props) => {
   }
 
   function createRows(columns, data) {
+    const emptyTitle = emptyTableTitle || 'No se encontraron datos';
+    if (data.length === 0) {
+      return (
+        <tr>
+          <td className="empty-table-row" colSpan={columns.length} >{`${emptyTitle}`}</td>
+        </tr>
+      )
+    }
     return data.map((item, index) => {
       // Create an array of <td> elements for this row
       let rowCode = item.id;

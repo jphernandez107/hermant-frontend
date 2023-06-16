@@ -168,6 +168,7 @@ const ConstructionSiteDetails = () => {
 						data={equipmentsOnSite}
 						showSearchBar={false}
 						style={["no-card"]}
+						emptyTableTitle={"No se encontraron equipos"}
 					/>
 				</div>
 			</div>
@@ -188,6 +189,7 @@ const ConstructionSiteDetails = () => {
 							data={allEquipments}
 							showSearchBar={false}
 							style={["no-card"]}
+							emptyTableTitle={"No se encontraron equipos"}
 						/>
 					</div>
 				</div>

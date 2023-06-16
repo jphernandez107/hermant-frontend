@@ -17,7 +17,7 @@ const EquipmentList = () => {
   const navigate = useNavigate()
 
   const columns = [
-    { code: "Patente" },
+    { code: "Código" },
     { designation: "Designación" },
     { brand: "Marca" },
     { model: "Modelo" },

@@ -120,6 +120,7 @@ const EquipmentDetails = () => {
             data={maintenances}
             showSearchBar={false}
             style={["no-card"]}
+            emptyTableTitle={"No se encontraron mantenimientos"}
           />
         </div>
         {/* <div className="repairs-table">

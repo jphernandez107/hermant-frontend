@@ -115,6 +115,11 @@ $table-border-radius: 10px;
 				&.bold {
 					font-weight: bold;
 				}
+
+				&.empty-table-row {
+					text-align: center;
+					font-weight: bold;
+				}
 			}
 
 			th {
