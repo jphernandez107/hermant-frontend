@@ -1,15 +1,39 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Table.scss";
 
 import TableHeader from "./TableHeader";
 
 const Table = (props) => {
-  const { columns, data, title, showSearchBar, emptyTableTitle } = props
+  const { columns, data, setData, title, showSearchBar, emptyTableTitle } = props
   const styles = props.style || [];
   const { onRowClicked } = props
+  const [columnSort, setColumnSort] = useState({
+    column: "",
+    direction: true // true === "asc"
+  });
 
   const style = () => {
     return styles.join(' ');
+  }
+
+  const onFilterButtonClick = (column) => {
+    const direction = columnSort.column === column ? !columnSort.direction : true
+    setColumnSort({
+      column: column,
+      direction: direction
+    })
+  }
+
+  useEffect(() => {
+    sortData(columnSort.column, columnSort.direction);
+  }, [columnSort]);
+
+  const filterIcon = (column) => {
+    if (columnSort.column === column) {
+      return columnSort.direction ? "fa-solid fa-sort-up" : "fa-solid fa-sort-down";
+    } else {
+      return "fa-solid fa-sort";
+    }
   }
 
   return (
@@ -30,14 +54,17 @@ const Table = (props) => {
     const values = columns.map((column) => {
       return {
         value: Object.values(column)[0],
-        style: column.style || []
+        key: Object.keys(column)[0],
+        style: column.style || [],
+        isButton: column.onClick,
       }
     });
     return values.map((column) => {
       const cellStyles = column.style || [];
       return (
-        <th key={column.value} className={`column ${column.value} ${cellStyles.join(' ')}`}>
+        <th key={column.value} className={`column ${column.value} ${cellStyles.join(' ')} th-flex`}>
           {column.value}
+          {setData && <i className={`${filterIcon(column.key)} icon-end`} onClick={(e) => onFilterButtonClick(column.key)}></i>}
         </th>
       );
     });
@@ -45,7 +72,7 @@ const Table = (props) => {
 
   function createRows(columns, data) {
     const emptyTitle = emptyTableTitle || 'No se encontraron datos';
-    if (data.length === 0) {
+    if (!data || data.length === 0) {
       return (
         <tr>
           <td className="empty-table-row" colSpan={columns.length} >{`${emptyTitle}`}</td>
@@ -60,7 +87,7 @@ const Table = (props) => {
         const columnValue = column[columnKey];
         const cellValue = item[columnKey];
         const cell =
-          cellValue !== undefined && cellValue !== null ? cellValue : "-";
+          cellValue !== undefined && cellValue !== null && cellValue !== "" ? cellValue : "-";
         const cellStyles = column.style || [];
 
         rowCode = columnKey === "code" ? cellValue : rowCode;
@@ -97,6 +124,33 @@ const Table = (props) => {
     ) : (
       <></>
     );
+  }
+
+  function sortData(column, direction) {
+    if (!data || data.length < 1) return;
+    const col = columns.find(col => col[column]);
+    const isButton = col && col.isButton || false;
+    data.sort((a, b) => {
+      if (isButton && (!a[column].props.value || !b[column].props.value)) return true;
+      if (direction) {
+        if (isButton) {
+          return a[column].props.value.localeCompare(b[column].props.value);
+        } else if(typeof a[column] === 'number') {
+            return a[column] - b[column];
+        } else if (a[column] && b[column]) {
+            return a[column].localeCompare(b[column]);
+        }
+      } else {
+        if (isButton) {
+          return b[column].props.value.localeCompare(a[column].props.value);
+        } else if(typeof a[column] === 'number') {
+            return b[column] - a[column];
+        } else if (a[column] && b[column]) {
+            return b[column].localeCompare(a[column]);
+        }
+      }
+    });
+    if (setData) setData([...data]);
   }
 };
 

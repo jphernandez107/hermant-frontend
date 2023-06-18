@@ -26,7 +26,7 @@ const SparePartList = () => {
 	];
 
 	return (
-		<List table_columns={columns} table_data={parts} title={"Repuestos"}>
+		<List table_columns={columns} table_data={parts} set_table_data={setParts} title={"Repuestos"}>
 			<Button isLink={true} href={`new`}>
 				<i className="fas fa-plus" aria-hidden="true" /> Nuevo Repuesto
 			</Button>

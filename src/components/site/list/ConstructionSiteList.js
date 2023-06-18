@@ -34,6 +34,7 @@ const ConstructionSiteList = () => {
 		<List
 			table_columns={columns}
 			table_data={sites}
+			set_table_data={setSites}
 			title={"Obras"}
 			onRowClicked={onRowClicked}
 		>

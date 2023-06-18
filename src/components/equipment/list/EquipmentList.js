@@ -31,7 +31,7 @@ const EquipmentList = () => {
   }
 
   return (
-    <List table_columns={columns} table_data={equipments} title={'Equipos'} onRowClicked={onRowClicked}>
+    <List table_columns={columns} table_data={equipments} set_table_data={setEquipments} title={'Equipos'} onRowClicked={onRowClicked}>
       <Button isLink={true} href={`new`}>
         <i className="fas fa-plus" aria-hidden="true" /> Nuevo Equipo
       </Button>

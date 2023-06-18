@@ -30,7 +30,7 @@ const UserList = () => {
   }
 
   return (
-    <List table_columns={columns} table_data={users} title={'Usuarios'} onRowClicked={onRowClicked}>
+    <List table_columns={columns} table_data={users} set_table_data={setUsers} title={'Usuarios'} onRowClicked={onRowClicked}>
       <Button isLink={true} href={`new`}>
         <i className="fas fa-plus" aria-hidden="true" /> Nuevo Usuario
       </Button>

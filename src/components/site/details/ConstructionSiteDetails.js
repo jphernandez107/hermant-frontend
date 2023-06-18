@@ -46,11 +46,11 @@ const ConstructionSiteDetails = () => {
 	];
 
 	const equipments_on_site_table_columns = [
-		{ code_button: "Código", style: ["center-text", "fixed-width-20"] },
+		{ code_button: "Código", style: ["center-text", "fixed-width-20"], isButton: true },
 		{ designation: "Designación", style: ["center-text"] },
 		{ brand_model: "Marca y Modelo", style: ["center-text"] },
 		{ next_maintenance: "Mantenimiento", style: ["center-text"] },
-		{ remove_from_site_button: "Quitar", style: ["center-text", "fixed-width-10"] },
+		{ remove_from_site_button: "Quitar", style: ["center-text", "fixed-width-10"], isButton: true },
 	];
 
 	const all_equipments_table_columns = [
@@ -58,7 +58,7 @@ const ConstructionSiteDetails = () => {
 		{ designation: "Designación", style: ["center-text"] },
 		{ brand_model: "Marca y Modelo", style: ["center-text"] },
 		{ construction_site: "Obra", style: ["center-text"] },
-		{ add_to_site_button: "Agregar", style: ["center-text", "fixed-width-10"]}
+		{ add_to_site_button: "Agregar", style: ["center-text", "fixed-width-10"], isButton: true }
 	];
 
 	const editButton = () => {
@@ -166,6 +166,7 @@ const ConstructionSiteDetails = () => {
 					<Table
 						columns={equipments_on_site_table_columns}
 						data={equipmentsOnSite}
+						setData={setEquipmentsOnSite}
 						showSearchBar={false}
 						style={["no-card"]}
 						emptyTableTitle={"No se encontraron equipos"}
@@ -187,6 +188,7 @@ const ConstructionSiteDetails = () => {
 						<Table
 							columns={all_equipments_table_columns}
 							data={allEquipments}
+							setData={setAllEquipments}
 							showSearchBar={false}
 							style={["no-card"]}
 							emptyTableTitle={"No se encontraron equipos"}
@@ -252,6 +254,7 @@ const ConstructionSiteDetails = () => {
 				isLink={true}
 				href={`/equipment/details/${code}`}
 				styles={["small"]}
+				value={code}
 			>
 				<i className="mdi mdi-bulldozer" aria-hidden="true" />{" "}
 				{code}

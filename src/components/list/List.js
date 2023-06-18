@@ -9,7 +9,15 @@ const List = (props) => {
             {props.children && <div className='page-header'>
                 {props.children}
             </div>}
-            <Table style={['first-column-bold']} columns={props.table_columns} data={props.table_data} title={props.title} onRowClicked={props.onRowClicked} showSearchBar={props.showSearchBar}></Table>
+            <Table 
+                style={['first-column-bold']} 
+                columns={props.table_columns} 
+                data={props.table_data} 
+                setData={props.set_table_data}
+                title={props.title} 
+                onRowClicked={props.onRowClicked} 
+                showSearchBar={props.showSearchBar}
+            />
         </div>
     )
 }

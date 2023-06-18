@@ -51,6 +51,21 @@ $table-border-radius: 10px;
 				background-color: $table-header-background-color;
 				color: $table-header-color;
 				text-align: left;
+
+				.th-flex {
+					position: relative;
+
+					.icon-end {
+						position: absolute;
+						right: 10px;
+						top: 50%; 
+						transform: translateY(-50%); 
+
+						&:hover {
+							cursor: pointer;
+						}
+					}
+				}
 			}
 
 			th {

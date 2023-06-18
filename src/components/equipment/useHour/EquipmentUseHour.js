@@ -25,7 +25,7 @@ const EquipmentUseHour = () => {
 		{ brand: "Marca" },
 		{ model: "Modelo" },
 		{ total_hours: "Hr/Km" },
-		{ add_hours: "Agregar horas", style: ["padding-zero"] },
+		{ add_hours: "Agregar horas", style: ["padding-zero"], isButton: true },
 	];
 
 	const onAddButtonClick = (e, hoursValue, dateValue, code) => {
@@ -63,7 +63,7 @@ const EquipmentUseHour = () => {
 				<Input isTextArea rows={2} onBlur={handleOnPasteInput}/>
 				<Button>Agregar horas</Button>
 			</div>
-			<Table style={['first-column-bold']} columns={columns} data={equipments} title={"Administrar horas de uso"} showSearchBar={false}></Table>
+			<Table style={['first-column-bold']} columns={columns} data={equipments} setData={setEquipments} title={"Administrar horas de uso"} showSearchBar={false}></Table>
 		</div>
 	);
 

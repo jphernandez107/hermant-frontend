@@ -118,6 +118,7 @@ const EquipmentDetails = () => {
           <Table
             columns={maintenance_table_columns}
             data={maintenances}
+            setData={setMaintenances}
             showSearchBar={false}
             style={["no-card"]}
             emptyTableTitle={"No se encontraron mantenimientos"}
