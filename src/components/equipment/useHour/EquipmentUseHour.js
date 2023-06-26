@@ -12,58 +12,80 @@ const api = require("api/Api").default;
 
 const EquipmentUseHour = () => {
 	const [equipments, setEquipments] = useState([]);
-	const [startWeekDate, setStartWeekDate] = useState(new Date());
-	const [useHoursArray, setUseHoursArray] = useState([]);
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(new Date());
+	const [useHoursArray, setUseHoursArray] = useState({});
 
 	useEffect(() => {
 		fetchEquipments();
 	}, []);
 
+	useEffect(() => {
+		startDate.setHours(0,0,0,0);
+		endDate.setHours(23,59,59,999);
+		let newUseHoursArray = { ...useHoursArray, start_date: startDate, end_date: endDate };
+		setUseHoursArray(newUseHoursArray);
+	}, [startDate, endDate]);
+
 	const columns = [
-		{ code: "Patente" },
-		{ designation: "Designación" },
-		{ brand: "Marca" },
-		{ model: "Modelo" },
-		{ total_hours: "Hr/Km" },
-		{ add_hours: "Agregar horas", style: ["padding-zero"], isButton: true },
+		{ code: "Código" }, 
+		{ hours: "Horas" }
 	];
 
-	const onAddButtonClick = (e, hoursValue, dateValue, code) => {
-		if (hoursValue <= 0) return;
-		const body = {
-			hours_to_add: hoursValue,
-			date: dateValue,
-		};
-		api.addEquipmentUseHours(body, code);
+	const onAddButtonClick = (e) => {
+		if (!useHoursArray.hours || useHoursArray.hours.length === 0) {
+			toast.error('No se encontraron horas válidas.');
+			return;
+		}
+		const user = JSON.parse(localStorage.getItem('user'));
+		const body = useHoursArray;
+		body["user_id"] = user.id;
+		console.log("🚀 ~ file: EquipmentUseHour.js:31 ~ onAddButtonClick ~ body:", body)
+		api.postAddEquipmentUseHoursBulk(body);
+		
 	};
 
 	const handleOnPasteInput = (e) => {
-		console.log(e.target.value)
 		const lines = e.target.value.trim().split('\n');
 		const resultArray = [];
 
 		// Start from the second line (index 1) to skip the header
 		for (let i = 1; i < lines.length; i++) {
-		const [code, weekly_hours] = lines[i].split('\t');
-		resultArray.push({ code, weekly_hours: parseInt(weekly_hours, 10) });
+			const [code, hours] = lines[i].split('\t');
+			if(Number.isNaN(parseInt(hours, 10))) continue;
+			resultArray.push({ 
+				code, 
+				hours: parseInt(hours, 10) 
+			});
 		}
 
-		setUseHoursArray(resultArray);
 		const result = {
-			date: startWeekDate,
+			start_date: startDate,
+			end_date: endDate,
 			hours: resultArray
 		}
-		console.log(result)
+		setUseHoursArray(result);
 	}
 
 	return (
 		<div className="use-hours-list-wrapper">
 			<div className='use-hours-page-header'>
-				<UseHourDatePicker dateValue={startWeekDate} setDateValue={setStartWeekDate}/>
-				<Input isTextArea rows={2} onBlur={handleOnPasteInput}/>
-				<Button>Agregar horas</Button>
+				<div className="use-hours-date-pickers">
+					<div className="use-hours-date-picker">
+						<p className="use-hours-date-picker-label">Desde</p>
+						<UseHourDatePicker dateValue={startDate} setDateValue={setStartDate}/>
+					</div>
+					<div className="use-hours-date-picker">
+						<p className="use-hours-date-picker-label">Hasta</p>
+						<UseHourDatePicker dateValue={endDate} setDateValue={setEndDate}/>
+					</div>
+				</div>
+				<div className="use-hours-input-table">
+					<Input className='use-hours-input' isTextArea rows={30} onChange={handleOnPasteInput}/>
+					<Table className='use-hours-table' style={['first-column-bold', 'center-text', 'single']} columns={columns} data={useHoursArray.hours} showSearchBar={false} />
+				</div>
+				<Button onClick={onAddButtonClick}>Agregar horas</Button>
 			</div>
-			<Table style={['first-column-bold']} columns={columns} data={equipments} setData={setEquipments} title={"Administrar horas de uso"} showSearchBar={false}></Table>
 		</div>
 	);
 

@@ -22,26 +22,79 @@ $date-border-radius: 7px;
     margin: 10px;
     padding: 10px;
     border-radius: 35px;
-    // box-shadow: $box-shadow-color;
     min-width: 60vw;
     
     .use-hours-page-header {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
         padding: 10px;
-		gap: 6px;
+		gap: 10px;
 
-		.date-wrapper {
-            display: flex;
-            flex-direction: row;
-        }
-        
-        .date-icon {
-            border-right: $border-width solid $date-icon-border-color;
-            border-top-right-radius: $date-border-radius;
-            border-bottom-right-radius: $date-border-radius;
-        }
+		.use-hours-date-pickers {
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+			justify-content: center;
+			flex-wrap: wrap;
+
+			.use-hours-date-picker {
+				display: flex;
+				flex-direction: column;
+				gap: 6px;
+
+				.use-hours-date-picker-label {
+					text-align: center;
+					margin: 0;
+					color: $text;
+					font-weight: 500;
+				}
+
+				.date-wrapper {
+					display: flex;
+					flex-direction: row;
+				}
+				
+				.date-icon {
+					border-right: $border-width solid $date-icon-border-color;
+					border-top-right-radius: $date-border-radius;
+					border-bottom-right-radius: $date-border-radius;
+				}
+			}
+			
+		}
+
+		.use-hours-input-table {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			width: 100%;
+			gap: 10px;
+
+			.input-container {
+				height: 100%;
+				min-width: 70%;
+
+				textarea {
+					height: 99%;
+				}
+			}
+
+			.table-card {
+				width: 30%;
+				font-size: smaller;
+
+				.styled-table {
+					td, th {
+						text-align: center;
+						padding: 5px;
+					}
+				}
+			}
+
+		}
+
+
     }
 }
 
