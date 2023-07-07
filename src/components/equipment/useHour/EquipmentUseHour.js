@@ -15,6 +15,7 @@ const EquipmentUseHour = () => {
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
 	const [useHoursArray, setUseHoursArray] = useState({});
+	const [inputValue, setInputValue] = useState("");
 
 	useEffect(() => {
 		fetchEquipments();
@@ -40,12 +41,22 @@ const EquipmentUseHour = () => {
 		const user = JSON.parse(localStorage.getItem('user'));
 		const body = useHoursArray;
 		body["user_id"] = user.id;
-		console.log("🚀 ~ file: EquipmentUseHour.js:31 ~ onAddButtonClick ~ body:", body)
-		api.postAddEquipmentUseHoursBulk(body);
+		api.postAddEquipmentUseHoursBulk(body)
+			.then(() => {
+				setUseHoursArray({
+					...useHoursArray,
+					hours: []
+				})
+				setInputValue("");
+			})
+			.catch(error => {
+				throw error;
+			});
 		
 	};
 
 	const handleOnPasteInput = (e) => {
+		setInputValue(e.target.value);
 		const lines = e.target.value.trim().split('\n');
 		const resultArray = [];
 
@@ -81,7 +92,7 @@ const EquipmentUseHour = () => {
 					</div>
 				</div>
 				<div className="use-hours-input-table">
-					<Input className='use-hours-input' isTextArea rows={30} onChange={handleOnPasteInput}/>
+					<Input className='use-hours-input' isTextArea rows={30} onChange={handleOnPasteInput} value={inputValue}/>
 					<Table className='use-hours-table' style={['first-column-bold', 'center-text', 'single']} columns={columns} data={useHoursArray.hours} showSearchBar={false} />
 				</div>
 				<Button onClick={onAddButtonClick}>Agregar horas</Button>
