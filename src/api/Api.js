@@ -32,8 +32,9 @@ api.interceptors.response.use(
     return response;
   },
   (error) => {
+    console.log("🚀 ~ file: Api.js:35 ~ error:", error)
     const response = error.response;
-    const message = response.data.message;
+    const message = (response && response.data) ? response.data.message : "Ocurrió un error inesperado";
     if (message) toast.error(message);
     if (response && response.status === 401) {
       localStorage.removeItem('token');
