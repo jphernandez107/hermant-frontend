@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./EquipmentUseHour.scss";
@@ -11,15 +11,11 @@ import { toast } from "sonner";
 const api = require("api/Api").default;
 
 const EquipmentUseHour = () => {
-	const [equipments, setEquipments] = useState([]);
 	const [startDate, setStartDate] = useState(new Date());
 	const [endDate, setEndDate] = useState(new Date());
 	const [useHoursArray, setUseHoursArray] = useState({});
 	const [inputValue, setInputValue] = useState("");
-
-	useEffect(() => {
-		fetchEquipments();
-	}, []);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		startDate.setHours(0,0,0,0);
@@ -38,6 +34,7 @@ const EquipmentUseHour = () => {
 			toast.error('No se encontraron horas válidas.');
 			return;
 		}
+		setLoading(true);
 		const user = JSON.parse(localStorage.getItem('user'));
 		const body = useHoursArray;
 		body["user_id"] = user.id;
@@ -48,8 +45,11 @@ const EquipmentUseHour = () => {
 					hours: []
 				})
 				setInputValue("");
+				setLoading(false);
 			})
 			.catch(error => {
+				setLoading(false);
+				console.log("🚀 ~ file: EquipmentUseHour.js:57 ~ onAddButtonClick ~ error:", error)
 				throw error;
 			});
 		
@@ -60,8 +60,7 @@ const EquipmentUseHour = () => {
 		const lines = e.target.value.trim().split('\n');
 		const resultArray = [];
 
-		// Start from the second line (index 1) to skip the header
-		for (let i = 1; i < lines.length; i++) {
+		for (let i = 0; i < lines.length; i++) {
 			const [code, hours] = lines[i].split('\t');
 			if(Number.isNaN(parseInt(hours, 10))) continue;
 			resultArray.push({ 
@@ -95,33 +94,14 @@ const EquipmentUseHour = () => {
 					<Input className='use-hours-input' isTextArea rows={30} onChange={handleOnPasteInput} value={inputValue}/>
 					<Table className='use-hours-table' style={['first-column-bold', 'center-text', 'single']} columns={columns} data={useHoursArray.hours} showSearchBar={false} />
 				</div>
-				<Button onClick={onAddButtonClick}>Agregar horas</Button>
+				<Button onClick={onAddButtonClick} disabled={loading}>
+					{loading && <><i className="fad fa-spinner-third fa-spin"/> Cargando</>}
+					{!loading && <><i className="far fa-clock"/> Agregar horas</>}
+				</Button>
 			</div>
 		</div>
 	);
 
-	async function fetchEquipments() {
-		try {
-			const response = await api.getEquipmentList();
-			response.forEach((equipment) => {
-				equipment.add_hours = getUseHoursInput(equipment.code);
-			});
-			setEquipments(response);
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	function getUseHoursInput(code) {
-		return (
-			<div className="use-hours-container">
-				<UseHourInput
-					equipment_code={code}
-					onAddButtonClick={onAddButtonClick}
-				/>
-			</div>
-		);
-	}
 };
 
 /***** UseHourInput Component *****/
@@ -215,43 +195,38 @@ const UseHourInput = (props) => {
 const UseHourDatePicker = (props) => {
 	const { dateValue, setDateValue } = props;
 	const [localeData, setLocaleData] = useState();
+	const dateInputRef = useRef(null);
 
 	const handleDateChange = (date) => {
 		setDateValue(date);
 	};
 
-	const [datePicker, setDatePicker] = useState(
-		<DatePicker
-			className="date-input"
-			selected={dateValue}
-			onChange={(date) => handleDateChange(date)}
-		/>
-	);
+	const handleIconClick = () => {
+        if (dateInputRef.current) {
+            dateInputRef.current.input.focus();
+        }
+    }
 
 	const lang = navigator.language;
 	useEffect(() => {
 		fetchLocale(lang);
-	});
+	}, [lang]);
 
-	useEffect(() => {
-		if (!localeData) return;
-		const dateFormat =
-			localeData.default.code === "es" ? "dd-MM-yyyy" : "MM-dd-yyyy";
-		setDatePicker(
-			<DatePicker
-				locale={localeData.default}
-				dateFormat={dateFormat}
-				className="date-input"
-				selected={dateValue}
-				onChange={(date) => handleDateChange(date)}
-			/>
-		);
-	}, [localeData, dateValue]);
+	const dateFormat = localeData?.default?.code === "es" ? "dd-MM-yyyy" : "MM-dd-yyyy";
 
 	return (
 		<div className="date-wrapper">
-			<div className="date-input-container">{datePicker}</div>
-			<div className="date-icon">
+			<div className="date-input-container">
+				<DatePicker
+					ref={dateInputRef}
+					locale={localeData?.default}
+					dateFormat={dateFormat}
+					className="date-input"
+					selected={dateValue}
+					onChange={handleDateChange}
+				/>
+			</div>
+			<div className="date-icon" onClick={handleIconClick}>
 				<i className="fa-solid fa-calendar-week" aria-hidden="true"></i>
 			</div>
 		</div>
