@@ -5,8 +5,12 @@
         "icon": "mdi mdi-air-filter",
         "subtypes": [
             { "subtype": "Aire", "title": "Aire" },
-            { "subtype": "Combustible", "title": "Combustible" },
+            { "subtype": "Kit", "title": "Kit" },
             { "subtype": "Aceite", "title": "Aceite" },
+            { "subtype": "Combustible", "title": "Combustible" },
+            { "subtype": "Combustible Separador de Agua", "title": "Combustible Separador de Agua" },
+            { "subtype": "Cabina", "title": "Cabina" },
+            { "subtype": "Secador", "title": "Secador" },
             { "subtype": "Otro", "title": "Otros filtros" }
         ]
     },
@@ -18,6 +22,7 @@
             { "subtype": "Motor", "title": "Motor" },
             { "subtype": "Hidraulico", "title": "Hidráulico" },
             { "subtype": "Transmision", "title": "Transmisión" },
+            { "subtype": "Diferencial", "title": "Diferencial" },
             { "subtype": "Otro", "title": "Otros aceites" }
         ]
     },
