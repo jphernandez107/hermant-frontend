@@ -25,15 +25,23 @@ const NewSparePart = () => {
 						required: true,
 					},
 					{
-						label: "Marca",
-						name: "brand",
+						label: "Aplicación",
+						name: "application",
 						type: "text",
-						value: "", 
+						placeholder: "Ej: Filtro de Aire",
+						options: [
+							"Aire",
+							"Aceite",
+							"Combustible",
+							"Motor",
+							"Hidráulico",
+							"Otro",
+						], 
 						required: true,
 					},
 					{
-						label: "Modelo",
-						name: "model",
+						label: "Marca",
+						name: "brand",
 						type: "text",
 						value: "", 
 						required: true,
@@ -42,6 +50,13 @@ const NewSparePart = () => {
 			},
 			{
 				columns: [
+					{
+						label: "Modelo",
+						name: "model",
+						type: "text",
+						value: "", 
+						required: true,
+					},
 					{
 						label: "Código interno",
 						name: "internal_code",
@@ -57,6 +72,10 @@ const NewSparePart = () => {
 						value: "",
 						placeholder: "Código del fabricante",
 					},
+				],
+			},
+			{
+				columns: [
 					{
 						label: "Precio [USD]",
 						name: "price",
@@ -64,10 +83,6 @@ const NewSparePart = () => {
 						value: "",
 						placeholder: "Precio",
 					},
-				],
-			},
-			{
-				columns: [
 					{
 						label: "Link del producto",
 						name: "detail_link",
@@ -80,21 +95,7 @@ const NewSparePart = () => {
 						type: "number",
 						placeholder: "Stock actual",
 					},
-					{
-						label: "Aplicación",
-						name: "application",
-						type: "text",
-						placeholder: "Ej: Filtro de Aire",
-						options: [
-							"Aire",
-							"Aceite",
-							"Combustible",
-							"Motor",
-							"Hidráulico",
-							"Otro",
-						], 
-						required: true,
-					},
+					
 				],
 			},
 			{
