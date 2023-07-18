@@ -17,7 +17,7 @@
     {
         "title": "Aceites",
         "type": "Aceite",
-        "icon": "fa-regular fa-oil-can-drip",
+        "icon": "far fa-oil-can",
         "subtypes": [
             { "subtype": "Motor", "title": "Motor" },
             { "subtype": "Hidraulico", "title": "Hidráulico" },
@@ -29,7 +29,7 @@
     {
         "title": "Líquidos",
         "type": "Liquido",
-        "icon": "fa-regular fa-oil-temperature",
+        "icon": "far fa-oil-temp",
         "subtypes": [
             { "subtype": "Refrigerante", "title": "Refrigerante" },
             { "subtype": "Frenos", "title": "Frenos" },

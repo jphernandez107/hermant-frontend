@@ -23,6 +23,10 @@ $subsection-border-color: $medium-gray;
 		color: $title-color;
 	}
 
+	.spare-part-section-title {
+		cursor: pointer;
+	}
+
 	.spare-part-section-subsections {
 		&.show {
 			transform: scaleY(1);

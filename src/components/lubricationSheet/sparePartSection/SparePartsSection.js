@@ -54,10 +54,10 @@ const SparePartsSection = (props) => {
 	};
 
 	return (
-		<div className="spare-part-section" key={type}>
+		<div className="spare-part-section" key={type} onClick={toggleSection}>
 			{/* <div className="spare-part-section-header"> */}
 				<h4 className="spare-part-section-title">
-					<i className={icon} aria-hidden="true" /> {` ${title} `}<i className={`fa-solid fa-2xs ${showSection ? "fa-chevron-down" : "fa-chevron-right"}`} onClick={toggleSection}/>
+					<i className={icon} aria-hidden="true" /> {` ${title} `}<i className={`fa-solid fa-2xs ${showSection ? "fa-chevron-down" : "fa-chevron-right"}`}/>
 				</h4>
 				
 			{/* </div> */}

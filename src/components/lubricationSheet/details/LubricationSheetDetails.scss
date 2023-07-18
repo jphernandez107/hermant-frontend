@@ -2,6 +2,8 @@
 
 $title-color: $text;
 $sheet-spare-part-section-background-color: $background;
+$border-color: $text;
+$disabled-button-color: rgba(0, 0, 0, 0.35);
 
 
 .sheet-details-page {
@@ -12,6 +14,81 @@ $sheet-spare-part-section-background-color: $background;
     .sheet-details-header {
         margin: 10px;
         border-radius: 10px;
+
+        .title-header {
+            padding: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            
+            h3 {
+                font-weight: bolder;
+                color: $title-color;
+                font-size: xx-large;
+                margin: 0px;
+            }
+
+            .frequency-selector {
+                height: 100%;
+                display: flex;
+                flex-direction: row;
+                border-radius: 5px;
+                justify-content: center;
+                align-items: stretch;
+                border: $border-width solid $border-color;
+                gap: 5px;
+                box-sizing: border-box;
+
+                .left-button,
+                .right-button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 25px;
+                }
+
+                .left-button {
+                    border-right: $border-width solid $border-color;
+                    color: $text;
+                    
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+
+                .indicator-span {
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    box-sizing: border-box;
+                    padding: 3px 0 3px 0;
+
+                    span {
+                        color: $text;
+                        font-weight: 600;
+                        text-align: center;
+                    }
+                }
+
+                .right-button {
+                    border-left: $border-width solid $border-color;
+                    color: $text;
+
+                    &:hover {
+                        cursor: pointer;
+                    }
+
+                }
+
+                .disabled {
+                    color: $disabled-button-color;
+
+                    &:hover {
+                        cursor: default;
+                    }
+                }
+            }
+        }
     }
     
     .sheet-details-wrapper {
@@ -44,6 +121,10 @@ $sheet-spare-part-section-background-color: $background;
                 margin: 0;
                 padding-left: 4px;
                 color: $title-color;
+            }
+
+            .sheet-spare-part-section-title:hover {
+                cursor: pointer;
             }
 
             .sheet-spare-part-section-subsections {

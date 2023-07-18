@@ -77,7 +77,7 @@ const EquipmentDetails = () => {
             <i className="fas fa-pencil" aria-hidden="true" /> {" Planilla de mantenimiento"}
           </Button>
           {equipment.lubrication_sheet_id && <Button isLink={true} href={viewLubricationSheetHref}>
-            <i className="fa-light fa-file-spreadsheet" aria-hidden="true" /> {" Planilla de mantenimiento"}
+            <i className="far fa-file-check" aria-hidden="true" /> {" Planilla de mantenimiento"}
           </Button>}
         </div>
         <div className="equipment-details">

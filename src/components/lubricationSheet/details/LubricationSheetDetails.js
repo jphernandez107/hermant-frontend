@@ -26,6 +26,9 @@ const NewLubricationSheet = () => {
 	const [lubricationSheet, setLubricationSheet] = useState(null);
 	const [equipment, setEquipment] = useState(null);
 	const [frequencies, setFrequencies] = useState([]);
+	const [filteredFrequencies, setFilteredFrequencies] = useState([400, 800, 1200, 1600, 2000]);
+
+	const title = `Planilla de mantenimiento para ${equipment?.brand} ${equipment?.model} ${equipment?.code} `;
 
 	useEffect(() => {
 		fetchLubricationSheet();
@@ -38,16 +41,21 @@ const NewLubricationSheet = () => {
 				(equipment) => equipment.code === code
 			)
 		);
-		setSparePartRows(getSparePartRowsFromSheet(lubricationSheet));
+		setSparePartRows(getSparePartRowsFromSheet(lubricationSheet, filteredFrequencies));
 		setFrequencies(getUniqueFrequenciesFromSheet(lubricationSheet));
-	}, [lubricationSheet]);
+	}, [lubricationSheet, filteredFrequencies]);
 
 	return equipment ? (
 		<div className="sheet-details-page">
 			<div className="sheet-details-header">
-				<TableHeader
-					showSearchBar={false}
-				>{`Planilla de mantenimiento para ${equipment?.designation} ${equipment?.brand} ${equipment?.model} ${equipment?.code} `}</TableHeader>
+				<div className="title-header">
+					<h3>{title}</h3>
+					<FrequencySelector
+						filteredFrequencies={filteredFrequencies}
+						setFilteredFrequencies={setFilteredFrequencies}
+						uniqueFrequencies={frequencies}
+					/>
+				</div>
 			</div>
 			<div className="sheet-details-wrapper">
 				{SparePartsSections.map((section) => {
@@ -60,7 +68,7 @@ const NewLubricationSheet = () => {
 								key={section.type}
 								rowsForSection={rowsForSection}
 								section={section}
-								frequencies={frequencies}
+								frequencies={filteredFrequencies}
 							/>
 						);
 					}
@@ -80,7 +88,7 @@ const NewLubricationSheet = () => {
 		}
 	}
 
-	function getSparePartRowsFromSheet(lubricationSheet) {
+	function getSparePartRowsFromSheet(lubricationSheet, filteredFrequencies) {
 		return lubricationSheet.lubrication_sheet_spare_parts.map(
 			(sheet_spare_part) => {
 				return {
@@ -89,9 +97,9 @@ const NewLubricationSheet = () => {
 					subtype: sheet_spare_part.spare_part.application,
 					application: sheet_spare_part.application,
 					quantity: sheet_spare_part.quantity,
-					frequencies: sheet_spare_part.frequencies.map(
-						(freq) => freq.frequency
-					),
+					frequencies: sheet_spare_part.frequencies
+						.map(freq => freq.frequency)
+						.filter(freq => filteredFrequencies.includes(freq)),
 				};
 			}
 		);
@@ -119,13 +127,12 @@ const SheetSparePartsSection = (props) => {
 
 	return (
 		<div className="sheet-spare-part-section">
-			<h4 className="sheet-spare-part-section-title">
+			<h4 className="sheet-spare-part-section-title" onClick={toggleSection}>
 				<i className={icon} aria-hidden="true" /> {` ${title} `}
 				<i
 					className={`fa-solid fa-2xs ${
 						showSection ? "fa-chevron-down" : "fa-chevron-right"
 					}`}
-					onClick={toggleSection}
 				/>
 			</h4>
 			<div
@@ -208,5 +215,49 @@ const SheetSparePartsSection = (props) => {
 		return freqs;
 	}
 };
+
+const FrequencySelector = (props) => {
+	const [startIndex, setStartIndex] = useState(0);
+	const FILTER_SIZE = 5;
+
+	const {filteredFrequencies, setFilteredFrequencies, uniqueFrequencies} = props;
+	const indicator = `${filteredFrequencies[0]} - ${filteredFrequencies[filteredFrequencies.length - 1]}`
+
+	useEffect(() => {
+		if (uniqueFrequencies.length < FILTER_SIZE) {
+		  	setStartIndex(0);
+		}
+	}, [uniqueFrequencies]);
+
+	useEffect(() => {
+		setFilteredFrequencies(uniqueFrequencies.slice(startIndex, startIndex + FILTER_SIZE));
+	}, [startIndex]);
+
+	const onLeftClicked = (e) => {
+		if (startIndex > 0) {
+			setStartIndex(startIndex - 1);
+		}
+	}
+
+	const onRightClicked = (e) => {
+		if (startIndex < uniqueFrequencies.length - FILTER_SIZE) {
+			setStartIndex(startIndex + 1);
+		}
+	}
+
+	return (
+		<div className="frequency-selector">
+			<div className={`left-button ${startIndex === 0 ? "disabled" : ""}`} onClick={onLeftClicked}>
+				<i className={`far fa-chevron-left`}/>
+			</div>
+			<div className="indicator-span">
+				<span className="frequency-indicator">{indicator}</span>
+			</div>
+			<div className={`right-button ${startIndex + FILTER_SIZE === uniqueFrequencies.length ? "disabled" : ""}`} onClick={onRightClicked}>
+				<i className={`far fa-chevron-right`}/>
+			</div>
+		</div>	
+	);
+}
 
 export default NewLubricationSheet;
