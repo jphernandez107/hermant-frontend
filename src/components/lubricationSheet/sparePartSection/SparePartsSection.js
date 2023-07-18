@@ -55,12 +55,9 @@ const SparePartsSection = (props) => {
 
 	return (
 		<div className="spare-part-section" key={type}>
-			{/* <div className="spare-part-section-header"> */}
-				<h4 className="spare-part-section-title" onClick={toggleSection}>
-					<i className={icon} aria-hidden="true" /> {` ${title} `}<i className={`fa-solid fa-2xs ${showSection ? "fa-chevron-down" : "fa-chevron-right"}`}/>
-				</h4>
-				
-			{/* </div> */}
+			<h4 className="spare-part-section-title" onClick={toggleSection}>
+				<i className={icon} aria-hidden="true" /> {` ${title} `}<i className={`fa-solid fa-2xs ${showSection ? "fa-chevron-down" : "fa-chevron-right"}`}/>
+			</h4>
 			<div className={`spare-part-section-subsections ${showSection ? "show" : "hide"}`}>
 				{showSection && getSubsections(subtypes, type, title, parts)}
 			</div>
@@ -178,10 +175,8 @@ const SparePartsSection = (props) => {
 };
 
 const SparePartRow = (props) => {
-
-	const [checkedCheckboxes, setCheckedCheckboxes] = useState([]);
-
 	const { part, application, quantity, selected_frequencies } = props;
+
 	const {
 		parts,
 		type,
@@ -324,31 +319,26 @@ const SparePartRow = (props) => {
 		subtype,
 		rowId,
 		checkboxName,
-		frequencyId,
+		frequency,
 		isChecked
 	) {
+		const rows = [...sparePartRows];
 		if (!isChecked) {
-			setCheckedCheckboxes(
-				checkedCheckboxes.filter((name) => name !== checkboxName)
-			);
-			const rows = [...sparePartRows];
 			let row = findRow(rows, type, subtype, rowId)
-			if (row && row.frequencies.includes(frequencyId)) {
-				const indexOfFreq = row.frequencies.indexOf(frequencyId);
+			const rowFreqs = row?.frequencies?.map(freq => freq.frequency);
+			if (row && rowFreqs.includes(frequency.frequency)) {
+				const indexOfFreq = rowFreqs.indexOf(frequency.frequency);
 				row.frequencies.splice(indexOfFreq, 1);
 			}
-			setSparePartRows(rows);
 		} else {
-			setCheckedCheckboxes([...checkedCheckboxes, checkboxName]);
-			const rows = [...sparePartRows];
 			const row = findRow(rows, type, subtype, rowId)
 			if (!row) {
-				rows.push(createNewRow(type, subtype, rowId, part, application, quantity, [frequencyId]));
-			} else if (!row.frequencies.includes(frequencyId)) {
-				row.frequencies.push(frequencyId);
+				rows.push(createNewRow(type, subtype, rowId, part, application, quantity, [frequency]));
+			} else if (!row.frequencies.includes(frequency)) {
+				row.frequencies.push(frequency);
 			}
-			setSparePartRows(rows);
 		}
+		setSparePartRows(rows);
 	}
 
 	function findRow(rows, type, subtype, rowId) {

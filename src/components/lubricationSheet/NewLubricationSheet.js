@@ -65,9 +65,20 @@ const NewLubricationSheet = () => {
 		setSparePartRowsFromExistingLubricationSheet(selectedLubricationSheet);
 	}, [selectedLubricationSheet])
 
+	useEffect(() => {
+		const maintFreqs = maintenanceFrequencies.map(freq => freq.frequency);
+		sparePartRows.forEach(row => {
+			row.frequencies = row.frequencies.map(rowFreq => {
+				return maintenanceFrequencies.find(freq => freq.frequency === rowFreq.frequency)
+			});
+		});
+		setSparePartRows(sparePartRows);
+	}, [maintenanceFrequencies]);
+
 	const onSubmitButtonClicked = (e) => {
 		const url = "lubricationsheet/sparepart/add";
 		const body = getLubricationSheetSparePartFromRows(code, sparePartRows);
+		console.log("🚀 ~ file: NewLubricationSheet.js:84 ~ onSubmitButtonClicked ~ body:", body)
 		api.postNew(url, body)
 			.then(() => {
 				navigate("/equipment/details/" + code);
