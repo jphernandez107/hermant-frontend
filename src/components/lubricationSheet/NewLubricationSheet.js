@@ -66,11 +66,10 @@ const NewLubricationSheet = () => {
 	}, [selectedLubricationSheet])
 
 	useEffect(() => {
-		const maintFreqs = maintenanceFrequencies.map(freq => freq.frequency);
 		sparePartRows.forEach(row => {
-			row.frequencies = row.frequencies.map(rowFreq => {
-				return maintenanceFrequencies.find(freq => freq.frequency === rowFreq.frequency)
-			});
+			row.frequencies = row.frequencies.filter(rowFreq =>
+				maintenanceFrequencies.some(freq => freq?.frequency === rowFreq?.frequency)
+			);
 		});
 		setSparePartRows(sparePartRows);
 	}, [maintenanceFrequencies]);

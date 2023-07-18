@@ -256,7 +256,7 @@ const SparePartRow = (props) => {
 	function getFrequenciesCheckboxes(frequencies, type, subtype, rowId, selected_frequencies) {
 		return frequencies.map((freq) => {
 			const key = `check-${type}-${subtype}-${rowId}-${freq.id}`;
-			const checked = selected_frequencies.find(selFreq => selFreq.frequency === freq.frequency) || false;
+			const checked = selected_frequencies.find(selFreq => selFreq?.frequency === freq?.frequency) || false;
 			return (
 				<div className="spare-part-maintenance-column" key={freq.id}>
 					<label>{freq.id}</label>
