@@ -55,6 +55,8 @@ const NewLubricationSheet = () => {
 
 	const [selectedLubricationSheet, setSelectedLubricationSheet] = useState();
 
+	const showEditSheetButton = selectedLubricationSheet && selectedLubricationSheet.id === equipment.lubrication_sheet_id
+
 	useEffect(() => {
 		fetchSpareParts();
 		fetchEquipment();
@@ -74,15 +76,15 @@ const NewLubricationSheet = () => {
 		setSparePartRows(sparePartRows);
 	}, [maintenanceFrequencies]);
 
-	const onSubmitButtonClicked = (e) => {
-		const url = "lubricationsheet/sparepart/add";
+	const onSaveNewSheetButtonClicked = (e) => {
 		const body = getLubricationSheetSparePartFromRows(code, sparePartRows);
-		console.log("🚀 ~ file: NewLubricationSheet.js:84 ~ onSubmitButtonClicked ~ body:", body)
-		api.postNew(url, body)
-			.then(() => {
-				navigate("/equipment/details/" + code);
-			})
-			.catch((error) => console.log(error));
+		callApiWithBody(body)
+	};
+
+	const onSaveEditedSheetButtonClicked = (e) => {
+		const body = getLubricationSheetSparePartFromRows(code, sparePartRows);
+		body.lubrication_sheet_id = selectedLubricationSheet?.id
+		callApiWithBody(body)
 	};
 
 	const onSharedSheetButtonPressed = (e) => {
@@ -111,6 +113,7 @@ const NewLubricationSheet = () => {
 						selectedLubricationSheet={selectedLubricationSheet}
 						setSelectedLubricationSheet={setSelectedLubricationSheet}
 						onSharedSheetButtonPressed={onSharedSheetButtonPressed}
+						equipmentCode={equipment?.code}
 					/>
 				}
 
@@ -131,14 +134,21 @@ const NewLubricationSheet = () => {
 						frequencies={maintenanceFrequencies}
 					/>
 				))}
-				<div className="submit-button">
-					<Button onClick={(e) => onSubmitButtonClicked(e)}>
+				<div className="submit-buttons">
+					<Button onClick={(e) => onSaveNewSheetButtonClicked(e)}>
 						<i
 							className={"fa-solid fa-floppy-disk"}
 							aria-hidden="true"
 						/>
-						{" Guardar"}
+						{" Guardar Nueva Planilla"}
 					</Button>
+					{showEditSheetButton && <Button onClick={(e) => onSaveEditedSheetButtonClicked(e)}>
+						<i
+							className={"fa-solid fa-pencil"}
+							aria-hidden="true"
+						/>
+						{" Editar Planilla"}
+					</Button>}
 				</div>
 			</div>
 		</div>
@@ -228,10 +238,22 @@ const NewLubricationSheet = () => {
 			setMaintenanceFrequencies(initialMaintenance)
 	}
 
+	function callApiWithBody(body) {
+		const url = "lubricationsheet/sparepart/add";
+		api.postNew(url, body)
+			.then(() => {
+				navigate("/equipment/details/" + code);
+			})
+			.catch((error) => console.log(error));
+	}
+
 	async function fetchEquipment() {
 		try {
 			const response = await api.getEquipmentByCode(code);
 			setEquipment(response);
+			if (response.lubrication_sheet) {
+				setSelectedLubricationSheet(response.lubrication_sheet);
+			}
 		} catch (error) {
 			console.log(error);
 		}

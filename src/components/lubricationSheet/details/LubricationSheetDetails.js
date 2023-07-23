@@ -5,11 +5,13 @@ import SparePartsSections from "../SparePartTypes.json";
 
 import TableHeader from "components/table/TableHeader";
 import Table from "components/table/Table";
+import Button from "components/button/Button";
 
 const api = require("api/Api").default;
 
 const NewLubricationSheet = () => {
 	const { code } = useParams(); // Equipment code
+	const newLubricationSheetHref = "/lubricationsheet/new/" + code;
 
 	/**
 	 * [{
@@ -50,6 +52,9 @@ const NewLubricationSheet = () => {
 			<div className="sheet-details-header">
 				<div className="title-header">
 					<h3>{title}</h3>
+					<Button isLink={true} href={newLubricationSheetHref} styles={['outlined']}>
+						<i className="fas fa-pencil" aria-hidden="true" />
+					</Button>
 					<FrequencySelector
 						filteredFrequencies={filteredFrequencies}
 						setFilteredFrequencies={setFilteredFrequencies}

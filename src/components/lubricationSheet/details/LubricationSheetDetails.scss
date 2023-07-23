@@ -20,6 +20,7 @@ $disabled-button-color: rgba(0, 0, 0, 0.35);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
             
             h3 {
                 font-weight: bolder;

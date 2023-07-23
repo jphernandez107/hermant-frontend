@@ -8,7 +8,8 @@ const ExistingSheetSelectionSection = (props) => {
 		lubricationSheets, 
 		selectedLubricationSheet,
 		setSelectedLubricationSheet, 
-		onSharedSheetButtonPressed
+		onSharedSheetButtonPressed,
+		equipmentCode
 	} = props
 
 	const handleSelectChange = (e) => {
@@ -35,7 +36,11 @@ const ExistingSheetSelectionSection = (props) => {
     )
 
     function getExistingSheetSelect() {
-		return <Select onChange={handleSelectChange}>{getOptionsForSelect()}</Select>;
+		return (
+			<Select onChange={handleSelectChange} value={selectedLubricationSheet ? selectedLubricationSheet.id : "none"}>
+				{getOptionsForSelect()}
+			</Select>
+		);
 	}
 
 	function getOptionsForSelect() {
@@ -52,9 +57,10 @@ const ExistingSheetSelectionSection = (props) => {
 					</option>
 				);
 			sheet.equipments.forEach((equip) => {
+				const current = `${equipmentCode === equip.code ? "[actual]" : ""}`;
 				existingSheets.push(
 					<option value={sheet.id} key={equip.code}>
-						{`${equip.designation} ${equip.brand} ${equip.model} ${equip.code}`}
+						{`${equip.designation} ${equip.brand} ${equip.model} ${equip.code} ${current}`}
 					</option>
 				);
 			});
