@@ -8,6 +8,7 @@ const api = require("api/Api").default;
 
 const SparePartList = () => {
 	const [parts, setParts] = useState([]);
+	const [loadingState, setLoadingState] = useState("Buscando repuestos...")
 
 	useEffect(() => {
 		fetchParts();
@@ -26,7 +27,13 @@ const SparePartList = () => {
 	];
 
 	return (
-		<List table_columns={columns} table_data={parts} set_table_data={setParts} title={"Repuestos"}>
+		<List 
+			table_columns={columns} 
+			table_data={parts}
+			set_table_data={setParts} 
+			title={"Repuestos"}
+			loadingState={loadingState}
+		>
 			<Button isLink={true} href={`new`}>
 				<i className="fas fa-plus" aria-hidden="true" /> Nuevo Repuesto
 			</Button>
@@ -44,6 +51,7 @@ const SparePartList = () => {
 		} catch (error) {
 			console.log(error);
 		}
+		setLoadingState(null);
 	}
 
 	function getEquipmentCountFromLubricationSheets(lubrication_sheet_spare_parts) {

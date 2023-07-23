@@ -9,6 +9,7 @@ const api = require("api/Api").default;
 
 const UserList = () => {
   const [users, setUsers] = useState([]);
+  const [loadingState, setLoadingState] = useState("Buscando usuarios...")
 
   useEffect(() => {
     fetchUsers();
@@ -30,7 +31,14 @@ const UserList = () => {
   }
 
   return (
-    <List table_columns={columns} table_data={users} set_table_data={setUsers} title={'Usuarios'} onRowClicked={onRowClicked}>
+    <List 
+      table_columns={columns} 
+      table_data={users} 
+      set_table_data={setUsers} 
+      title={'Usuarios'} 
+      onRowClicked={onRowClicked}
+      loadingState={loadingState}  
+    >
       <Button isLink={true} href={`new`}>
         <i className="fas fa-plus" aria-hidden="true" /> Nuevo Usuario
       </Button>
@@ -50,6 +58,7 @@ const UserList = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoadingState(null);
   }
 };
 

@@ -9,6 +9,7 @@ const api = require("api/Api").default;
 
 const ConstructionSiteList = () => {
 	const [sites, setSites] = useState([]);
+	const [loadingState, setLoadingState] = useState("Buscando obras...")
 
 	useEffect(() => {
 		fetchSites();
@@ -37,6 +38,7 @@ const ConstructionSiteList = () => {
 			set_table_data={setSites}
 			title={"Obras"}
 			onRowClicked={onRowClicked}
+			loadingState={loadingState}
 		>
 			<Button isLink={true} href={`new`}>
 				<i className="fas fa-plus" aria-hidden="true" /> Nueva Obra
@@ -54,6 +56,7 @@ const ConstructionSiteList = () => {
 		} catch (error) {
 			console.log(error);
 		}
+		setLoadingState(null);
 	}
 };
 

@@ -17,6 +17,7 @@ const List = (props) => {
                 title={props.title} 
                 onRowClicked={props.onRowClicked} 
                 showSearchBar={props.showSearchBar}
+                loadingState={props.loadingState}
             />
         </div>
     )

@@ -9,6 +9,7 @@ const api = require("api/Api").default;
 
 const EquipmentList = () => {
   const [equipments, setEquipments] = useState([]);
+  const [loadingState, setLoadingState] = useState("Buscando equipos...")
 
   useEffect(() => {
     fetchEquipments();
@@ -31,7 +32,14 @@ const EquipmentList = () => {
   }
 
   return (
-    <List table_columns={columns} table_data={equipments} set_table_data={setEquipments} title={'Equipos'} onRowClicked={onRowClicked}>
+    <List 
+      table_columns={columns} 
+      table_data={equipments} 
+      set_table_data={setEquipments} 
+      title={'Equipos'} 
+      onRowClicked={onRowClicked}
+      loadingState={loadingState}
+    >
       <Button isLink={true} href={`new`}>
         <i className="fas fa-plus" aria-hidden="true" /> Nuevo Equipo
       </Button>
@@ -49,6 +57,7 @@ const EquipmentList = () => {
     } catch (error) {
       console.log(error);
     }
+    setLoadingState(null);
   }
 };
 

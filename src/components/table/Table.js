@@ -4,7 +4,7 @@ import "./Table.scss";
 import TableHeader from "./TableHeader";
 
 const Table = (props) => {
-  const { columns, data, setData, title, showSearchBar, emptyTableTitle } = props
+  const { columns, data, setData, title, showSearchBar, emptyTableTitle, loadingState } = props
   const styles = props.style || [];
   const { onRowClicked } = props
   const [columnSort, setColumnSort] = useState({
@@ -33,6 +33,20 @@ const Table = (props) => {
       return columnSort.direction ? "fa-solid fa-sort-up" : "fa-solid fa-sort-down";
     } else {
       return "fa-solid fa-sort";
+    }
+  }
+
+  const loadingText = () => {
+    if (loadingState) {
+      return (
+        <div className="loading-row">
+          <i className="far fa-truck-loading"></i> {loadingState}
+        </div>
+      )
+    } else if (emptyTableTitle) {
+      return (emptyTableTitle)
+    } else {
+      return ("No se encontraron datos")
     }
   }
 
@@ -71,11 +85,11 @@ const Table = (props) => {
   }
 
   function createRows(columns, data) {
-    const emptyTitle = emptyTableTitle || 'No se encontraron datos';
-    if (!data || data.length === 0) {
+    let emptyRow = loadingText()
+    if (!data || data.length === 0 || loadingState) {
       return (
         <tr>
-          <td className="empty-table-row" colSpan={columns.length} >{`${emptyTitle}`}</td>
+          <td className="empty-table-row" colSpan={columns.length} >{emptyRow}</td>
         </tr>
       )
     }
