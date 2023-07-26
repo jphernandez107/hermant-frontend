@@ -6,6 +6,7 @@ import Button from "components/button/Button"
 import List from "components/list/List";
 import ProtectedComponent from "components/protectedComponent/ProtectedComponent";
 import { UserRole } from "context/Context";
+import { equipmentLogos } from "../EquipmentLogos";
 
 const api = require("api/Api").default;
 
@@ -21,6 +22,7 @@ const EquipmentList = () => {
 
   const columns = [
     { code: "Código" },
+    { image: "Logo", isImage: true },
     { designation: "Designación" },
     { brand: "Marca" },
     { model: "Modelo" },
@@ -57,11 +59,21 @@ const EquipmentList = () => {
   async function fetchEquipments() {
     try {
       const response = await api.getEquipmentList();
+      response.map(equipment => {
+        equipment.image = getEquipmentImage(equipment)
+      });
       setEquipments(response);
     } catch (error) {
       console.log(error);
     }
     setLoadingState(null);
+  }
+
+  function getEquipmentImage(equipment) {
+    const observations = equipment.observations?.toLowerCase() || "";
+    const designation = equipment.designation?.toLowerCase();
+
+    return equipmentLogos[observations] || equipmentLogos[designation] || equipmentLogos["generico"];
   }
 };
 

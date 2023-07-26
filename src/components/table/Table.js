@@ -99,10 +99,11 @@ const Table = (props) => {
       const cells = columns.map((column) => {
         const columnKey = Object.keys(column)[0];
         const columnValue = column[columnKey];
-        const cellValue = item[columnKey];
+        const cellValue = getCellValue(column, item[columnKey]);
         const cell =
           cellValue !== undefined && cellValue !== null && cellValue !== "" ? cellValue : "-";
         const cellStyles = column.style || [];
+        if (column.isImage) cellStyles.push("image");
 
         rowCode = columnKey === "code" ? cellValue : rowCode;
 
@@ -128,6 +129,13 @@ const Table = (props) => {
         </tr>
       );
     });
+  }
+
+  function getCellValue(column, value) {
+    if (column.isImage) {
+      return (<img src={value}></img>);
+    }
+    return value;
   }
 
   function getTableHeader(showSearchBar, title) {
