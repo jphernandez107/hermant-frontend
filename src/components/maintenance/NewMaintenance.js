@@ -4,13 +4,13 @@ import "./NewMaintenance.scss";
 import SparePartsSections from "components/lubricationSheet/SparePartTypes.json";
 import "react-datepicker/dist/react-datepicker.css";
 
-import TableHeader from "components/table/TableHeader";
 import { getUniqueFrequenciesFromSheet } from "utils/utils";
 
 import Button from "components/button/Button";
 
 import MaintenanceConfiguration from "./maintenanceConfiguration/MaintenanceConfiguration";
 import MaintenanceSection from "./maintenanceSection/MaintenanceSection";
+import PageHeader from "components/pageHeader/PageHeader";
 
 const api = require("api/Api").default;
 
@@ -77,9 +77,9 @@ const NewLubricationSheet = () => {
 	return spareParts.length > 0 ? (
 		<div className="maintenance-details-page">
 			<div className="maintenance-details-header">
-				<TableHeader
-					showSearchBar={false}
-				>{`Nuevo mantenimiento para ${equipment?.designation} ${equipment?.brand} ${equipment?.model} ${equipment?.code} `}</TableHeader>
+				<PageHeader>
+					{`Nuevo mantenimiento para ${equipment?.designation} ${equipment?.brand} ${equipment?.model} ${equipment?.code} `}
+				</PageHeader>
 			</div>
 			<div className="maintenance-details-wrapper">
 				{

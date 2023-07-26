@@ -4,7 +4,7 @@ import "./EquipmentDetails.scss";
 
 import Button from "components/button/Button";
 import Table from "components/table/Table";
-import TableHeader from "components/table/TableHeader";
+import PageHeader from "components/pageHeader/PageHeader";
 
 const api = require("api/Api").default;
 
@@ -66,7 +66,9 @@ const EquipmentDetails = () => {
   return equipment ? (
     <div className="details-page">
       <div className="details-header">
-        <TableHeader showSearchBar={false} button={editButton}>{`${equipment.designation} ${equipment.brand} ${equipment.model} ${equipment.code} `}</TableHeader>
+        <PageHeader button={editButton}>
+          {`${equipment.designation} ${equipment.brand} ${equipment.model} ${equipment.code} `}
+        </PageHeader>
       </div>
       <div className="details-wrapper">
         <div className="lubrication-sheet">

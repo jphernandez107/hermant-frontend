@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "./LubricationSheetDetails.scss";
 import SparePartsSections from "../SparePartTypes.json";
 
-import TableHeader from "components/table/TableHeader";
 import Table from "components/table/Table";
 import Button from "components/button/Button";
 import ProtectedComponent from "components/protectedComponent/ProtectedComponent";
@@ -14,6 +13,7 @@ const api = require("api/Api").default;
 const NewLubricationSheet = () => {
 	const { code } = useParams(); // Equipment code
 	const newLubricationSheetHref = "/lubricationsheet/new/" + code;
+	const navigate = useNavigate();
 
 	/**
 	 * [{
@@ -49,21 +49,30 @@ const NewLubricationSheet = () => {
 		setFrequencies(getUniqueFrequenciesFromSheet(lubricationSheet));
 	}, [lubricationSheet, filteredFrequencies]);
 
+	const onBackClicked = (e) => {
+        navigate(-1);
+    }
+
 	return equipment ? (
 		<div className="sheet-details-page">
 			<div className="sheet-details-header">
 				<div className="title-header">
-					<h3>{title}</h3>
-					<ProtectedComponent roleNeeded={UserRole.ENGINEER}>
-						<Button isLink={true} href={newLubricationSheetHref} styles={['outlined']}>
-							<i className="fas fa-pencil" aria-hidden="true" />
-						</Button>
-					</ProtectedComponent>
-					<FrequencySelector
-						filteredFrequencies={filteredFrequencies}
-						setFilteredFrequencies={setFilteredFrequencies}
-						uniqueFrequencies={frequencies}
-					/>
+					<div className="title-back-button">
+						<i className="fa-solid fa-angle-left fa-2x" onClick={onBackClicked}></i>
+						<h3>{title}</h3>
+					</div>
+					<div className="button-selector">
+						<ProtectedComponent roleNeeded={UserRole.ENGINEER}>
+							<Button isLink={true} href={newLubricationSheetHref} styles={['outlined']}>
+								<i className="fas fa-pencil" aria-hidden="true" />
+							</Button>
+						</ProtectedComponent>
+						<FrequencySelector
+							filteredFrequencies={filteredFrequencies}
+							setFilteredFrequencies={setFilteredFrequencies}
+							uniqueFrequencies={frequencies}
+						/>
+					</div>
 				</div>
 			</div>
 			<div className="sheet-details-wrapper">

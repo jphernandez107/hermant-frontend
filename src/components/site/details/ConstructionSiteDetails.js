@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 
 import Button from "components/button/Button";
 import Table from "components/table/Table";
-import TableHeader from "components/table/TableHeader";
+import PageHeader from "components/pageHeader/PageHeader";
 
 const api = require("api/Api").default;
 
@@ -124,10 +124,9 @@ const ConstructionSiteDetails = () => {
 	return constructionSite ? (
 		<div className="details-page">
 			<div className="details-header">
-				<TableHeader
-					showSearchBar={false}
-					button={editButton}
-				>{`${constructionSite?.name} en ${constructionSite?.province}`}</TableHeader>
+				<PageHeader button={editButton}>
+					{`${constructionSite?.name} en ${constructionSite?.province}`}
+				</PageHeader>
 			</div>
 			<div className="details-wrapper">
 				<div className="site-details">

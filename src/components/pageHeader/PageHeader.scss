@@ -1,0 +1,33 @@
+@import 'styles/styles.scss';
+
+$title-color: $text;
+
+.page-header {
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+
+    .header-back-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 6px;
+
+        h3 {
+            font-weight: bolder;
+            color: $title-color;
+            font-size: xx-large;
+            margin: 0px;
+        }
+        i {
+            color: $title-color;
+            vertical-align: center;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+    }
+    
+}

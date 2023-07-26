@@ -3,12 +3,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./NewLubricationSheet.scss";
 import SparePartsSections from "./SparePartTypes.json";
 
-import TableHeader from "components/table/TableHeader";
-
 import MaintenanceFrequenciesSection from "./maintenanceFrequenciesSection/MaintenanceFrequenciesSection";
 import ExistingSheetSelectionSection from "./existingSheetSelectionSection/ExistingSheetSelectionSection";
 import SparePartsSection from "./sparePartSection/SparePartsSection";
 import Button from "components/button/Button";
+import PageHeader from "components/pageHeader/PageHeader";
 
 const api = require("api/Api").default;
 
@@ -102,9 +101,9 @@ const NewLubricationSheet = () => {
 	return spareParts.length > 0 ? (
 		<div className="details-page">
 			<div className="details-header">
-				<TableHeader
-					showSearchBar={false}
-				>{`Planilla de mantenimiento para ${equipment?.designation} ${equipment?.brand} ${equipment?.model} ${equipment?.code} `}</TableHeader>
+				<PageHeader>
+					{`Planilla de mantenimiento para ${equipment?.designation} ${equipment?.brand} ${equipment?.model} ${equipment?.code} `}
+				</PageHeader>
 			</div>
 			<div className="details-wrapper">
 				{

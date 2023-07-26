@@ -3,7 +3,7 @@ import "./TableHeader.scss"
 
 import SearchBar from "components/searchBar/SearchBar"
 
-const TableHeader = ({showSearchBar = true, children, button}) => {
+const TableHeader = ({showSearchBar = true, children, button, showBackButton = false}) => {
 
     const title = children ? children : ''
     const lowerCaseTitle = title.toLowerCase()
@@ -11,6 +11,7 @@ const TableHeader = ({showSearchBar = true, children, button}) => {
 
     return (
         <div className='table-header'>
+            {getBackButton(showBackButton)}
             <h3>{title}</h3>
             {getSearchBar(showSearchBar)}
             {getButton(button)}
@@ -23,6 +24,10 @@ const TableHeader = ({showSearchBar = true, children, button}) => {
 
     function getButton(button) {
         return button ? React.createElement(button) : <></>
+    }
+
+    function getBackButton(showBackButton) {
+        return showBackButton ? <i className="far fa-arrow-left"></i> : <></>
     }
 
 }
