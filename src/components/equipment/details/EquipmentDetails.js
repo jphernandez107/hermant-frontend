@@ -10,7 +10,6 @@ const api = require("api/Api").default;
 
 const EquipmentDetails = () => {
   const { code } = useParams()
-  const viewLubricationSheetHref = "lubricationsheet/" + code;
   const [equipment, setEquipment] = useState(null);
   const [maintenances, setMaintenances] = useState([]);
   // const [repairs, setRepairs] = useState([]);
@@ -19,7 +18,9 @@ const EquipmentDetails = () => {
     fetchEquipment();
   }, []);
 
-  
+  const viewLubricationSheetHref = () => {
+    return equipment.lubrication_sheet_id ? "lubricationsheet/" + code : "/lubricationsheet/new/" + code;
+  }
 
   const columns_table_1 = [
     { code: "Patente", style: ["center-text"] },
@@ -72,7 +73,7 @@ const EquipmentDetails = () => {
       </div>
       <div className="details-wrapper">
         <div className="lubrication-sheet">
-          <Button isLink={true} href={viewLubricationSheetHref}>
+          <Button isLink={true} href={viewLubricationSheetHref()}>
             <i className="far fa-file-check" aria-hidden="true" /> {" Planilla de mantenimiento"}
           </Button>
         </div>
