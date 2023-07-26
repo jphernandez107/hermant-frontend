@@ -177,23 +177,23 @@ const SheetSparePartsSection = (props) => {
 		rowsForSection,
 		totalFrequencies
 	) {
-		return subtypes.map((subtype) => {
+		const data = [];
+		subtypes.forEach((subtype) => {
 			const rowsForSubtype = rowsForSection.filter(
 				(row) => row.subtype === subtype.subtype
 			);
 			if (rowsForSubtype && rowsForSubtype.length > 0) {
-				return (
-					<Table
-						key={`table-${subtype.subtype}`}
-						className={"details-table"}
-						columns={getTableColumns(title, totalFrequencies)}
-						data={getTableData(rowsForSubtype, totalFrequencies)}
-						showSearchBar={false}
-						style={["single"]}
-					/>
-				);
+				data.push(...getTableData(rowsForSubtype, totalFrequencies));
 			}
-		});
+		})
+		return (<Table
+			key={`table-${type}`}
+			className={"details-table"}
+			columns={getTableColumns(title, totalFrequencies)}
+			data={data}
+			showSearchBar={false}
+			style={["single"]}
+		/>)
 	}
 
 	function getTableColumns(title, totalFrequencies) {
@@ -201,11 +201,9 @@ const SheetSparePartsSection = (props) => {
 			return { [freq]: freq, style: ["center-text", "bold"] };
 		});
 		return [
-			{ title: title, style: ["center-text", "fixed-width-30"] },
-			{
-				application: "Aplicación",
-				style: ["center-text", "fixed-width-20"],
-			},
+			{ title: title, style: ["center-text", "fixed-width-20"] },
+			{ type: "Tipo", style: ["center-text", "fixed-width-20"] },
+			{ application: "Aplicación", style: ["center-text", "fixed-width-10"] },
 			{ quantity: "Cantidad", style: ["center-text", "fixed-width-10"] },
 			...frequencyColumns,
 		];
@@ -217,6 +215,7 @@ const SheetSparePartsSection = (props) => {
 			const rowTitle = `${part.internal_code} ${part.brand} ${part.model}`;
 			const rowObj = {
 				title: rowTitle,
+				type: part.application,
 				application: row.application,
 				quantity: row.quantity,
 				...getFrequeniesForPart(row.frequencies, totalFrequencies),

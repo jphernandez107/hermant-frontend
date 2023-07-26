@@ -153,6 +153,15 @@ $disabled-button-color: rgba(0, 0, 0, 0.35);
             }
 
             .sheet-spare-part-section-subsections {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                .table-card {
+                    padding: 0;
+                    gap: 0;
+                }
+
                 &.show {
                     transform: scaleY(1);
                     transform-origin: top;
