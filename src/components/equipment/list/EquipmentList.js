@@ -4,6 +4,8 @@ import "./EquipmentList.scss";
 
 import Button from "components/button/Button"
 import List from "components/list/List";
+import ProtectedComponent from "components/protectedComponent/ProtectedComponent";
+import { UserRole } from "context/Context";
 
 const api = require("api/Api").default;
 
@@ -40,13 +42,15 @@ const EquipmentList = () => {
       onRowClicked={onRowClicked}
       loadingState={loadingState}
     >
-      <Button isLink={true} href={`new`}>
-        <i className="fas fa-plus" aria-hidden="true" /> Nuevo Equipo
-      </Button>
-      <Button isLink={true} href={`hours`}>
-        <i className="fas fa-clock" aria-hidden="true" /> Administrar horas de
-        equipos
-      </Button>
+      <ProtectedComponent roleNeeded={UserRole.ENGINEER}>
+        <Button isLink={true} href={`new`}>
+          <i className="fas fa-plus" aria-hidden="true" /> Nuevo Equipo
+        </Button>
+        <Button isLink={true} href={`hours`}>
+          <i className="fas fa-clock" aria-hidden="true" /> Administrar horas de
+          equipos
+        </Button>
+      </ProtectedComponent>
     </List>
   );
 

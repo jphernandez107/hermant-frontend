@@ -1,43 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext, verifyRole } from 'context/Context';
 import "./Sidebar.scss"
 
 
 const Sidebar = () => {
     const [isExpanded, setExpandState] = useState(false);
-    const [user, setUser] = useState();
     const currentPath = window.location.pathname
-
-    useEffect(() => {
-        const u = localStorage.getItem('user');
-        if (!u) return
-        setUser(JSON.parse(u));
-    }, []);
+    const { user } = useContext(UserContext);
 
     const menuItems = [
         {
             text: "Inicio",
             icon: "fa-solid fa-calendar-week fa-1x",
-            url: "/"
+            url: "/",
+            role: "Mechanic"
         },
         {
             text: "Equipos",
             icon: "mdi mdi-bulldozer",
-            url: "/equipment/list"
+            url: "/equipment/list",
+            role: "Engineer"
         },
         {
             text: "Obras",
             icon: "fa-solid fa-helmet-safety fa-1x",
-            url: "/site/list"
+            url: "/site/list",
+            role: "Engineer"
         },
         {
             text: "Repuestos",
             icon: "fa-solid fa-wrench fa-1x",
-            url: "/part/list"
+            url: "/part/list",
+            role: "Mechanic"
         },
         {
             text: "Usuarios",
             icon: "fa-solid fa-users fa-1x",
-            url: "/user/list"
+            url: "/user/list",
+            role: "Admin"
         },
     ];
 
@@ -54,6 +54,21 @@ const Sidebar = () => {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         window.location = '/signin';
+    }
+
+    const menuItem = (text, icon, url) => {
+        return (
+            <a
+                className={
+                    `menu-item ${isExpanded ? "" : "menu-item-NX "} ${menuItemSelected(url, currentPath)}`
+                }
+                href={url}
+                key={text}
+            >
+                <i className={`menu-item-icon ${icon}`}></i>
+                {isExpanded && <p> {text}</p>}
+            </a>
+        )
     }
 
     return (
@@ -73,18 +88,10 @@ const Sidebar = () => {
                 </div>
 
                 <div className="nav-menu">
-                    {menuItems.map(({ text, icon, url }) => (
-                        <a
-                            className={
-                                `menu-item ${isExpanded ? "" : "menu-item-NX "} ${menuItemSelected(url, currentPath)}`
-                            }
-                            href={url}
-                            key={text}
-                        >
-                            <i className={`menu-item-icon ${icon}`}></i>
-                            {isExpanded && <p> {text}</p>}
-                        </a>
-                    ))}
+                    {menuItems.map(({ text, icon, url, role }) => {
+                        if (verifyRole(user?.role, role)) 
+                            return menuItem(text, icon, url);
+                    })}
                 </div>
             </div>
 

@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./Login.scss";
 import Button from "components/button/Button";
 import Input from "components/input/Input";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "context/Context";
 
 const api = require("api/Api").default;
 
 const Login = () => {
     const navigate = useNavigate();
+    const { setUser } = useContext(UserContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState(null);
@@ -33,6 +35,7 @@ const Login = () => {
 
             localStorage.setItem('token', response.token)
             localStorage.setItem('user', JSON.stringify(response.user))
+            setUser(response.user);
             navigate('/')
         } catch (error) {
             handleError(error)

@@ -6,6 +6,8 @@ import SparePartsSections from "../SparePartTypes.json";
 import TableHeader from "components/table/TableHeader";
 import Table from "components/table/Table";
 import Button from "components/button/Button";
+import ProtectedComponent from "components/protectedComponent/ProtectedComponent";
+import { UserRole } from "context/Context";
 
 const api = require("api/Api").default;
 
@@ -52,9 +54,11 @@ const NewLubricationSheet = () => {
 			<div className="sheet-details-header">
 				<div className="title-header">
 					<h3>{title}</h3>
-					<Button isLink={true} href={newLubricationSheetHref} styles={['outlined']}>
-						<i className="fas fa-pencil" aria-hidden="true" />
-					</Button>
+					<ProtectedComponent roleNeeded={UserRole.ENGINEER}>
+						<Button isLink={true} href={newLubricationSheetHref} styles={['outlined']}>
+							<i className="fas fa-pencil" aria-hidden="true" />
+						</Button>
+					</ProtectedComponent>
 					<FrequencySelector
 						filteredFrequencies={filteredFrequencies}
 						setFilteredFrequencies={setFilteredFrequencies}

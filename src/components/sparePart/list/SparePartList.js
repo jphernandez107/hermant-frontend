@@ -3,6 +3,8 @@ import "./SparePartList.scss";
 
 import Button from "components/button/Button";
 import List from "components/list/List";
+import ProtectedComponent from "components/protectedComponent/ProtectedComponent";
+import { UserRole } from "context/Context";
 
 const api = require("api/Api").default;
 
@@ -34,9 +36,11 @@ const SparePartList = () => {
 			title={"Repuestos"}
 			loadingState={loadingState}
 		>
-			<Button isLink={true} href={`new`}>
-				<i className="fas fa-plus" aria-hidden="true" /> Nuevo Repuesto
-			</Button>
+			<ProtectedComponent roleNeeded={UserRole.ENGINEER}>
+				<Button isLink={true} href={`new`}>
+					<i className="fas fa-plus" aria-hidden="true" /> Nuevo Repuesto
+				</Button>
+			</ProtectedComponent>
 		</List>
 	);
 
