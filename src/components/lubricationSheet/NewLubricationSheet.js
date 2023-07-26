@@ -147,7 +147,7 @@ const NewLubricationSheet = () => {
 							className={"fa-solid fa-pencil"}
 							aria-hidden="true"
 						/>
-						{" Editar Planilla"}
+						{" Actualizar Planilla"}
 					</Button>}
 				</div>
 			</div>

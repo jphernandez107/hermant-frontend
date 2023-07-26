@@ -29,7 +29,7 @@ const ExistingSheetSelectionSection = (props) => {
 					onClick={onSharedSheetButtonPressed}
 					disabled={!selectedLubricationSheet}
 				>
-					Usar planilla compartida
+					<i className="far fa-link"/> Usar planilla compartida
 				</Button>
 			</div>
         </div>
