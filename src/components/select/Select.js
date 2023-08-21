@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./Select.scss";
 
-const Select = ({ children, onChange, defaultValue, value }) => {
+const Select = ({ children, onChange, defaultValue, value, name }) => {
 	const [val, setValue] = useState(value || "");
 
 	useEffect(() => {
@@ -19,6 +19,7 @@ const Select = ({ children, onChange, defaultValue, value }) => {
 			onChange={onLocalChange}
 			defaultValue={defaultValue}
 			value={val}
+			name={name}
 		>
 			{children}
 		</select>

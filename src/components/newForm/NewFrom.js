@@ -26,6 +26,7 @@ const NewForm = (props) => {
 		const formData = {};
 		const formInputs = event.target.getElementsByTagName("input");
 		const formTextAreas = event.target.getElementsByTagName("textarea");
+		const formSelects = event.target.getElementsByTagName("select");
 
 		const allColumns = rows.flatMap(row => row.columns);
 
@@ -43,8 +44,14 @@ const NewForm = (props) => {
 			if (!checkEmptyRequiredFieldByName(allColumns, textArea.name, textArea.value)) return;
 		}
 
+		// Collect the form data from select fields
+		for (let i = 0; i < formSelects.length; i++) {
+			const select = formSelects[i];
+			formData[select.name] = select.value;
+			if (!checkEmptyRequiredFieldByName(allColumns, select.name, select.value)) return;
+		}
+
 		// Make the API call
-		// TODO: Show an alert telling the user if everything was okay
 		if (is_editing) {
 			api.putEdit(action, formData)
 				.then(() => navigate(go_to_after_submit))
@@ -136,6 +143,7 @@ const FormColumn = (props) => {
 						<Select
 							className="type-select"
 							onChange={(e) => setValue(e.target.value)}
+							name={name}
 						>
 							{options.map(option => {
 								const lowerCaseOption = option.toLowerCase();

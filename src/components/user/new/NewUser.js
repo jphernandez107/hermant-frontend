@@ -6,14 +6,14 @@ import NewForm from "components/newForm/NewFrom";
 const api = require("api/Api").default;
 
 const UserRole = Object.freeze({
-    ADMIN: 0,
-    ENGINEER: 1,
-    MECHANIC: 2,
+    ADMIN: "Admin",
+    ENGINEER: "Engineer",
+    MECHANIC: "Mechanic",
 });
 
 const NewUser = () => {
-	const headerTitle = "Nuevo equipo";
-	const headerSubtitle = "Ingrese los datos del equipo que desea agregar";
+	const headerTitle = "Nuevo Usuario";
+	const headerSubtitle = "Ingrese los datos del usuario que desea agregar";
 	const form = {
 		header_title: headerTitle,
 		header_subtitle: headerSubtitle,
