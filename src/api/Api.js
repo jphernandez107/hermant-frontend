@@ -88,13 +88,13 @@ const Api = {
   async putAddEquipmentToSite(equipment_code, site_code) {
     return fetchPut(endpoints.addEquipmentToSite, {
       equipment_code,
-      site_code
+      construction_site_code: site_code
     });
   },
   async putRemoveEquipmentFromSite(equipment_code, site_code) {
     return fetchPut(endpoints.removeEquipmentFromSite, {
       equipment_code,
-      site_code
+      construction_site_code: site_code
     });
   },
   async getConstructionSiteList() {
