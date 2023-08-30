@@ -18,6 +18,7 @@ export const EquipmentDesignations = [
 	"Montacargas",
 	"Perforadora",
 	"Pavimentador",
-	"Compresor",
+	"Motocompresor",
+	"Generador",
 	"Miniexcavadora"
 ]

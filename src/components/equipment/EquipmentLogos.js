@@ -16,5 +16,8 @@ export const equipmentLogos = {
     "carreton": "/dist/img/equipments/trailer.png",
     "furgon": "/dist/img/equipments/cargo-van.png",
     "combi": "/dist/img/equipments/van.png",
+    "manipulador": "/dist/img/equipments/handler.png",
+    "motocompresor": "/dist/img/equipments/compressor.png",
+    "generador": "/dist/img/equipments/electric-generator.png",
     "generico":"/dist/img/equipments/truck.png"
 }
