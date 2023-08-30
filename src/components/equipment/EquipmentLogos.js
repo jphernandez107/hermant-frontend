@@ -12,5 +12,9 @@ export const equipmentLogos = {
     "combustible": "/dist/img/equipments/fuel-tank-truck.png",
     "camion": "/dist/img/equipments/tipper-truck.png",
     "volquete": "/dist/img/equipments/tipper-truck-big.png",
+    "camioneta": "/dist/img/equipments/pick-up-truck.png",
+    "carreton": "/dist/img/equipments/trailer.png",
+    "furgon": "/dist/img/equipments/cargo-van.png",
+    "combi": "/dist/img/equipments/van.png",
     "generico":"/dist/img/equipments/truck.png"
 }
