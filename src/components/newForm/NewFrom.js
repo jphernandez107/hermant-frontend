@@ -144,6 +144,7 @@ const FormColumn = (props) => {
 							className="type-select"
 							onChange={(e) => setValue(e.target.value)}
 							name={name}
+							value={value}
 						>
 							{options.map(option => {
 								const lowerCaseOption = option.toLowerCase();

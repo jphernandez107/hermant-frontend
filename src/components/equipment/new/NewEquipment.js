@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "./NewEquipment.scss";
 
 import NewForm from "components/newForm/NewFrom";
+import { EquipmentDesignations } from "../EquipmentDesignations";
 const api = require("api/Api").default;
 
 const NewEquipment = () => {
@@ -20,8 +21,9 @@ const NewEquipment = () => {
 					{
 						label: "Designación",
 						name: "designation",
-						type: "text",
+						type: "select",
 						value: "",
+						options: EquipmentDesignations,
 						required: true,
 					},
 				],

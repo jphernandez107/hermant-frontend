@@ -1,0 +1,19 @@
+export const EquipmentDesignations = [
+	"Excavadora",
+	"Topadora",
+	"Camion",
+	"Carreton",
+	"Regador",
+	"Volquete",
+	"Vibrocompactador",
+	"Motoniveladora",
+	"Cargadora",
+	"Retroexcavadora",
+	"Grua",
+	"Mixer",
+	"Montacargas",
+	"Perforadora",
+	"Pavimentador",
+	"Compresor",
+	"Miniexcavadora"
+]
