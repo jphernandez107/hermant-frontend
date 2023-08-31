@@ -13,14 +13,7 @@ const MaintenancesCalendar = () => {
 	const navigate = useNavigate();
 	const [equipments, setEquipments] = useState([]);
 	const [eventPopoverOpen, setEventPopoverOpen] = useState();
-	const [maintenanceEvents, setMaintenanceEvents] = useState([
-		{
-			title: "Event test",
-			start: new Date(),
-			end: new Date(),
-			allDay: true,
-		},
-	]);
+	const [maintenanceEvents, setMaintenanceEvents] = useState([]);
 
 	useEffect(() => {
 		fetchEquipments();
