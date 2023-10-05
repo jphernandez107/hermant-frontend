@@ -63,14 +63,15 @@ $nav-footer-text-color: $text;
 				color: $nav-brand-color;
 				align-items: center;
 				text-decoration: none;
+				gap: 5px;
 
 				img {
-					width: 6vh;
+					width: 4vh;
 				}
 
 				h2 {
 					max-width: 100%;
-					font-size: 200%;
+					font-size: 170%;
 					font-weight: 700;
 					text-overflow: ellipsis;
 					overflow: hidden;

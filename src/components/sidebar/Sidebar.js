@@ -80,9 +80,9 @@ const Sidebar = () => {
 
                 <div className={isExpanded ? "nav-heading" : "nav-heading nav-heading-NX"}>
                     <a className="nav-brand" href='/'>
-                        <img src="/dist/img/hermant-logo.png" alt="Hermant Logo" />
+                        <img src="/dist/img/construct-care-logo.png" alt="ConstructCare Logo" />
                         {isExpanded && (
-                            <h2>Hermant</h2>
+                            <h2>ConstructCare</h2>
                         )}
                     </a>
                 </div>

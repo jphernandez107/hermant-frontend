@@ -41,8 +41,8 @@ const Body = () => {
 			</div>
 			<footer className="footer">
 				<p>
-					All Rights Reserved by HERMANT®. Designed and developed by
-					HERMANT® Company
+					All Rights Reserved by CONSTRACTCARE®. Designed and developed by
+					CONSTRACTCARE® Company
 				</p>
 			</footer>
 		</div>
