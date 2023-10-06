@@ -1,4 +1,4 @@
-:root {
+#root {
 	/* --primary: #0091ff;
 	--dark: #061b28;
 	--gray: #756388;
@@ -39,6 +39,11 @@
 //   --outlines: #4F5467;
 
 //   --table-min-width: 25vh; 
+  height: 100%;
+}
+
+html {
+  height: 100%;
 }
 
 body {
@@ -48,6 +53,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 code {

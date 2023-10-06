@@ -61,6 +61,7 @@ const endpoints = {
   getLubricationSheetByEquipmentCode: '/lubricationsheet/equipment',
   postSignIn: '/user/signin',
   getUserList: '/user/list',
+  getNextMaintenances: '/maintenance/next-maintenances',
 };
 
 async function fetchGet(endpoint, params = {}) {
@@ -134,6 +135,9 @@ const Api = {
   },
   async getUserList() {
     return fetchGet(endpoints.getUserList);
+  },
+  async getNextMaintenances() {
+    return fetchGet(endpoints.getNextMaintenances);
   },
 };
 
