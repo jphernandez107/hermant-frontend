@@ -1,0 +1,103 @@
+@import 'styles/styles.scss';
+
+$item-background-color: lighten($background, 30%);
+
+.next-maintenances-list {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	gap: 5px;
+	margin-right: 1%;
+	margin-left: 1%;
+	color: $text;
+
+	.next-maintenances-list-date {
+		font-size: large;
+		font-weight: 600;
+	}
+
+	.next-maintenances-list-item {
+		display: flex;
+		flex-direction: row;
+		min-height: 50px;
+		background-color: $item-background-color;
+		border-radius: 15px;
+		padding: 3px;
+		justify-content: space-between;
+		
+		.next-maintenances-list-item-left {
+			display: flex;
+			flex-direction: row;
+			height: 100%;
+			width: 100%;
+
+			.next-maintenances-list-item-image {
+				display: flex;
+				align-items: center;
+				img {
+					max-height: 45px;
+					color-scheme: $text;
+				}
+			}
+
+			.next-maintenances-list-item-description {
+				display: flex;
+				flex-direction: column;
+				margin: 2px;
+				margin-left: 5px;
+				gap: 1px;
+
+				.next-maintenances-list-item-title {
+					font-size: large;
+					font-weight: 600;
+				}
+
+				.next-maintenances-list-item-subtitle {
+					font-size: medium;
+					font-weight: 200;
+				}
+			}
+		}
+
+		.next-maintenances-list-item-hours {
+			align-self: center;
+			justify-self: end;
+		}
+
+		&:hover {
+			background-color: $secondary;
+			color: $background;
+			cursor: pointer;
+		}
+	}
+
+	.next-maintenances-list-empty-list-text {
+		height: 100%;
+		align-self: center;
+		font-size: large;
+		display: inline-flex;
+  		align-items: center;	
+	}
+
+}
+
+@media screen and (max-width: 900px) {
+    .next-maintenances-list {
+		.next-maintenances-list-item {
+			.next-maintenances-list-item-left {
+				.next-maintenances-list-item-description {
+					.next-maintenances-list-item-title {
+						font-size: medium;
+					}
+					.next-maintenances-list-item-subtitle {
+						font-size: small;
+					}
+				}
+			}
+
+			.next-maintenances-list-item-hours {
+				font-size: small;
+			}
+		}
+	}
+}
