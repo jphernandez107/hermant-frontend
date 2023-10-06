@@ -21,6 +21,7 @@ $single-table-odd-row-background-color: $background;
 $table-border-radius: 10px;
 
 .table-card {
+	max-height: 100%;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -29,6 +30,7 @@ $table-border-radius: 10px;
 	border-radius: 35px;
 	box-shadow: $box-shadow-medium;
 	background-color: $table-background-color;
+    box-sizing: border-box;
 
 	&.no-card {
 		padding: 0;
@@ -38,6 +40,8 @@ $table-border-radius: 10px;
 	.table-wrapper {
 		display: flex;
 		justify-content: center;
+		overflow: auto;
+		box-sizing: border-box;
 
 		.styled-table {
 			border-collapse: separate;
