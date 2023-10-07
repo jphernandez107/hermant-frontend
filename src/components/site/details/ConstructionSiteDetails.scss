@@ -64,12 +64,37 @@
 				padding: 0px 10px;
 				padding-bottom: 10px;
 
-				h4 {
-					font-weight: bolder;
-					color: $text;
-					font-size: 1.5em;
-					margin: 0px;
-				}
+                .equipments-table-header-buttons {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    gap: 10px;
+
+                    .equipments-count-container {
+                        min-width: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        border: $border-width solid $text;
+                        border-radius: 13px;
+                        padding: 4px;
+
+                        .equipments-count {
+                            text-align: center;
+                            font-weight: 700;
+                            color: $text;
+                            font-size: 1.1em;
+                        }
+                    }
+                }
+
+                h4 {
+                    font-weight: bolder;
+                    color: $text;
+                    font-size: 1.5em;
+                    margin: 0px;
+                }
 			}
 		}
         

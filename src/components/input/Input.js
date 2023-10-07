@@ -3,6 +3,7 @@ import "./Input.scss";
 
 const Input = (props) => {
 	const {
+		className,
 		name,
 		onBlur,
 		onChange,
@@ -37,10 +38,10 @@ const Input = (props) => {
 	};
 
 	return (
-		<div className="input-container">
+		<div className={`input-container ${className}`}>
 			{isTextArea ? (
 				<textarea
-					className="input"
+					className={`input ${className}`}
 					name={name}
 					placeholder={placeholder}
 					rows={rows}
@@ -51,7 +52,7 @@ const Input = (props) => {
 				/>
 			) : (
 				<input
-					className="input"
+					className={`input ${className}`}
 					type={type}
 					name={name}
 					onBlur={onLocalBlur}

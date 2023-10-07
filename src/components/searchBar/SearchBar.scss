@@ -11,7 +11,7 @@ $input-border-color: $icon-border-color;
 $input-border-focus-color: $accent;
 
 .search-wrapper {
-    height: 30px;
+    height: 35px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -28,6 +28,7 @@ $input-border-focus-color: $accent;
         display: flex;
         justify-content: center;
         align-items: center;
+        box-sizing: border-box;
 
         i {
             color: $icon-color;
@@ -35,7 +36,7 @@ $input-border-focus-color: $accent;
     }
     
     .input-container {
-        height: 30px;
+        height: 100%;
         width: 20vw;
         border-top-left-radius: 0;
         border-bottom-left-radius: 0;
@@ -46,11 +47,43 @@ $input-border-focus-color: $accent;
             border: 0;
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
+
+            &.counter {
+                border-radius: 0;
+            }
         }
         
         &:focus-within {
             border-color: $input-border-focus-color;
         }
+
+        &.counter {
+            border-radius: 0;
+        }
+    }
+
+    .count-span-container {
+        height: 100%;
+        background-color: $icon-background-color;
+        display: flex;
+        box-sizing: border-box;
+        align-items: center;
+        justify-items: center;
+        text-align: center;
+        border: $border-width solid $icon-border-color;
+        border-left: 0;
+        border-color: $input-border-color;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        padding-left: 2px;
+        padding-right: 2px;
+
+        .count-span {
+            color: $icon-color;
+            font-weight: 600;
+            font-size: 1em;
+        }
+
     }
     
 }

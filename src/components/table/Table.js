@@ -11,6 +11,8 @@ const Table = (props) => {
     column: "",
     direction: true // true === "asc"
   });
+  const [searchInput, setSearchInput] = useState("");
+  const [rawData, setRawData] = useState(data);
 
   const style = () => {
     return styles.join(' ');
@@ -25,8 +27,25 @@ const Table = (props) => {
   }
 
   useEffect(() => {
+    if (!rawData || rawData.length === 0) setRawData(data);
+  }, [data]);
+
+  useEffect(() => {
     sortData(columnSort.column, columnSort.direction);
   }, [columnSort]);
+
+  useEffect(() => {
+    if (!searchInput || searchInput === "") {
+      if (setData) setData(rawData);
+      return;
+    }
+    const filteredData = rawData.filter((row) => {
+      return Object.values(row).some((value) => {
+        return String(value).toLowerCase().includes(searchInput.toLowerCase());
+      });
+    });
+    if(setData) setData(filteredData);
+  }, [searchInput]);
 
   const filterIcon = (column) => {
     if (columnSort.column === column) {
@@ -140,7 +159,7 @@ const Table = (props) => {
 
   function getTableHeader(showSearchBar, title) {
     return showSearchBar || title ? (
-      <TableHeader showSearchBar={showSearchBar}>
+      <TableHeader showSearchBar={showSearchBar} searchInput={searchInput} setSearchInput={setSearchInput} count={data.length}>
         {title}
       </TableHeader>
     ) : (

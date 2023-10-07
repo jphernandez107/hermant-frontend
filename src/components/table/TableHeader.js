@@ -3,7 +3,16 @@ import "./TableHeader.scss"
 
 import SearchBar from "components/searchBar/SearchBar"
 
-const TableHeader = ({showSearchBar = true, children, button, showBackButton = false}) => {
+const TableHeader = (
+    {
+        showSearchBar = true, 
+        children, 
+        button, 
+        showBackButton = false,
+        searchInput = '',
+        setSearchInput,
+        count
+    }) => {
 
     const title = children ? children : ''
     const lowerCaseTitle = title.toLowerCase()
@@ -19,7 +28,7 @@ const TableHeader = ({showSearchBar = true, children, button, showBackButton = f
     )
 
     function getSearchBar(showSearchBar) {
-        return showSearchBar ? <SearchBar>{searchHint}</SearchBar> : <></>
+        return showSearchBar ? <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} count={count} >{searchHint}</SearchBar> : <></>
     }
 
     function getButton(button) {

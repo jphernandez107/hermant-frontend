@@ -13,14 +13,16 @@ $input-border-focus-color: $accent;
 	align-items: center;
 	border-radius: 8px;
 	border: $border-width solid $input-border-color;
+	box-sizing: border-box;
 
     textarea,
 	input {
-		height: fit-content;
+		height: 100%;
 		width: 100%;
 		border: 0;
 		border-radius: 8px;
 		font-family: sans-serif;
+		box-sizing: border-box;
 
 		&:focus {
 			outline: none;

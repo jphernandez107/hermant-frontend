@@ -158,9 +158,14 @@ const ConstructionSiteDetails = () => {
 				<div className="equipments-table-container">
 					<div className="equipments-table-header">
 						<h4> Equipos en esta obra </h4>
-						<Button onClick={handleEquipmentsOnSite}>
-							<i className="fa-solid fa-plus" />{""}
-						</Button>
+						<div className="equipments-table-header-buttons">
+							<div className="equipments-count-container">
+								<span className="equipments-count">{equipmentsOnSite.length}</span>
+							</div>
+							<Button onClick={handleEquipmentsOnSite}>
+								<i className="fa-solid fa-plus" />{""}
+							</Button>
+						</div>
 					</div>
 					<Table
 						columns={equipments_on_site_table_columns}
