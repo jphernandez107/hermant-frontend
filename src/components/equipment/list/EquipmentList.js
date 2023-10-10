@@ -27,6 +27,7 @@ const EquipmentList = () => {
     { brand: "Marca" },
     { model: "Modelo" },
     { total_hours: "Horómetro" },
+    { site_name: "Obra" },
     { next_maintenance: "Próximo Mantenimiento" },
     { observations: "Observaciones" },
   ];
@@ -59,8 +60,10 @@ const EquipmentList = () => {
   async function fetchEquipments() {
     try {
       const response = await api.getEquipmentList();
+      console.log("🚀 ~ file: EquipmentList.js:63 ~ fetchEquipments ~ response:", response)
       response.map(equipment => {
         equipment.image = getEquipmentImage(equipment)
+        equipment.site_name = equipment.construction_site?.name || "-"
       });
       setEquipments(response);
     } catch (error) {
