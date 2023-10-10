@@ -60,7 +60,6 @@ const EquipmentList = () => {
   async function fetchEquipments() {
     try {
       const response = await api.getEquipmentList();
-      console.log("🚀 ~ file: EquipmentList.js:63 ~ fetchEquipments ~ response:", response)
       response.map(equipment => {
         equipment.image = getEquipmentImage(equipment)
         equipment.site_name = equipment.construction_site?.name || "-"
