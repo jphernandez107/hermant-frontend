@@ -29,7 +29,7 @@ const SearchBar = (
 				onChange={handleChange}
 				value={searchInput}
 			/>
-			{count && <div className="count-span-container">
+			{count > 0 && <div className="count-span-container">
 				<span className="count-span">{count}</span>
 			</div>}	
 		</div>
