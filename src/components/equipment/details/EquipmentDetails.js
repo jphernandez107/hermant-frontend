@@ -5,6 +5,7 @@ import "./EquipmentDetails.scss";
 import Button from "components/button/Button";
 import Table from "components/table/Table";
 import PageHeader from "components/pageHeader/PageHeader";
+import UseHourList from "components/equipment/useHour/UseHourList";
 
 const api = require("api/Api").default;
 
@@ -12,10 +13,12 @@ const EquipmentDetails = () => {
   const { code } = useParams()
   const [equipment, setEquipment] = useState(null);
   const [maintenances, setMaintenances] = useState([]);
+  const [equipmentHours, setEquipmentHours] = useState([]);
   // const [repairs, setRepairs] = useState([]);
 
   useEffect(() => {
     fetchEquipment();
+    fetchEquipmentHours();
   }, []);
 
   const viewLubricationSheetHref = () => {
@@ -121,6 +124,7 @@ const EquipmentDetails = () => {
             emptyTableTitle={"No se encontraron mantenimientos"}
           />
         </div>
+        <UseHourList useHours={equipmentHours} />
         {/* <div className="repairs-table">
           <Table
             columns={maintenance_table_columns}
@@ -156,6 +160,15 @@ const EquipmentDetails = () => {
       setEquipment(response);
       setMaintenances(response.maintenances)
       // setRepairs(response.repairs)
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function fetchEquipmentHours() {
+    try {
+      const response = await api.getEquipmentHoursByCode(code);
+      setEquipmentHours(response);
     } catch (error) {
       console.log(error);
     }

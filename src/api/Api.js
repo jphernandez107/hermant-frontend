@@ -51,6 +51,7 @@ const endpoints = {
   getEquipmentByCode: '/equipment/details',
   addEquipmentUseHours: '/equipment/hours',
   addEquipmentUseHoursBulk: '/equipment/hours/bulk',
+  getEquipmentUseHoursByCode: '/equipment/hours',
   addLubricationSheetToEquipment: '/equipment/lubricationsheet/add',
   addEquipmentToSite: '/equipment/site/add',
   removeEquipmentFromSite: '/equipment/site/remove',
@@ -126,6 +127,9 @@ const Api = {
   },
   async postAddEquipmentUseHoursBulk(body) {
     return fetchPost(endpoints.addEquipmentUseHoursBulk, body);
+  },
+  async getEquipmentHoursByCode(code) {
+    return fetchGet(endpoints.getEquipmentUseHoursByCode, { code })
   },
   async addLubricationSheetToEquipment(body) {
     return fetchPut(endpoints.addLubricationSheetToEquipment, body);

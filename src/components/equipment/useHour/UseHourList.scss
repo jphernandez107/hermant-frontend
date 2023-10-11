@@ -1,0 +1,281 @@
+@import 'styles/styles.scss';
+
+$item-background-color: lighten($background, 30%);
+$hours-added-container-border-color: $text;
+$title-color: $text;
+
+.use-hours-table-header {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0px 10px;
+	padding-bottom: 10px;
+
+	h4 {
+		font-weight: bolder;
+		color: $title-color;
+		font-size: 1.5em;
+		margin: 0px;
+	}
+
+	.use-hours-table-header-right {
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		box-sizing: border-box;
+		gap: 10px;
+
+		.use-hours-monthly-sum {
+			height: 100%;
+			border: $border-width solid $text;
+			border-radius: 5px;
+			padding: 3px 6px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			box-sizing: border-box;
+
+			span {
+				height: 100%;
+				width: 100%;
+				color: $text;
+				font-size: 0.9em;
+				font-weight: 600;
+				display: flex;
+				justify-self: center;
+				align-self: center;
+			}
+		}
+
+		.use-hours-date-selector {
+			height: 100%;
+			min-width: 200px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			box-sizing: border-box;
+	
+			.use-hours-date-selector-next,
+			.use-hours-date-selector-prev {
+				height: 100%;
+				border: $border-width solid $text;
+				border-radius: 5px;
+				padding: 3px 6px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-sizing: border-box;
+	
+				i {
+					color: $text;
+					display: flex;
+					justify-self: center;
+					align-self: center;
+				}
+	
+				&:hover {
+					background-color: $secondary;
+					cursor: pointer;
+				}
+			}
+	
+			.use-hours-date-selector-prev {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+	
+			.use-hours-date-selector-label {
+				height: 100%;
+				border: $border-width solid $text;
+				flex-grow: 1;
+				border-left: 0;
+				border-right: 0;
+				padding: 0px 6px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-sizing: border-box;
+	
+				span {
+					color: $text;
+					font-size: 1em;
+					font-weight: 500;
+					display: flex;
+					justify-self: center;
+					align-self: center;
+				}
+	
+				&:hover {
+					background-color: $secondary;
+					cursor: pointer;
+				}
+	
+			}
+	
+			.use-hours-date-selector-next {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+		}
+	}
+
+}
+
+.use-hours-list {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	gap: 5px;
+	margin-right: 1%;
+	margin-left: 1%;
+	color: $text;
+	box-sizing: border-box;
+
+	.use-hours-list-date {
+		font-size: large;
+		font-weight: 600;
+	}
+
+	.use-hours-list-item {
+		display: flex;
+		flex-direction: row;
+		min-height: 50px;
+		background-color: $item-background-color;
+		border-radius: 15px;
+		padding: 5px 10px;
+		justify-content: space-between;
+		gap: 15px;
+		box-sizing: border-box;
+		
+		.use-hours-list-item-left {
+			display: flex;
+			flex-direction: row;
+			height: 100%;
+
+			.use-hours-list-item-hours-added-container {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				aspect-ratio: 1;
+				border: $border-width solid $hours-added-container-border-color;
+				border-radius: 15px;
+				box-sizing: border-box;
+
+				span {
+					max-height: 45px;
+					aspect-ratio: 1;
+					color: $text;
+					font-weight: 600;
+					font-size: 1.4em;
+					display: inline-flex;
+					align-items: center;
+				}
+			}
+
+			.use-hours-list-item-description {
+				display: flex;
+				flex-direction: column;
+				margin: 2px;
+				margin-left: 5px;
+				gap: 3px;
+				box-sizing: border-box;
+
+				.use-hours-list-item-total-hours {
+					display: flex;
+					flex-direction: row;
+					gap: 5px;
+					align-items: center;
+					box-sizing: border-box;
+
+					span {
+						font-size: large;
+						font-weight: 600;
+					}
+				}
+
+				.use-hours-list-item-partial-hours {
+					display: flex;
+					flex-direction: row;
+					gap: 5px;
+					align-items: center;
+					box-sizing: border-box;
+
+					span {
+						font-size: medium;
+						font-weight: 200;
+					}
+				}
+			}
+		}
+
+		.use-hours-list-item-right {
+			display: flex;
+			flex-direction: column;
+			gap: 3px;
+			align-self: center;
+			justify-items: end;
+			box-sizing: border-box;
+			
+			.use-hours-list-item-date,
+			.use-hours-list-item-site {
+				display: flex;
+				gap: 5px;
+				align-items: center;
+				justify-content: end;
+				box-sizing: border-box;
+
+				span {
+					text-align: end;
+					white-space: nowrap;
+					font-size: 1em;
+				}
+			}
+		}
+
+		&:hover {
+			background-color: $secondary;
+		}
+	}
+
+	.use-hours-list-empty-list-text {
+		height: 100%;
+		align-self: center;
+		font-size: large;
+		display: inline-flex;
+  		align-items: center;	
+	}
+
+}
+
+@media screen and (max-width: 900px) {
+    .use-hours-list {
+		.use-hours-list-item {
+			.use-hours-list-item-left {
+				.use-hours-list-item-hours-added-container {
+					span {
+						font-size: 1.2em;
+					}
+				}
+
+				.use-hours-list-item-description {
+					.use-hours-list-item-total-hours {
+						span {
+							font-size: medium;
+						}
+					}
+					.use-hours-list-item-partial-hours {
+						span {
+							font-size: small;
+						}
+					}
+				}
+			}
+
+			.use-hours-list-item-right {
+				font-size: 0.9em;
+			}
+		}
+	}
+}
