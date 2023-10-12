@@ -311,21 +311,15 @@ $span-color: $text;
 $p-color: $text;
 
 .react-tiny-popover-container {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 5vh;
-	border: $border-width solid $primary;
-	border-radius: 10px;
-	background-color: $secondary;
-	opacity: 0.9;
-	z-index: 999;
-	position: relative;
-
 	.details-popover-container {
 		display: flex;
 		flex-direction: column;
 		margin: 5px;
+		min-height: 5vh;
+		border: $border-width solid $primary;
+		border-radius: 10px;
+		background-color: $secondary;
+		opacity: 0.9;
 
 		span {
 			color: $span-color;

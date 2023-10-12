@@ -19,11 +19,11 @@ const UserList = () => {
 
   const columns = [
     { dni: "DNI" },
-    { first_name: "Nombre" },
-    { last_name: "Apellido" },
-    { role: "Permisos" },
-    { active: "Activo" },
-    { last_login: "Último Inicio" },
+    { first_name: "Nombre", isFilterable: true },
+    { last_name: "Apellido", isFilterable: true },
+    { role: "Permisos", isFilterable: true },
+    { active: "Activo", isFilterable: true },
+    { last_login: "Último Inicio", isFilterable: true },
   ];
 
   function onRowClicked(id) {

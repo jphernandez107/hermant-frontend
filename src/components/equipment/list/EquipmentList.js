@@ -23,13 +23,13 @@ const EquipmentList = () => {
   const columns = [
     { code: "Código" },
     { image: "Logo", isImage: true },
-    { designation: "Designación" },
-    { brand: "Marca" },
-    { model: "Modelo" },
-    { total_hours: "Horómetro" },
-    { site_name: "Obra" },
-    { next_maintenance: "Próximo Mantenimiento" },
-    { observations: "Observaciones" },
+    { designation: "Designación", isFilterable: true },
+    { brand: "Marca", isFilterable: true },
+    { model: "Modelo", isFilterable: true },
+    { total_hours: "Horómetro", isFilterable: true },
+    { site_name: "Obra", isFilterable: true },
+    { next_maintenance: "Próximo Mantenimiento", isFilterable: true },
+    { observations: "Observaciones", isFilterable: true },
   ];
 
   function onRowClicked(code) {

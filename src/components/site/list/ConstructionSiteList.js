@@ -19,12 +19,12 @@ const ConstructionSiteList = () => {
 
 	const columns = [
 		{ code: "Código" },
-		{ name: "Nombre" },
-		{ province: "Provincia" },
-		{ district: "Departamento" },
-		{ total_equipments: "Equipos" },
-		{ finish_date: "Fin" },
-		{ observations: "Observaciones" },
+		{ name: "Nombre", isFilterable: true },
+		{ province: "Provincia", isFilterable: true },
+		{ district: "Departamento", isFilterable: true },
+		{ total_equipments: "Equipos", isFilterable: true },
+		{ finish_date: "Fin", isFilterable: true },
+		{ observations: "Observaciones", isFilterable: true },
 	];
 
 	function onRowClicked(code) {

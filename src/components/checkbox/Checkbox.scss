@@ -1,7 +1,60 @@
 @import 'styles/styles.scss';
 
-.checkbox { 
-    border-radius: 8px;
-    border: $border-width solid rgba(0, 0, 0, 0.1);
-    color: $background;
+$checkbox-selected-height: 18px;
+$checkbox-unselected-height: 18px;
+
+.checkbox-container {
+	input {
+		display: none;
+	}
+
+	display: block;
+	position: relative;
+	cursor: pointer;
+	font-size: 15px;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	box-sizing: border-box;
+
+	.checkbox-checkmark {
+		position: relative;
+		top: 0;
+		left: 0;
+		height: $checkbox-selected-height;
+		width: $checkbox-selected-height;
+		background-color: #2196F300;
+		border-radius: 4px;
+		transition: all 0.25s;
+		box-sizing: border-box;
+	}
+
+	input:checked ~ .checkbox-checkmark {
+		background-color: $primary//#2196F3;
+	}
+
+	.checkbox-checkmark:after {
+		content: "";
+		position: absolute;
+		transform: rotate(0deg);
+		border: 2px solid $primary;
+		left: 0;
+		top: 0;
+		width: $checkbox-unselected-height;
+		height: $checkbox-unselected-height;
+		border-radius: 4px;
+		transition: all 0.25s, border-width 0.1s;
+		box-sizing: border-box;
+	}
+
+	input:checked ~ .checkbox-checkmark:after {
+		left: 6px;
+		top: 2.5px;
+		width: 6px;
+		height: 10px;
+		border-color: $background;
+		border-width: 0 2px 2px 0;
+		border-radius: 0em;
+		transform: rotate(40deg);
+		box-sizing: border-box;
+	}
 }

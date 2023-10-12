@@ -1,0 +1,46 @@
+@import 'styles/styles.scss';
+
+$border-color: $secondary;
+
+.filter-checkbox-list {
+	display: flex;
+	flex-direction: column;
+	background-color: $secondary;
+	border: $border-width solid $border-color;
+	border-radius: 5px;
+	padding: 2px;
+	gap: 3px;
+	overflow-y: auto;
+	max-height: 400px;
+
+	.filter-checkbox-list-title {
+		font-size: large;
+		font-weight: 600;
+		margin: 0 0 2px 3px;
+		color: $text;
+	}
+
+	.filter-checkbox {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		background-color: white;
+		border-radius: 5px;
+		padding: 3px;
+		gap: 5px;
+
+		.filter-checkbox-input {
+			width: 20px;
+			height: 20px;
+			margin: 0;
+		}
+
+		label {
+			font-size: 0.9em;
+			font-weight: 500;
+			color: $text;
+			cursor: pointer;
+		}
+	}
+
+}

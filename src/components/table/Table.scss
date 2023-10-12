@@ -69,6 +69,38 @@ $table-border-radius: 10px;
 							cursor: pointer;
 						}
 					}
+
+					&.filterable,
+					&.non-filtered {
+
+						.filter-icon {
+							visibility: hidden;
+						}
+
+						&:hover {
+							cursor: pointer;
+
+							.filter-icon {
+								visibility: visible;
+							}
+						}
+					}
+
+					&.filtered {
+						.filter-icon {
+							visibility: visible;
+						}
+					}
+
+					&.non-filterable {
+						.filter-icon {
+							display: none;
+						}
+
+						&:hover {
+							cursor: default;
+						}
+					}
 				}
 			}
 

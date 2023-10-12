@@ -17,15 +17,15 @@ const SparePartList = () => {
 	}, []);
 
 	const columns = [
-		{ internal_code: "Código Interno" },
-		{ external_code: "Código Externo" },
-		{ type: "Tipo" },
-		{ application: "Aplicación" },
-		{ brand: "Marca" },
-		{ model: "Modelo" },
-		{ total_equipments: "Equipos" },
-		{ stock: "Stock" },
-		{ observations: "Observaciones" },
+		{ internal_code: "Código Interno", isFilterable: true },
+		{ external_code: "Código Externo", isFilterable: true },
+		{ type: "Tipo", isFilterable: true },
+		{ application: "Aplicación", isFilterable: true },
+		{ brand: "Marca", isFilterable: true },
+		{ model: "Modelo", isFilterable: true },
+		{ total_equipments: "Equipos", isFilterable: true },
+		{ stock: "Stock", isFilterable: true },
+		{ observations: "Observaciones", isFilterable: true },
 	];
 
 	return (
