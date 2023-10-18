@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import "./ConstructionSiteDetails.scss";
 import Modal from 'react-modal';
@@ -6,24 +7,55 @@ import Modal from 'react-modal';
 import Button from "components/button/Button";
 import Table from "components/table/Table";
 import PageHeader from "components/pageHeader/PageHeader";
+import Loader from "components/components/loader/Loader";
 
 const api = require("api/Api").default;
 
 const ConstructionSiteDetails = () => {
 	const { code } = useParams();
+	const queryClient = useQueryClient();
 
-	const [constructionSite, setConstructionSite] = useState(null);
-	const [equipmentsOnSite, setEquipmentsOnSite] = useState([]);
-	const [allEquipments, setAllEquipments] = useState([]);
 	const [handleEquipmentsModalIsOpen, setHandleEquipmentsModalIsOpen] = useState(false);
+
+	const {
+		data,
+		isLoading: isLoadingSite,
+		isError: isErrorSite,
+		error: errorSite,
+		isSuccess: isSuccessSite,
+	} = useQuery(["constructionSite", code], fetchConstructionSite);
+
+	const constructionSite = data?.constructionSite;
+	const equipmentsOnSite = data?.equipmentsOnSite;
+
+	const {
+		data: allEquipments,
+		isLoading: isLoadingAllEquipments,
+		isError: isErrorAllEquipments,
+		error: errorAllEquipments,
+		isSuccess: isSuccessAllEquipments,
+		refetch: refetchAllEquipments,
+		isRefetching: isRefetchingAllEquipments,
+	} = useQuery(["allEquipments", code], fetchAllEquipments, { enabled: isSuccessSite });
+
+	const allEquipmentsLoadingState = isLoadingAllEquipments ? "Buscando equipos..." : undefined
+
+	const setAllEquipments = (equipments) => {
+		if (!equipments) return;
+		queryClient.setQueryData(["allEquipments", code], equipments);
+	}
+
+	const setEquipmentsOnSite = (equipments) => {
+		queryClient.setQueryData(["constructionSite", code], (oldData) => ({
+			...oldData,
+			equipmentsOnSite: equipments 
+		}));
+			
+	}
 
 	const [buttonStates, setButtonStates] = useState({});
 	const buttonStatesRef = useRef();
 	buttonStatesRef.current = buttonStates;
-
-	useEffect(() => {
-		fetchConstructionSite();
-	}, []);
 
 	const columns_table_1 = [
 		{ code: "Código", style: ["center-text"] },
@@ -46,18 +78,18 @@ const ConstructionSiteDetails = () => {
 	];
 
 	const equipments_on_site_table_columns = [
-		{ code_button: "Código", style: ["center-text", "fixed-width-20"], isButton: true },
-		{ designation: "Designación", style: ["center-text"] },
-		{ brand_model: "Marca y Modelo", style: ["center-text"] },
-		{ next_maintenance: "Mantenimiento", style: ["center-text"] },
+		{ code_button: "Código", style: ["center-text", "fixed-width-20"], isButton: true, isSortable: true, isFilterable: true },
+		{ designation: "Designación", style: ["center-text"], isSortable: true, isFilterable: true },
+		{ brand_model: "Marca y Modelo", style: ["center-text"], isSortable: true, isFilterable: true },
+		{ next_maintenance: "Mantenimiento", style: ["center-text"], isSortable: true, isFilterable: true },
 		{ remove_from_site_button: "Quitar", style: ["center-text", "fixed-width-10"], isButton: true },
 	];
 
 	const all_equipments_table_columns = [
-		{ code: "Código", style: ["center-text"] },
-		{ designation: "Designación", style: ["center-text"] },
-		{ brand_model: "Marca y Modelo", style: ["center-text"] },
-		{ construction_site: "Obra", style: ["center-text"] },
+		{ code: "Código", style: ["center-text"], isSortable: true, isFilterable: true },
+		{ designation: "Designación", style: ["center-text"], isSortable: true, isFilterable: true },
+		{ brand_model: "Marca y Modelo", style: ["center-text"], isSortable: true, isFilterable: true },
+		{ construction_site: "Obra", style: ["center-text"], isSortable: true, isFilterable: true },
 		{ add_to_site_button: "Agregar", style: ["center-text", "fixed-width-10"], isButton: true }
 	];
 
@@ -90,11 +122,9 @@ const ConstructionSiteDetails = () => {
 		api.putAddEquipmentToSite(equip.code, constructionSite.code)
 			.then((response) => {
 				if (response && response.site) {
-					const equipments = setEquipmentsData(response.site);
-					setEquipmentsOnSite(equipments);
+					const equipments = updateEquipmentsOnSite(response.site);
 					if (response.site.all_equipments) allEquipments = response.site.all_equipments;
-					const updatedEquipments = allEquipments.filter((equipment) => !equipments.find(e => parseInt(e.id) === parseInt(equipment.id)));
-    				setAllEquipments(updatedEquipments);
+					updateAllEquipments(allEquipments, equipments);
 					setButtonStates(prevState => ({...prevState, [equip.id]: false}));
 				}
 			})
@@ -110,8 +140,8 @@ const ConstructionSiteDetails = () => {
 		api.putRemoveEquipmentFromSite(equip.code, site.code)
 			.then((response) => {
 				if (response && response.site) {
-					const equipments = setEquipmentsData(response.site);
-					setEquipmentsOnSite(equipments);
+					updateEquipmentsOnSite(response.site);
+					refetchAllEquipments();
 					setButtonStates(prevState => ({...prevState, [equip.id]: false}));
 				}
 			})
@@ -170,7 +200,6 @@ const ConstructionSiteDetails = () => {
 					<Table
 						columns={equipments_on_site_table_columns}
 						data={equipmentsOnSite}
-						setData={setEquipmentsOnSite}
 						showSearchBar={false}
 						style={["no-card"]}
 						emptyTableTitle={"No se encontraron equipos"}
@@ -188,35 +217,32 @@ const ConstructionSiteDetails = () => {
 					<div className="equipments-off-site-container">
 						<div className="equipments-table-header">
 							<h4> Equipos para agregar </h4>
+							{isRefetchingAllEquipments && <Loader text=" "/>}
 						</div>
 						<Table
 							columns={all_equipments_table_columns}
 							data={allEquipments}
-							setData={setAllEquipments}
 							showSearchBar={false}
 							style={["no-card"]}
+							loadingState={allEquipmentsLoadingState}
 							emptyTableTitle={"No se encontraron equipos"}
 						/>
 					</div>
 				</div>
 			</Modal>
 		</div>
-	) : (
-		<></>
-	);
+	) : isLoadingSite ? (<Loader text={"Cargando obra..."}/>) : (<></>)
 
 	async function fetchConstructionSite() {
-		try {
-			const response = await api.getConstructionSiteByCode(code);
-			setConstructionSite(response);
-			const equipments = setEquipmentsData(response);
-			setEquipmentsOnSite(equipments);
-		} catch (error) {
-			console.log(error);
-		}
+		const site = await api.getConstructionSiteByCode(code);
+		const equipmentsOnSite = getEquipmentsFromSite(site);
+		return { 
+			constructionSite: site, 
+			equipmentsOnSite: equipmentsOnSite 
+		};
 	}
 
-	function setEquipmentsData(site) {
+	function getEquipmentsFromSite(site) {
 		const equipments = site.equipments.map((equipment) => {
 			equipment.code_button = equipmentCodeButton(equipment.code);
 			equipment.remove_from_site_button = removeEquipmentFromSiteButton(equipment, site)();
@@ -231,14 +257,11 @@ const ConstructionSiteDetails = () => {
 	}
 
 	async function fetchAllEquipments() {
-		try {
-			let response = await api.getEquipmentList();
-			response = response.filter((equipment) => !equipmentsOnSite.find(e => parseInt(e.id) === parseInt(equipment.id)))
-			response = setEquipmentsSiteName(response);
-			setAllEquipments(response);
-		} catch (error) {
-			console.error(error);
-		}
+		console.log("Calling all equipments");
+		let response = await api.getEquipmentList();
+		response = response.filter((equipment) => !equipmentsOnSite?.find(e => parseInt(e.id) === parseInt(equipment.id)))
+		response = setEquipmentsSiteName(response);
+		return response;
 	}
 
 	function setEquipmentsSiteName(equipments) {
@@ -294,6 +317,18 @@ const ConstructionSiteDetails = () => {
 
 		}
 	}
+
+	function updateEquipmentsOnSite(site) {
+		const equipments = getEquipmentsFromSite(site);
+		setEquipmentsOnSite(equipments);
+		return equipments;
+	}
+
+	function updateAllEquipments(allEquipments, equipments) {
+		const updatedEquipments = allEquipments.filter((equipment) => !equipments.find(e => parseInt(e.id) === parseInt(equipment.id)));
+		setAllEquipments(updatedEquipments);
+	}
+
 };
 
 export default ConstructionSiteDetails;

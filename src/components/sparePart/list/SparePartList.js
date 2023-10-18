@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./SparePartList.scss";
 
 import Button from "components/button/Button";
 import List from "components/list/List";
 import ProtectedComponent from "components/protectedComponent/ProtectedComponent";
 import { UserRole } from "context/Context";
+import { useQuery } from "react-query";
 
 const api = require("api/Api").default;
 
 const SparePartList = () => {
-	const [parts, setParts] = useState([]);
-	const [loadingState, setLoadingState] = useState("Buscando repuestos...")
 
-	useEffect(() => {
-		fetchParts();
-	}, []);
+	const {
+		data: parts = [],
+		isLoading,
+		isError,
+		error,
+		isSuccess,
+	} = useQuery("parts", fetchParts);
+
+	const loadingState = isLoading ? "Buscando repuestos..." : undefined
 
 	const columns = [
 		{ internal_code: "Código Interno", isFilterable: true, isSortable: true },
@@ -44,17 +49,11 @@ const SparePartList = () => {
 	);
 
 	async function fetchParts() {
-		try {
-			const response = await api.getSparePartList();
-			console.log("🚀 ~ file: SparePartList.js:39 ~ fetchParts ~ response:", response)
-			response.map((part) => {
-				part.total_equipments = getEquipmentCountFromLubricationSheets(part.lubrication_sheet_spare_parts);
-			});
-			setParts(response);
-		} catch (error) {
-			console.log(error);
-		}
-		setLoadingState(null);
+		const response = await api.getSparePartList();
+		return response.map((part) => {
+			part.total_equipments = getEquipmentCountFromLubricationSheets(part.lubrication_sheet_spare_parts);
+			return part;
+		});
 	}
 
 	function getEquipmentCountFromLubricationSheets(lubrication_sheet_spare_parts) {

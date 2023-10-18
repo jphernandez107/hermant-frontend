@@ -172,8 +172,12 @@ $table-border-radius: 10px;
 					font-weight: bold;
 
 					.loader {
+						.dot-spinner {
+							--uib-size: 1rem;
+						}
+
 						span {
-							font-size: 1.3em;
+							font-size: 1em;
 						}
 					}
 				}

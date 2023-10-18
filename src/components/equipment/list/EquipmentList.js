@@ -34,7 +34,7 @@ const EquipmentList = () => {
     { observations: "Observaciones", isFilterable: true, isSortable: true },
   ];
 
-  const loadingState = isLoading || !isSuccess ? "Buscando equipos..." : undefined
+  const loadingState = isLoading ? "Buscando equipos..." : undefined
 
   function onRowClicked(code) {
     navigate('/equipment/details/' + code)

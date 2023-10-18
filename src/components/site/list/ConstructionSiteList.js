@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 import "./ConstructionSiteList.scss";
 
 import Button from "components/button/Button";
@@ -8,14 +9,17 @@ import List from "components/list/List";
 const api = require("api/Api").default;
 
 const ConstructionSiteList = () => {
-	const [sites, setSites] = useState([]);
-	const [loadingState, setLoadingState] = useState("Buscando obras...")
-
-	useEffect(() => {
-		fetchSites();
-	}, []);
-
 	const navigate = useNavigate();
+
+	const {
+		data: sites = [],
+		isLoading,
+		isError,
+		error,
+		isSuccess,
+	} = useQuery("sites", fetchSites);
+	
+	const loadingState = isLoading ? "Buscando obras..." : undefined
 
 	const columns = [
 		{ code: "Código", isSortable: true },
@@ -46,16 +50,11 @@ const ConstructionSiteList = () => {
 	);
 
 	async function fetchSites() {
-		try {
-			const response = await api.getConstructionSiteList();
-			response.map((site) => {
-				site.total_equipments = site.equipments.length;
-			});
-			setSites(response);
-		} catch (error) {
-			console.log(error);
-		}
-		setLoadingState(null);
+		const response = await api.getConstructionSiteList();
+		return response.map((site) => {
+			site.total_equipments = site.equipments.length;
+			return site;
+		});
 	}
 };
 

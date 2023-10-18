@@ -108,12 +108,29 @@
     padding: 10px;
     gap: 6px;
 
-    h4 {
-        font-weight: bolder;
-        color: $text;
-        font-size: 1.5em;
-        margin: 0px;
-        margin: 5px;
+    .equipments-table-header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+        padding: 0px 10px;
+        padding-bottom: 10px;
+
+        .loader {
+            margin: 0;
+
+            .dot-spinner {
+                --uib-size: 1rem;
+            }
+        }
+
+        h4 {
+            font-weight: bolder;
+            color: $text;
+            font-size: 1.5em;
+            margin: 0px;
+            margin: 5px;
+        }
     }
 
 }

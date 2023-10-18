@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { useQuery } from "react-query";
 import "./UserList.scss";
 
 import Button from "components/button/Button"
@@ -8,14 +8,16 @@ import List from "components/list/List";
 const api = require("api/Api").default;
 
 const UserList = () => {
-  const [users, setUsers] = useState([]);
-  const [loadingState, setLoadingState] = useState("Buscando usuarios...")
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+  const {
+		data: users = [],
+		isLoading,
+		isError,
+		error,
+		isSuccess,
+	} = useQuery("users", fetchUsers);
 
-  const navigate = useNavigate()
+  const loadingState = isLoading ? "Buscando usuarios..." : undefined
 
   const columns = [
     { dni: "DNI", isSortable: true },
@@ -45,19 +47,13 @@ const UserList = () => {
   );
 
   async function fetchUsers() {
-    try {
       const response = await api.getUserList();
-      response.forEach(user => {
+      return response.map(user => {
         user.active = user.active ? "Si" : "No";
         user.code = user.id
         if (user.last_login) user.last_login = new Date(user.last_login).toLocaleString()
         return user;
-      })
-      setUsers(response);
-    } catch (error) {
-      console.log(error);
-    }
-    setLoadingState(null);
+      });
   }
 };
 
