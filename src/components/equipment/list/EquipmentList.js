@@ -8,11 +8,14 @@ import List from "components/list/List";
 import ProtectedComponent from "components/protectedComponent/ProtectedComponent";
 import { UserRole } from "context/Context";
 import { equipmentLogos } from "../EquipmentLogos";
+import MobileEquipmentList from "./MobileEquipmentList";
+import useOrientation from "components/hooks/UseOrientation";
 
 const api = require("api/Api").default;
 
 const EquipmentList = () => {
   const navigate = useNavigate()
+  const isPortrait = useOrientation();
 
   const {
     data: equipments = [],
@@ -41,7 +44,10 @@ const EquipmentList = () => {
   }
 
   return (
-    <List 
+    <>
+    {isPortrait ? <MobileEquipmentList equipments={equipments}/>
+    : <List
+      className="equipment-list" 
       table_columns={columns} 
       table_data={equipments} 
       title={'Equipos'} 
@@ -57,7 +63,8 @@ const EquipmentList = () => {
           equipos
         </Button>
       </ProtectedComponent>
-    </List>
+    </List>}
+    </>
   );
 
   async function fetchEquipments() {

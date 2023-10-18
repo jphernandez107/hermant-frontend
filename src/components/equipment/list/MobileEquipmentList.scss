@@ -1,0 +1,211 @@
+@import 'styles/styles.scss';
+
+$item-background-color: lighten($background, 30%);
+$image-container-border-color: $text;
+$title-color: $text;
+$list-background-color: $background;
+
+.mobile-equipment-list-table-container {
+	display: flex;
+	flex-direction: column;
+	padding: 0.3em;
+	background-color: $list-background-color;
+	width: 100%;
+	box-sizing: border-box;
+
+	.mobile-equipment-list-table-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0px 0.35em;
+		padding-bottom: 0.2em;
+	
+		h4 {
+			font-weight: bolder;
+			color: $title-color;
+			font-size: 1.5em;
+			margin: 0px;
+		}
+	
+		.mobile-equipment-list-table-header-right {
+			height: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			box-sizing: border-box;
+			gap: 0.9em;
+	
+			.mobile-equipment-list-filter-icon {
+				height: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				box-sizing: border-box;
+		
+				i {
+					color: $text;
+				}
+
+				&:hover {
+					cursor: pointer;
+
+					i {
+						color: $primary;
+					}
+				}
+
+				.filter-no-active {
+					display: none;
+				}
+			}
+	
+			.mobile-equipment-list-equipment-count {
+				height: 100%;
+				border: $border-width solid $text;
+				border-radius: 5px;
+				padding: 0.15em 0.3em;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				box-sizing: border-box;
+	
+				span {
+					height: 100%;
+					width: 100%;
+					color: $text;
+					font-size: 0.9em;
+					font-weight: 600;
+					display: flex;
+					justify-self: center;
+					align-self: center;
+					align-items: center;
+				}
+			}
+		}
+	
+	}
+
+	.mobile-equipment-list {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		gap: 0.3em;
+		margin-right: 1%;
+		margin-left: 1%;
+		color: $text;
+		box-sizing: border-box;
+		overflow-y: auto;
+	
+		.mobile-equipment-list-item {
+			display: flex;
+			flex-direction: row;
+			background-color: $item-background-color;
+			border-radius: 15px;
+			padding: 0.2em 0.3em;
+			box-sizing: border-box;
+			
+			.mobile-equipment-list-item-image-container {
+				display: flex;
+				align-items: center;
+				max-width: 14%;
+
+				img {
+					max-height: 2.8em;
+					color: $text;
+				}
+			}
+
+			.mobile-equipment-list-item-description {
+				display: flex;
+				flex-direction: column;
+				min-width: 50%;
+				flex: 1;
+				margin-left: 0.3em;
+				gap: 0.1em;
+				box-sizing: border-box;
+				align-self: center;
+
+				.mobile-equipment-list-item-title {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					box-sizing: border-box;
+
+					span {
+						width: 100%;
+						font-size: medium;
+						font-weight: 500;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+
+				.mobile-equipment-list-item-subtitle {
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					box-sizing: border-box;
+
+					span {
+						width: 100%;
+						font-size: 0.8em;
+						font-weight: 300;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+			}
+	
+			.mobile-equipment-list-item-right {
+				display: flex;
+				flex-direction: column;
+				min-width: 36%;
+				gap: 0.1em;
+				align-self: center;
+				justify-items: end;
+				box-sizing: border-box;
+				
+				.mobile-equipment-list-item-hours,
+				.mobile-equipment-list-item-site {
+					display: flex;
+					gap: 0.2em;
+					align-items: end;
+					justify-content: end;
+					box-sizing: border-box;
+	
+					span {
+						text-align: end;
+						font-size: 0.85em;
+						font-weight: 500;
+						white-space: nowrap;
+						overflow: hidden;
+						text-overflow: ellipsis;
+					}
+				}
+
+				.mobile-equipment-list-item-hours {
+					span {
+						font-weight: 300;
+					}
+				}
+			}
+	
+			&:hover {
+				background-color: $secondary;
+				cursor: pointer;
+			}
+		}
+	
+		.mobile-equipment-list-empty-list-text {
+			height: 100%;
+			align-self: center;
+			font-size: large;
+			display: inline-flex;
+			align-items: center;	
+		}
+	
+	}
+}

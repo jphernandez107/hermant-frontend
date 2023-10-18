@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { UserContext, verifyRole } from 'context/Context';
 import "./Sidebar.scss"
+import useOrientation from 'components/hooks/UseOrientation';
 
 
 const Sidebar = () => {
     const [isExpanded, setExpandState] = useState(false);
     const currentPath = window.location.pathname
     const { user } = useContext(UserContext);
+    const isPortrait = useOrientation();
 
     const menuItems = [
         {
@@ -72,7 +74,9 @@ const Sidebar = () => {
     }
 
     return (
-        <div
+        <>
+        {isPortrait ? <></> 
+        : <div
             className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}
             onMouseEnter={() => { setExpandState(true) }}
             onMouseLeave={() => { setExpandState(false) }} >
@@ -110,7 +114,8 @@ const Sidebar = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </div>}
+        </>
     )
 
 }
