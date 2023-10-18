@@ -18,13 +18,13 @@ const ConstructionSiteList = () => {
 	const navigate = useNavigate();
 
 	const columns = [
-		{ code: "Código" },
-		{ name: "Nombre", isFilterable: true },
-		{ province: "Provincia", isFilterable: true },
-		{ district: "Departamento", isFilterable: true },
-		{ total_equipments: "Equipos", isFilterable: true },
-		{ finish_date: "Fin", isFilterable: true },
-		{ observations: "Observaciones", isFilterable: true },
+		{ code: "Código", isSortable: true },
+		{ name: "Nombre", isFilterable: true, isSortable: true },
+		{ province: "Provincia", isFilterable: true, isSortable: true },
+		{ district: "Departamento", isFilterable: true, isSortable: true },
+		{ total_equipments: "Equipos", isFilterable: true, isSortable: true },
+		{ finish_date: "Fin", isFilterable: true, isSortable: true },
+		{ observations: "Observaciones", isFilterable: true, isSortable: true },
 	];
 
 	function onRowClicked(code) {
@@ -35,7 +35,6 @@ const ConstructionSiteList = () => {
 		<List
 			table_columns={columns}
 			table_data={sites}
-			set_table_data={setSites}
 			title={"Obras"}
 			onRowClicked={onRowClicked}
 			loadingState={loadingState}

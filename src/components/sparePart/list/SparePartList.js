@@ -17,22 +17,21 @@ const SparePartList = () => {
 	}, []);
 
 	const columns = [
-		{ internal_code: "Código Interno", isFilterable: true },
-		{ external_code: "Código Externo", isFilterable: true },
-		{ type: "Tipo", isFilterable: true },
-		{ application: "Aplicación", isFilterable: true },
-		{ brand: "Marca", isFilterable: true },
-		{ model: "Modelo", isFilterable: true },
-		{ total_equipments: "Equipos", isFilterable: true },
-		{ stock: "Stock", isFilterable: true },
-		{ observations: "Observaciones", isFilterable: true },
+		{ internal_code: "Código Interno", isFilterable: true, isSortable: true },
+		{ external_code: "Código Externo", isFilterable: true, isSortable: true },
+		{ type: "Tipo", isFilterable: true, isSortable: true },
+		{ application: "Aplicación", isFilterable: true, isSortable: true },
+		{ brand: "Marca", isFilterable: true, isSortable: true },
+		{ model: "Modelo", isFilterable: true, isSortable: true },
+		{ total_equipments: "Equipos", isFilterable: true, isSortable: true },
+		{ stock: "Stock", isFilterable: true, isSortable: true },
+		{ observations: "Observaciones", isFilterable: true, isSortable: true },
 	];
 
 	return (
 		<List 
 			table_columns={columns} 
 			table_data={parts}
-			set_table_data={setParts} 
 			title={"Repuestos"}
 			loadingState={loadingState}
 		>

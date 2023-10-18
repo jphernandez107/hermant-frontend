@@ -170,6 +170,12 @@ $table-border-radius: 10px;
 				&.empty-table-row {
 					text-align: center;
 					font-weight: bold;
+
+					.loader {
+						span {
+							font-size: 1.3em;
+						}
+					}
 				}
 
 				&.image {

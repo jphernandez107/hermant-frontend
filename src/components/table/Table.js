@@ -3,9 +3,10 @@ import "./Table.scss";
 
 import TableHeader from "./TableHeader";
 import FilterPopover from "components/filterPopover/FilterPopover";
+import Loader from "components/components/loader/Loader";
 
 const Table = (props) => {
-	const { columns, data, setData, title, showSearchBar, emptyTableTitle, loadingState } = props;
+	const { columns, data, title, showSearchBar, emptyTableTitle, loadingState } = props;
 	const styles = props.style || [];
 	const { onRowClicked } = props
 	const [columnSort, setColumnSort] = useState({
@@ -13,7 +14,7 @@ const Table = (props) => {
 		direction: true, // true === "asc"
 	});
 	const [searchInput, setSearchInput] = useState("");
-	const [rawData, setRawData] = useState(data);
+	const [filteredData, setFilteredData] = useState(data)
 	const [filterPopoverOpen, setFilterPopoverOpen] = useState();
 	const [filters, setFilters] = useState([
 		// {column: "brand",
@@ -44,43 +45,8 @@ const Table = (props) => {
 	}
 
 	useEffect(() => {
-		if (!rawData || rawData.length === 0) setRawData(data);
-	}, [data]);
-
-	useEffect(() => {
-		sortData(columnSort.column, columnSort.direction);
-	}, [columnSort]);
-
-	useEffect(() => {
-		if (!filters || filters.length === 0) {
-			if (setData) setData(rawData);
-			return;
-		}
-		const filteredData = rawData.filter((row) => {
-			return filters.every((filter) => {
-				if (filter.isRange) {
-					return row[filter.column] >= filter.values[0] && row[filter.column] <= filter.values[1];
-				} else {
-					return filter.values.includes(row[filter.column]);
-				}
-			});
-		}
-		);
-		if(setData) setData(filteredData);
-	}, [filters]);
-
-	useEffect(() => {
-		if (!searchInput || searchInput === "") {
-			if (setData) setData(rawData);
-			return;
-		}
-		const filteredData = rawData.filter((row) => {
-			return Object.values(row).some((value) => {
-				return String(value).toLowerCase().includes(searchInput.toLowerCase());
-			});
-		});
-		if(setData) setData(filteredData);
-	}, [searchInput]);
+		sortAndFilterData(data, columnSort, filters, searchInput);
+	}, [data, columnSort, filters, searchInput]);
 
 	const sortIcon = (column) => {
 		if (columnSort.column === column) {
@@ -94,7 +60,7 @@ const Table = (props) => {
 		if (loadingState) {
 			return (
 				<div className="loading-row">
-					<i className="far fa-truck-loading"></i> {loadingState}
+					<Loader text={loadingState} />
 				</div>
 			)
 		} else if (emptyTableTitle) {
@@ -106,13 +72,13 @@ const Table = (props) => {
 
 	return (
 		<div className={`table-card ${style()}`}>
-			{getTableHeader(showSearchBar, title)}
+			{getTableHeader(showSearchBar, title, filteredData)}
 			<div className={`table-wrapper ${style()}`}>
 				<table className={`table styled-table ${style()}`}>
 					<thead>
 						<tr>{createColumns(columns)}</tr>
 					</thead>
-					<tbody>{createRows(columns, data)}</tbody>
+					<tbody>{createRows(columns, filteredData)}</tbody>
 				</table>
 			</div>
 		</div>
@@ -126,6 +92,7 @@ const Table = (props) => {
 				style: column.style || [],
 				isButton: column.onClick,
 				isFilterable: column.isFilterable || false,
+				isSortable: column.isSortable || false,
 			}
 		});
 		return values.map((column) => {
@@ -133,21 +100,21 @@ const Table = (props) => {
 			return (
 				<th 
 					key={column.value} 
-					className={`column ${column.value} ${cellStyles.join(' ')} ${isColumnFilterable(column)} ${isColumnFiltered(rawData, filters, column.key)} th-flex`}
+					className={`column ${column.value} ${cellStyles.join(' ')} ${isColumnFilterable(column)} ${isColumnFiltered(data, filters, column.key)} th-flex`}
 					
 				>
 					<span>{column.value}</span>
 					<i className="fas fa-filter filter-icon"
 						onClick={(e) => column.isFilterable ? onFilterButtonClick(e, column.key) : () => {}}
 					/>
-					{setData && <i className={`${sortIcon(column.key)} icon-end`} onClick={(e) => onSortButtonClick(column.key)}></i>}
+					{column.isSortable && <i className={`${sortIcon(column.key)} icon-end`} onClick={(e) => onSortButtonClick(column.key)}></i>}
 					<FilterPopover 
 						onClickOutside={closeFilterPopover}
 						isPopoverOpen={filterPopoverOpen === column.key} 
 						column={column.key}
 						filters={filters} 
 						setFilters={setFilters}
-						valuesToFilter={getValuesToFilter(rawData, column.key)}
+						valuesToFilter={getValuesToFilter(data, column.key)}
 					/>
 				</th>
 			);
@@ -208,9 +175,9 @@ const Table = (props) => {
 		return value;
 	}
 
-	function getTableHeader(showSearchBar, title) {
+	function getTableHeader(showSearchBar, title, data) {
 		return showSearchBar || title ? (
-			<TableHeader showSearchBar={showSearchBar} searchInput={searchInput} setSearchInput={setSearchInput} count={data.length}>
+			<TableHeader showSearchBar={showSearchBar} searchInput={searchInput} setSearchInput={setSearchInput} count={data?.length || 0}>
 				{title}
 			</TableHeader>
 		) : (
@@ -218,7 +185,7 @@ const Table = (props) => {
 		);
 	}
 
-	function sortData(column, direction) {
+	function sortData(data, column, direction) {
 		if (!data || data.length < 1) return;
 		const col = columns.find(col => col[column]);
 		const isButton = col && col.isButton || false;
@@ -236,13 +203,45 @@ const Table = (props) => {
 				if (isButton) {
 					return b[column].props.value.localeCompare(a[column].props.value);
 				} else if(typeof a[column] === 'number') {
-						return b[column] - a[column];
+					return b[column] - a[column];
 				} else if (a[column] && b[column]) {
-						return b[column].localeCompare(a[column]);
+					return b[column].localeCompare(a[column]);
 				}
 			}
 		});
-		if (setData) setData([...data]);
+		return [...data];
+	}
+
+	function filterData(rawData, filters) {
+		if (!filters || filters.length === 0) return rawData;
+		const filteredData = rawData.filter((row) => {
+			return filters.every((filter) => {
+				if (filter.isRange) {
+					return row[filter.column] >= filter.values[0] && row[filter.column] <= filter.values[1];
+				} else {
+					return filter.values.includes(row[filter.column]);
+				}
+			});
+		});
+		return filteredData;
+	}
+
+	function searchInData(rawData, searchInput) {
+		if (!searchInput || searchInput === "") return rawData;
+		const filteredData = rawData.filter((row) => {
+			return Object.values(row).some((value) => {
+				return String(value).toLowerCase().includes(searchInput.toLowerCase());
+			});
+		});
+		return filteredData;
+	}
+
+	function sortAndFilterData(rawData, columnSort, filters, searchInput) {
+		let filteredData = rawData;
+		filteredData = sortData(filteredData, columnSort.column, columnSort.direction);
+		filteredData = filterData(filteredData, filters);
+		filteredData = searchInData(filteredData, searchInput);
+		setFilteredData(filteredData);
 	}
 
 	function getValuesToFilter(data, column) {

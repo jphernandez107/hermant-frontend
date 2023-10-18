@@ -18,12 +18,12 @@ const UserList = () => {
   const navigate = useNavigate()
 
   const columns = [
-    { dni: "DNI" },
-    { first_name: "Nombre", isFilterable: true },
-    { last_name: "Apellido", isFilterable: true },
-    { role: "Permisos", isFilterable: true },
-    { active: "Activo", isFilterable: true },
-    { last_login: "Último Inicio", isFilterable: true },
+    { dni: "DNI", isSortable: true },
+    { first_name: "Nombre", isFilterable: true, isSortable: true },
+    { last_name: "Apellido", isFilterable: true, isSortable: true },
+    { role: "Permisos", isFilterable: true, isSortable: true },
+    { active: "Activo", isFilterable: true, isSortable: true },
+    { last_login: "Último Inicio", isFilterable: true, isSortable: true },
   ];
 
   function onRowClicked(id) {
@@ -34,7 +34,6 @@ const UserList = () => {
     <List 
       table_columns={columns} 
       table_data={users} 
-      set_table_data={setUsers} 
       title={'Usuarios'} 
       onRowClicked={onRowClicked}
       loadingState={loadingState}  

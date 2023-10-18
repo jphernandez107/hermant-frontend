@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import "./EquipmentDetails.scss";
 
@@ -6,20 +7,26 @@ import Button from "components/button/Button";
 import Table from "components/table/Table";
 import PageHeader from "components/pageHeader/PageHeader";
 import UseHourList from "components/equipment/useHour/UseHourList";
+import Loader from "components/components/loader/Loader";
 
 const api = require("api/Api").default;
 
 const EquipmentDetails = () => {
   const { code } = useParams()
-  const [equipment, setEquipment] = useState(null);
-  const [maintenances, setMaintenances] = useState([]);
-  const [equipmentHours, setEquipmentHours] = useState([]);
-  // const [repairs, setRepairs] = useState([]);
 
-  useEffect(() => {
-    fetchEquipment();
-    fetchEquipmentHours();
-  }, []);
+  const {
+    data: equipment,
+    isLoading: isLoadingEquipment,
+    isError: isErrorEquipment,
+    error: errorEquipment,
+  } = useQuery(`equipmentCode=${code}`, fetchEquipment);
+  
+  const {
+    data: equipmentHours = [],
+    isLoading: isLoadingEquipmentHours,
+    isError: isErrorEquipmentHours,
+    error: errorEquipmentHours,
+  } = useQuery(`equipmentHoursCode=${code}`, fetchEquipmentHours);
 
   const viewLubricationSheetHref = () => {
     return equipment.lubrication_sheet_id ? "lubricationsheet/" + code : "/lubricationsheet/new/" + code;
@@ -117,8 +124,7 @@ const EquipmentDetails = () => {
           </div>
           <Table
             columns={maintenance_table_columns}
-            data={maintenances}
-            setData={setMaintenances}
+            data={equipment.maintenances}
             showSearchBar={false}
             style={["no-card"]}
             emptyTableTitle={"No se encontraron mantenimientos"}
@@ -134,10 +140,9 @@ const EquipmentDetails = () => {
         </div> */}
       </div>
     </div>
-  ) : (<></>);
+  ) : isLoadingEquipment ? (<Loader text={"Cargando equipo..."}/>) : (<></>);
 
   async function fetchEquipment() {
-    try {
       const response = await api.getEquipmentByCode(code);
       if (response.construction_site) {
         response.construction_site = (
@@ -157,21 +162,11 @@ const EquipmentDetails = () => {
           maintenance_frequency_value: maint.maintenance_frequency.frequency
         }
       })
-      setEquipment(response);
-      setMaintenances(response.maintenances)
-      // setRepairs(response.repairs)
-    } catch (error) {
-      console.log(error);
-    }
+      return response;
   }
 
   async function fetchEquipmentHours() {
-    try {
-      const response = await api.getEquipmentHoursByCode(code);
-      setEquipmentHours(response);
-    } catch (error) {
-      console.log(error);
-    }
+    return await api.getEquipmentHoursByCode(code);
   }
 };
 

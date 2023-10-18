@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import { useNavigate } from 'react-router-dom'
 import "./EquipmentList.scss";
 
@@ -11,26 +12,29 @@ import { equipmentLogos } from "../EquipmentLogos";
 const api = require("api/Api").default;
 
 const EquipmentList = () => {
-  const [equipments, setEquipments] = useState([]);
-  const [loadingState, setLoadingState] = useState("Buscando equipos...")
-
-  useEffect(() => {
-    fetchEquipments();
-  }, []);
-
   const navigate = useNavigate()
 
+  const {
+    data: equipments = [],
+    isLoading,
+    isError,
+    error,
+    isSuccess,
+  } = useQuery("equipments", fetchEquipments);
+
   const columns = [
-    { code: "Código" },
+    { code: "Código", isSortable: true },
     { image: "Logo", isImage: true },
-    { designation: "Designación", isFilterable: true },
-    { brand: "Marca", isFilterable: true },
-    { model: "Modelo", isFilterable: true },
-    { total_hours: "Horómetro", isFilterable: true },
-    { site_name: "Obra", isFilterable: true },
-    { next_maintenance: "Próximo Mantenimiento", isFilterable: true },
-    { observations: "Observaciones", isFilterable: true },
+    { designation: "Designación", isFilterable: true, isSortable: true },
+    { brand: "Marca", isFilterable: true, isSortable: true },
+    { model: "Modelo", isFilterable: true, isSortable: true },
+    { total_hours: "Horómetro", isFilterable: true, isSortable: true },
+    { site_name: "Obra", isFilterable: true, isSortable: true },
+    { next_maintenance: "Próximo Mantenimiento", isFilterable: true, isSortable: true },
+    { observations: "Observaciones", isFilterable: true, isSortable: true },
   ];
+
+  const loadingState = isLoading || !isSuccess ? "Buscando equipos..." : undefined
 
   function onRowClicked(code) {
     navigate('/equipment/details/' + code)
@@ -40,7 +44,6 @@ const EquipmentList = () => {
     <List 
       table_columns={columns} 
       table_data={equipments} 
-      set_table_data={setEquipments} 
       title={'Equipos'} 
       onRowClicked={onRowClicked}
       loadingState={loadingState}
@@ -58,17 +61,12 @@ const EquipmentList = () => {
   );
 
   async function fetchEquipments() {
-    try {
-      const response = await api.getEquipmentList();
-      response.map(equipment => {
-        equipment.image = getEquipmentImage(equipment)
-        equipment.site_name = equipment.construction_site?.name || "-"
-      });
-      setEquipments(response);
-    } catch (error) {
-      console.log(error);
-    }
-    setLoadingState(null);
+    const response = await api.getEquipmentList();
+    return response.map(equipment => {
+      equipment.image = getEquipmentImage(equipment);
+      equipment.site_name = equipment.construction_site?.name || "-";
+      return equipment;
+    });
   }
 
   function getEquipmentImage(equipment) {

@@ -1,5 +1,4 @@
 import { Routes, Route, useLocation, matchPath } from 'react-router-dom';
-// import { matchPath } from 'react-router'
 import "./Home.scss"
 
 
@@ -22,50 +21,55 @@ import Error from 'components/error/Error';
 import UserList from 'components/user/list/UserList';
 import NewUser from 'components/user/new/NewUser';
 import { Toaster } from 'sonner';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const routes = [
-    { path: "*", element: <Error /> },
-    { path: "/", element: <MaintenancesCalendar /> },
-    { path: "/signin", element: <Login /> },
-    { path: "/equipment/list", element: <EquipmentList /> },
-    { path: "/equipment/details/:code", element: <EquipmentDetails /> },
-    { path: "/equipment/details/lubricationsheet/:code", element: <LubricationSheetDetails /> },
-    { path: "/equipment/new", element: <NewEquipment /> },
-    { path: "/equipment/edit/:code", element: <NewEquipment /> },
-    { path: "/equipment/hours", element: <EquipmentUseHour /> },
-    { path: "/equipment/details/maintenance/new/:code", element: <NewMaintenance /> },
-    { path: "/site/list", element: <ConstructionSiteList /> },
-    { path: "/site/details/:code", element: <ConstructionSiteDetails /> },
-    { path: "/site/new", element: <NewConstructionSite /> },
-    { path: "/site/edit/:code", element: <NewConstructionSite /> },
-    { path: "/part/list", element: <SparePartList /> },
-    { path: "/part/new", element: <NewSparePart /> },
-    { path: "/lubricationsheet/new/:code", element: <NewLubricationSheet /> },
-    { path: "/user/list", element: <UserList /> },
-    { path: "/user/new", element: <NewUser /> },
+	{ path: "*", element: <Error /> },
+	{ path: "/", element: <MaintenancesCalendar /> },
+	{ path: "/signin", element: <Login /> },
+	{ path: "/equipment/list", element: <EquipmentList /> },
+	{ path: "/equipment/details/:code", element: <EquipmentDetails /> },
+	{ path: "/equipment/details/lubricationsheet/:code", element: <LubricationSheetDetails /> },
+	{ path: "/equipment/new", element: <NewEquipment /> },
+	{ path: "/equipment/edit/:code", element: <NewEquipment /> },
+	{ path: "/equipment/hours", element: <EquipmentUseHour /> },
+	{ path: "/equipment/details/maintenance/new/:code", element: <NewMaintenance /> },
+	{ path: "/site/list", element: <ConstructionSiteList /> },
+	{ path: "/site/details/:code", element: <ConstructionSiteDetails /> },
+	{ path: "/site/new", element: <NewConstructionSite /> },
+	{ path: "/site/edit/:code", element: <NewConstructionSite /> },
+	{ path: "/part/list", element: <SparePartList /> },
+	{ path: "/part/new", element: <NewSparePart /> },
+	{ path: "/lubricationsheet/new/:code", element: <NewLubricationSheet /> },
+	{ path: "/user/list", element: <UserList /> },
+	{ path: "/user/new", element: <NewUser /> },
 ]; 
 
+const queryClient = new QueryClient();
+
 const Home = () => {
-    const location = useLocation();
-    const pathname = location.pathname; 
-    const showSideBar = routes.some(route => {
-        if (route.path === "*" || route.path === "/signin") return false
-        const match = matchPath({ path: route.path, end: true }, pathname);
-        return match !== null;
-    });
+	const location = useLocation();
+	const pathname = location.pathname; 
+	const showSideBar = routes.some(route => {
+		if (route.path === "*" || route.path === "/signin") return false
+		const match = matchPath({ path: route.path, end: true }, pathname);
+		return match !== null;
+	});
 
 
-    return(
-        <div className='home'>
-            <Toaster position="top-center" richColors />
-            {showSideBar && <Sidebar className='sidebar'/>}
-            <Routes> 
-                {routes.map((route, index) => (
-                    <Route key={index} path={route.path} element={route.element} />
-                ))}
-            </Routes>   
-        </div>
-    )
+	return(
+		<QueryClientProvider client={queryClient} >
+			<div className='home'>
+				<Toaster position="top-center" richColors />
+				{showSideBar && <Sidebar className='sidebar'/>}
+				<Routes> 
+					{routes.map((route, index) => (
+						<Route key={index} path={route.path} element={route.element} />
+					))}
+				</Routes>   
+			</div>
+		</QueryClientProvider>
+	)
  
 }
  

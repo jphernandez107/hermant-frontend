@@ -13,7 +13,6 @@ const List = (props) => {
                 style={['first-column-bold']} 
                 columns={props.table_columns} 
                 data={props.table_data} 
-                setData={props.set_table_data}
                 title={props.title} 
                 onRowClicked={props.onRowClicked} 
                 showSearchBar={props.showSearchBar}
