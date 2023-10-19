@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import { Popover } from "react-tiny-popover";
 import moment from "moment";
@@ -6,6 +6,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./MaintenancesCalendar.scss";
 import { useNavigate } from "react-router-dom";
 import NextMaintenancesList from "./NextMaintenancesList";
+import { useQuery } from "react-query";
+import Loader from "components/components/loader/Loader";
 
 const api = require("api/Api").default;
 const localizer = momentLocalizer(moment);
@@ -13,14 +15,17 @@ const localizer = momentLocalizer(moment);
 const MaintenancesCalendar = () => {
 	const navigate = useNavigate();
 	const [eventPopoverOpen, setEventPopoverOpen] = useState();
-	const [maintenanceEvents, setMaintenanceEvents] = useState([]);
 	const [currentDate, setCurrentDate] = useState(new Date());
 	const [isExpanded, setIsExpanded] = useState(false);
 	const expandedStyle = isExpanded ? 'expanded' : 'not-expanded'
 
-	useEffect(() => {
-		fetchNextMaintenances();
-	}, []);
+	const {
+		data: maintenanceEvents = [],
+		isLoading,
+		isError,
+		error,
+		isSuccess,
+	} = useQuery("nextMaintenances", fetchNextMaintenances);
 
 	const onSelectEvent = useCallback((event) => {
 		const code = event.equipment_code;
@@ -63,46 +68,46 @@ const MaintenancesCalendar = () => {
 	}, []);
 
 	return (
-		<div className="calendar-box">
-			<ToolbarCalendar currentDate={currentDate} isExpanded={isExpanded} onNavigate={onNavigate} toggleExpanded={toggleExpanded}/>
-			<div className="calendar-content">
-				<div className={`calendar-wrapper ${expandedStyle}`}>
-					<Calendar
-						localizer={localizer}
-						events={getEventsByStyle(maintenanceEvents, isExpanded)}
-						onSelectEvent={onSelectEvent}
-						onSelectSlot={onSelectSlot}
-						eventPropGetter={eventPropGetter}
-						max={new Date("3/10/2023, 10:00:00 PM")}
-						min={new Date("3/10/2023, 07:00:00 AM")}
-						components={components}
-						popup
-						selectable={true}
-						toolbar={false}
-						date={currentDate}
-						defaultDate={currentDate}
-						onNavigate={onNavigate}
-						defaultView="month"
-						views={{month: true, week: false, day: false, agenda: false}}
-					/>
+		<>
+			{isLoading 
+			? <Loader text={"Cargando próximos mantenimientos..."}/> 
+			: <div className="calendar-box">
+				<ToolbarCalendar currentDate={currentDate} isExpanded={isExpanded} onNavigate={onNavigate} toggleExpanded={toggleExpanded}/>
+				<div className="calendar-content">
+					<div className={`calendar-wrapper ${expandedStyle}`}>
+						<Calendar
+							localizer={localizer}
+							events={getEventsByStyle(maintenanceEvents, isExpanded)}
+							onSelectEvent={onSelectEvent}
+							onSelectSlot={onSelectSlot}
+							eventPropGetter={eventPropGetter}
+							max={new Date("3/10/2023, 10:00:00 PM")}
+							min={new Date("3/10/2023, 07:00:00 AM")}
+							components={components}
+							popup
+							selectable={true}
+							toolbar={false}
+							date={currentDate}
+							defaultDate={currentDate}
+							onNavigate={onNavigate}
+							defaultView="month"
+							views={{month: true, week: false, day: false, agenda: false}}
+						/>
+					</div>
+					{!isExpanded && <div className={`calendar-equipments-list ${expandedStyle}`}>
+						<NextMaintenancesList selectedDate={currentDate} events={maintenanceEvents.filter(event => {
+							const eventDate = new Date(event.start).toDateString();
+							return eventDate === currentDate.toDateString();
+						})} />
+					</div>}
 				</div>
-				{!isExpanded && <div className={`calendar-equipments-list ${expandedStyle}`}>
-					<NextMaintenancesList selectedDate={currentDate} events={maintenanceEvents.filter(event => {
-						const eventDate = new Date(event.start).toDateString();
-						return eventDate === currentDate.toDateString();
-					})} />
-				</div>}
-			</div>
-		</div>
+			</div>}
+		</>
 	);
 
 	async function fetchNextMaintenances() {
-		try {
-			const response = await api.getNextMaintenances();
-			setMaintenanceEvents(parseEventFromResponse(response));
-		} catch (error) {
-			console.log(error);
-		}
+		const reponse =  await api.getNextMaintenances();
+		return parseEventsFromResponse(reponse);
 	}
 
 	function eventPropGetter(event, start, end, isSelected) {
@@ -111,7 +116,7 @@ const MaintenancesCalendar = () => {
 		};
 	}
 
-	function parseEventFromResponse(response) {
+	function parseEventsFromResponse(response) {
 		const events = [];
 		response.forEach((nextMaintenance) => {
 			const title = `${nextMaintenance.equipment.code} - ${nextMaintenance.maintenance_frequency.frequency}Hs`;
@@ -129,8 +134,7 @@ const MaintenancesCalendar = () => {
 		return events;
 	}
 
-	function getEventsByStyle(maintenanceEvents, isExpanded) {
-		
+	function getEventsByStyle(maintenanceEvents, isExpanded) {	
 		if (isExpanded) {
 			return maintenanceEvents;
 		} else {

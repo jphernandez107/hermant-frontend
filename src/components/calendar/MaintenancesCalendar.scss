@@ -42,9 +42,10 @@ $calendar-toolbar-selected-button-color: $button-outline-hover-color;
 	justify-content: center;
 	flex-direction: column;
 	width: 100%;
+	height: 100%;
 	box-shadow: $box-shadow-medium;
 	font-family: sans-serif;
-	padding-bottom: 15px;
+	box-sizing: border-box;
 
 	.calendar-toolbar {
 		width: 100%;
@@ -56,6 +57,7 @@ $calendar-toolbar-selected-button-color: $button-outline-hover-color;
 		padding-top: 5px;
 		padding-bottom: 5px;
 		background-color: $primary;
+		box-sizing: border-box;
 
 		.header {
 			display: flex;
@@ -154,12 +156,14 @@ $calendar-toolbar-selected-button-color: $button-outline-hover-color;
 		height: 100%;
 		background-color: $calendar-box-background-color;
 		font-family: sans-serif;
+		box-sizing: border-box;
 
 		.calendar-wrapper {
 			justify-content: center;
 			width: 50%;
 			height: 100%;
 			background-color: $calendar-wrapper-background-color;
+			box-sizing: border-box;
 	
 			.rbc-calendar {
 				.rbc-month-view {
@@ -178,6 +182,7 @@ $calendar-toolbar-selected-button-color: $button-outline-hover-color;
 					
 					.rbc-month-row {
 						height: 100%;
+						box-sizing: border-box;
 
 						.rbc-row-bg {
 							
@@ -192,10 +197,11 @@ $calendar-toolbar-selected-button-color: $button-outline-hover-color;
 						}
 
 						.rbc-row-content {
+							display: block;
 							height: 100%;
+							box-sizing: border-box;
 
 							.rbc-row {
-
 								.rbc-date-cell {
 
 									button {
@@ -222,7 +228,7 @@ $calendar-toolbar-selected-button-color: $button-outline-hover-color;
 
 									.popover-div {
 										.event.not-expanded {
-											aspect-ratio: 1;
+											height: 100%;
 											color: $text;
 										}
 									}
@@ -246,6 +252,48 @@ $calendar-toolbar-selected-button-color: $button-outline-hover-color;
 					justify-content: center;
 					align-items: center;
 					height: 100%;
+				}
+			}
+
+			&.not-expanded {
+				.rbc-month-header {
+					border: 0;
+					.rbc-header {
+						border: 0;
+					}
+				}
+				.rbc-month-row {
+					border: 0;
+					.rbc-row-bg {
+						border: 0;
+
+						.rbc-day-bg {
+							border: 0;
+						}
+					}
+					.rbc-row-content {
+						.rbc-row {
+							position: absolute;
+							top: 0;
+							left: 0;
+							right: 0;
+							height: 100%;
+							box-sizing: border-box;
+
+							&:nth-child(1) {
+								z-index: 7;
+								pointer-events: none;
+							}
+							&:nth-child(2) {
+								z-index: 6;
+							}
+
+							.popover-div {
+								height: 100%;
+								box-sizing: border-box;
+							}
+						}
+					}
 				}
 			}
 
@@ -277,12 +325,13 @@ $calendar-toolbar-selected-button-color: $button-outline-hover-color;
 		.calendar-equipments-list {
 			width: 50%;
 			height: 100%;
+			box-sizing: border-box;
 		}
 	}
 
 }
 
-@media screen and (max-width: 700px) {
+@media (orientation: portrait) {
 	.calendar-box {
 		.calendar-toolbar {
 			.expand-button {
