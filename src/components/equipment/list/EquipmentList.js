@@ -45,7 +45,7 @@ const EquipmentList = () => {
 
   return (
     <>
-    {isPortrait ? <MobileEquipmentList equipments={equipments}/>
+    {isPortrait ? <MobileEquipmentList equipments={equipments} columns={columns}/>
     : <List
       className="equipment-list" 
       table_columns={columns} 

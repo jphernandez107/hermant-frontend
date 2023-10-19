@@ -1,0 +1,49 @@
+@import "styles/styles.scss";
+
+.filter-checkbox-list {
+	display: flex;
+	flex-direction: column;
+	gap: 0.2rem;
+
+	.filter-checkbox-column {
+		display: flex;
+		flex-direction: column;
+		gap: 0.2rem;
+
+		.filter-checkbox-list-title-container {
+			display: flex;
+			flex-direction: row;
+			gap: 0.3rem;
+			align-items: center;
+
+
+			.filter-checkbox-list-title {
+				font-size: large;
+				font-weight: 600;
+				margin: 0 0 0.1rem 0.15rem;
+				color: $text;
+			}
+
+			i {
+				color: $text;
+
+				&:hover {
+					color: $primary;
+					cursor: pointer;
+				}
+			}
+		}
+
+		.filter-checkbox-list-checkboxes-container {
+			display: flex;
+			flex-direction: column;
+			gap: 0.2rem;
+			height: auto;
+
+			&.hide {
+				height: 0;
+				display: none;
+			}
+		}
+	}
+}
