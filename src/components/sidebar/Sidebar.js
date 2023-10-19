@@ -74,9 +74,7 @@ const Sidebar = () => {
     }
 
     return (
-        <>
-        {isPortrait ? <></> 
-        : <div
+        <div
             className={isExpanded ? "side-nav-container" : "side-nav-container side-nav-container-NX"}
             onMouseEnter={() => { setExpandState(true) }}
             onMouseLeave={() => { setExpandState(false) }} >
@@ -114,8 +112,7 @@ const Sidebar = () => {
                     )}
                 </div>
             </div>
-        </div>}
-        </>
+        </div>
     )
 
 }

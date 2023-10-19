@@ -22,6 +22,8 @@ import UserList from 'components/user/list/UserList';
 import NewUser from 'components/user/new/NewUser';
 import { Toaster } from 'sonner';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import useOrientation from 'components/hooks/UseOrientation';
+import Navbar from 'components/components/navbar/Navbar';
 
 const routes = [
 	{ path: "*", element: <Error /> },
@@ -49,6 +51,7 @@ const queryClient = new QueryClient();
 
 const Home = () => {
 	const location = useLocation();
+	const isPortrait = useOrientation();
 	const pathname = location.pathname; 
 	const showSideBar = routes.some(route => {
 		if (route.path === "*" || route.path === "/signin") return false
@@ -59,9 +62,9 @@ const Home = () => {
 
 	return(
 		<QueryClientProvider client={queryClient} >
-			<div className='home'>
+			<div className={`home ${isPortrait ? 'portrait' : ''}`}>
 				<Toaster position="top-center" richColors />
-				{showSideBar && <Sidebar className='sidebar'/>}
+				{showSideBar && (isPortrait ? <Navbar/> : <Sidebar className='sidebar'/>)}
 				<Routes> 
 					{routes.map((route, index) => (
 						<Route key={index} path={route.path} element={route.element} />
