@@ -11,15 +11,15 @@ import { toast } from "sonner";
 const api = require("api/Api").default;
 
 const EquipmentUseHour = () => {
-	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date());
+	const [startDate, setStartDate] = useState();
+	const [endDate, setEndDate] = useState();
 	const [useHoursArray, setUseHoursArray] = useState({});
 	const [inputValue, setInputValue] = useState("");
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		startDate.setHours(0,0,0,0);
-		endDate.setHours(23,59,59,999);
+		startDate?.setHours(0,0,0,0);
+		endDate?.setHours(23,59,59,999);
 		let newUseHoursArray = { ...useHoursArray, start_date: startDate, end_date: endDate };
 		setUseHoursArray(newUseHoursArray);
 	}, [startDate, endDate]);
@@ -32,6 +32,9 @@ const EquipmentUseHour = () => {
 	const onAddButtonClick = (e) => {
 		if (!useHoursArray.hours || useHoursArray.hours.length === 0) {
 			toast.error('No se encontraron horas válidas.');
+			return;
+		} else if (!startDate || !endDate || startDate > endDate) {
+			toast.error('Seleccione fechas válidas.');
 			return;
 		}
 		setLoading(true);
