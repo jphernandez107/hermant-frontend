@@ -1,0 +1,142 @@
+@import 'styles/styles.scss';
+
+$item-background-color: lighten($background, 30%);
+$image-container-border-color: $text;
+$title-color: $text;
+$background-color: $background;
+
+
+.mobile-equipment-details-container{
+	display: flex;
+	flex-direction: column;
+	padding: 0.3em;
+	background-color: $background-color;
+	gap: 0.5rem;
+
+	.mobile-equipment-details-header-container {
+		display: flex;
+		flex-direction: row;
+		background-color: $item-background-color;
+		border-radius: 15px;
+		padding: 0.4em 0.4rem;
+		box-sizing: border-box;
+		width: 100%;
+		max-height: 5rem;
+		align-items: center;
+		
+		.mobile-equipment-details-header-image-container {
+			display: flex;
+			align-items: center;
+			border: $border-width solid $image-container-border-color;
+			border-radius: 12px;
+			aspect-ratio: 1;
+			box-sizing: border-box;
+			padding: 0.15rem;
+			height: 100%;
+
+			img {
+				width: 100%;
+				color: $text;
+			}
+		}
+
+		.mobile-equipment-details-header-description {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			padding: 0.1rem;
+			min-width: 50%;
+			flex: 1;
+			margin-left: 0.3em;
+			gap: 0.1em;
+			height: 100%;
+			box-sizing: border-box;
+
+			.mobile-equipment-details-header-title {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				box-sizing: border-box;
+
+				span {
+					width: 100%;
+					color: $title-color;
+					font-size: large;
+					font-weight: 600;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+
+			.mobile-equipment-details-header-subtitle {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				box-sizing: border-box;
+
+				span {
+					width: 100%;
+					color: $title-color;
+					font-size: 1rem;
+					font-weight: 300;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+
+			.mobile-equipment-details-header-footer {
+				color: $text;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				box-sizing: border-box;
+				gap: 0.8em;
+				font-weight: 400;
+
+			}
+		}
+
+		.mobile-equipment-list-item-right {
+			display: flex;
+			flex-direction: column;
+			min-width: 36%;
+			gap: 0.1em;
+			align-self: center;
+			justify-items: end;
+			box-sizing: border-box;
+			
+			.mobile-equipment-list-item-hours,
+			.mobile-equipment-list-item-site {
+				display: flex;
+				gap: 0.2em;
+				align-items: end;
+				justify-content: end;
+				box-sizing: border-box;
+
+				span {
+					text-align: end;
+					font-size: 0.85em;
+					font-weight: 500;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+				}
+			}
+
+			.mobile-equipment-list-item-hours {
+				span {
+					font-weight: 300;
+				}
+			}
+		}
+
+		&:hover {
+			background-color: $secondary;
+			cursor: pointer;
+		}
+	}
+
+
+}

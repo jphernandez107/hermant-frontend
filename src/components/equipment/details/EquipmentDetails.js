@@ -8,11 +8,15 @@ import Table from "components/table/Table";
 import PageHeader from "components/pageHeader/PageHeader";
 import UseHourList from "components/equipment/useHour/UseHourList";
 import Loader from "components/components/loader/Loader";
+import useOrientation from "components/hooks/UseOrientation";
+import MobileEquipmentDetails from "./MobileEquipmentDetails";
+import { getEquipmentImage } from "../EquipmentLogos";
 
 const api = require("api/Api").default;
 
 const EquipmentDetails = () => {
   const { code } = useParams()
+  const isPortrait = useOrientation();
 
   const {
     data: equipment,
@@ -64,6 +68,8 @@ const EquipmentDetails = () => {
     { observations: "Observaciones", style: ["center-text"] },
   ];
 
+  const columns_mobile = [...columns_table_1, ...columns_table_2, ...columns_table_3];
+
   const editButton = () => {
     if (!equipment) return
 		const href = "/equipment/edit/" + equipment.code;
@@ -74,7 +80,9 @@ const EquipmentDetails = () => {
 		);
   };
 
-  return equipment ? (
+  return equipment ? isPortrait 
+  ? <MobileEquipmentDetails columns={columns_mobile} equipment={equipment} useHours={equipmentHours}/> 
+  : (
     <div className="details-page">
       <div className="details-header">
         <PageHeader button={editButton}>
@@ -144,6 +152,7 @@ const EquipmentDetails = () => {
 
   async function fetchEquipment() {
       const response = await api.getEquipmentByCode(code);
+      response.construction_site_string = response.construction_site?.name || "-";
       if (response.construction_site) {
         response.construction_site = (
           <Button
@@ -162,6 +171,7 @@ const EquipmentDetails = () => {
           maintenance_frequency_value: maint.maintenance_frequency.frequency
         }
       })
+      response.image = getEquipmentImage(response);
       return response;
   }
 

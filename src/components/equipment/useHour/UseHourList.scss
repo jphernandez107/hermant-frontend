@@ -7,7 +7,6 @@ $title-color: $text;
 .use-hours-table-container {
 	display: flex;
 	flex-direction: column;
-	padding: 15px;
 	border-radius: 35px;
 	box-shadow: $box-shadow-medium;
 	max-width: 500px;
@@ -17,7 +16,7 @@ $title-color: $text;
 		flex-direction: column;
 		justify-content: space-between;
 		align-items: center;
-		padding: 0px 0.5rem;
+		padding: 0.5rem;
 		padding-bottom: 0.5rem;
 		gap: 0.3rem;
 	
